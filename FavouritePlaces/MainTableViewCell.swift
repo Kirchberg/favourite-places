@@ -9,11 +9,10 @@
 import UIKit
 
 class MainTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
+    @IBOutlet weak var imageOfPlace: UIImageView!
+    @IBOutlet weak var nameOfPlaceLabel: UILabel!
+    @IBOutlet weak var locationOfPlaceLabel: UILabel!
+    @IBOutlet weak var typeOfPlaceLabel: UILabel!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
@@ -21,5 +20,9 @@ class MainTableViewCell: UITableViewCell {
         } else {
             self.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
+    }
+    override func layoutSubviews() {
+        imageOfPlace.layer.cornerRadius = bounds.maxY/2 // or bounds.height/2
+        imageOfPlace.clipsToBounds = true
     }
 }
