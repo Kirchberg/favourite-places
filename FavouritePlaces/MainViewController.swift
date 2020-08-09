@@ -30,12 +30,12 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
             else { fatalError("DequeueReusableCell failed while casting") }
-//      cell.imageOfPlace.layer.cornerRadius = 75 / 2
-//      cell.imageOfPlace.clipsToBounds = true
+        cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
+        cell.imageOfPlace.clipsToBounds = true
+        cell.imageOfPlace.image = UIImage(named: restaurantNames[indexPath.row])
         cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
         cell.nameOfPlaceLabel.text = restaurantNames[indexPath.row]
         cell.nameOfPlaceLabel.numberOfLines = 0
-        cell.imageOfPlace.image = UIImage(named: restaurantNames[indexPath.row])
         return cell
     }
 }

@@ -21,8 +21,4 @@ class MainTableViewCell: UITableViewCell {
             self.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
-    override func layoutSubviews() {
-        imageOfPlace.layer.cornerRadius = bounds.maxY/2 // or bounds.height/2
-        imageOfPlace.clipsToBounds = true
-    }
 }
