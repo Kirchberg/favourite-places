@@ -17,7 +17,7 @@ class MainTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            self.contentView.backgroundColor = #colorLiteral(red: 0.5137254902, green: 0.5843137255, blue: 0.6549019608, alpha: 1)
+            self.contentView.backgroundColor = #colorLiteral(red: 0.8846201301, green: 0.9258134365, blue: 0.6525990963, alpha: 0.8470588235)
         } else {
             self.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
