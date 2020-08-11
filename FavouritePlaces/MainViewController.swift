@@ -8,13 +8,10 @@
 
 import UIKit
 
-class MainViewController: UITableViewController {
+class MainViewController: BaseViewController {
     let places = Place.getPlaces()
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
     }
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
