@@ -8,34 +8,41 @@
 
 import UIKit
 
-class MainViewController: UITableViewController {
-
-    let restaurantNames: [String] = ["Mirazur",
-                                     "Noma",
-                                     "Asador",
-                                     "Gaggan",
-                                     "Geranium",
-                                     "Central",
-                                     "Mugaritz",
-                                     "Maido",
-                                     "Arpege",
-                                     "Disfutar"]
+class MainViewController: BaseViewController {
+    var places = Place.getPlaces()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return restaurantNames.count
+        return places.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
             else { fatalError("DequeueReusableCell failed while casting") }
+        let place = places[indexPath.row]
         cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
         cell.imageOfPlace.clipsToBounds = true
-        cell.imageOfPlace.image = UIImage(named: restaurantNames[indexPath.row])
+        if place.image == nil {
+            cell.imageOfPlace.image = UIImage(named: place.restaurantImage!)
+        } else {
+            cell.imageOfPlace.image = place.image
+        }
         cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
-        cell.nameOfPlaceLabel.text = restaurantNames[indexPath.row]
+        cell.nameOfPlaceLabel.text = place.name
         cell.nameOfPlaceLabel.numberOfLines = 0
+        cell.locationOfPlaceLabel.text = place.location
+        cell.typeOfPlaceLabel.text = place.type
         return cell
+    }
+    
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        guard let newPlaceVC = segue.source as? AddPlaceViewController else { return }
+        newPlaceVC.saveNewPlace()
+        places.append(newPlaceVC.newPlace!)
+        tableView.reloadData()
     }
 }
