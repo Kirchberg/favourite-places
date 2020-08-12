@@ -237,15 +237,22 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MbO-8H-5S1">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="qLZ-Dj-D5o" kind="unwind" unwindAction="cancelAction:" id="fue-ZS-NSx"/>
+                                <action selector="cancelAction:" destination="2xK-pK-khb" id="eMV-D6-Y0L"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="630-su-C6M">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="qLZ-Dj-D5o" kind="unwind" unwindAction="unwindSegue:" id="gRh-iB-2bi"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="imageOfPlace" destination="re8-IQ-zbX" id="mKG-Fv-8u0"/>
+                        <outlet property="addButton" destination="630-su-C6M" id="t5d-fn-U7r"/>
+                        <outlet property="placeImage" destination="re8-IQ-zbX" id="mKG-Fv-8u0"/>
+                        <outlet property="placeLocationTF" destination="dSG-20-5S6" id="czF-WH-j13"/>
+                        <outlet property="placeNameTF" destination="fmv-2f-gpM" id="yzw-yB-0dA"/>
+                        <outlet property="placeTypeTF" destination="IBl-Uq-8qG" id="5VE-PR-IOk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhw-Yx-zhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

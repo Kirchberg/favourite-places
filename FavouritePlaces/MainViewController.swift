@@ -9,30 +9,40 @@
 import UIKit
 
 class MainViewController: BaseViewController {
-    let places = Place.getPlaces()
-
+    var places = Place.getPlaces()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return places.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
             else { fatalError("DequeueReusableCell failed while casting") }
+        let place = places[indexPath.row]
         cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
         cell.imageOfPlace.clipsToBounds = true
-        cell.imageOfPlace.image = UIImage(named: places[indexPath.row].image)
+        if place.image == nil {
+            cell.imageOfPlace.image = UIImage(named: place.restaurantImage!)
+        } else {
+            cell.imageOfPlace.image = place.image
+        }
         cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
-        cell.nameOfPlaceLabel.text = places[indexPath.row].name
+        cell.nameOfPlaceLabel.text = place.name
         cell.nameOfPlaceLabel.numberOfLines = 0
-        cell.locationOfPlaceLabel.text = places[indexPath.row].location
-        cell.typeOfPlaceLabel.text = places[indexPath.row].type
+        cell.locationOfPlaceLabel.text = place.location
+        cell.typeOfPlaceLabel.text = place.type
         return cell
     }
-
-    @IBAction func cancelAction(_ segue: UIStoryboardSegue) {}
+    
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        guard let newPlaceVC = segue.source as? AddPlaceViewController else { return }
+        newPlaceVC.saveNewPlace()
+        places.append(newPlaceVC.newPlace!)
+        tableView.reloadData()
+    }
 }
