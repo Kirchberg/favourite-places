@@ -14,8 +14,8 @@ class BaseViewController: UITableViewController {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
-            self.navigationController?.navigationBar.isTranslucent = false
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+            self.navigationController?.navigationBar.titleTextAttributes
+                = [NSAttributedString.Key.foregroundColor: UIColor.black]
             self.navigationController?.navigationBar.barTintColor = .white
         }
     }

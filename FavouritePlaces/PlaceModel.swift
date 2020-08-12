@@ -14,15 +14,15 @@ struct Place {
     var type: String
     var image: String
     static let restaurantNames: [String] = ["Mirazur",
-                                     "Noma",
-                                     "Asador",
-                                     "Gaggan",
-                                     "Geranium",
-                                     "Central",
-                                     "Mugaritz",
-                                     "Maido",
-                                     "Arpege",
-                                     "Disfutar"]
+                                            "Noma",
+                                            "Asador",
+                                            "Gaggan",
+                                            "Geranium",
+                                            "Central",
+                                            "Mugaritz",
+                                            "Maido",
+                                            "Arpege",
+                                            "Disfutar"]
     static func getPlaces() -> [Place] {
         var places = [Place]()
         for place in restaurantNames {

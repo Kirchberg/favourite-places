@@ -10,13 +10,16 @@ import UIKit
 
 class MainViewController: BaseViewController {
     let places = Place.getPlaces()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return places.count
     }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
             else { fatalError("DequeueReusableCell failed while casting") }
@@ -30,5 +33,6 @@ class MainViewController: BaseViewController {
         cell.typeOfPlaceLabel.text = places[indexPath.row].type
         return cell
     }
+
     @IBAction func cancelAction(_ segue: UIStoryboardSegue) {}
 }
