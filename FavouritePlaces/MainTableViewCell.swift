@@ -13,7 +13,7 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var nameOfPlaceLabel: UILabel!
     @IBOutlet weak var locationOfPlaceLabel: UILabel!
     @IBOutlet weak var typeOfPlaceLabel: UILabel!
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
