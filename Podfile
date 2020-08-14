@@ -6,5 +6,5 @@ target 'FavouritePlaces' do
   use_frameworks!
 
   # Pods for FavouritePlaces
-  pod 'SwiftLint'
+  pod 'RealmSwift'
 end

@@ -9,8 +9,9 @@
 import UIKit
 
 class AddPlaceViewController: BaseViewController {
-    var newPlace: Place?
+    
     var imageIsChanged: Bool = false
+    
     @IBOutlet weak var addButton: UIBarButtonItem! {
         didSet {
             addButton.isEnabled = false
@@ -32,12 +33,14 @@ class AddPlaceViewController: BaseViewController {
         } else {
             image = #imageLiteral(resourceName: "imagePlaceholder")
         }
-        newPlace = Place(name: placeNameTF.text!,
-                         location: placeLocationTF.text,
-                         type: placeTypeTF.text,
-                         image: image,
-                         restaurantImage: nil)
+        let imageData = image?.pngData()
+        let newPlace = Place(name: placeNameTF.text!,
+                             location: placeLocationTF.text,
+                             type: placeTypeTF.text,
+                             imageData: imageData)
+        StorageManager.saveObject(newPlace)
     }
+    
     // MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
