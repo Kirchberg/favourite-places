@@ -10,6 +10,7 @@ import UIKit
 
 class AddPlaceViewController: BaseViewController {
     
+    var currentPlace: Place?
     var imageIsChanged: Bool = false
     
     @IBOutlet weak var addButton: UIBarButtonItem! {
@@ -21,12 +22,15 @@ class AddPlaceViewController: BaseViewController {
     @IBOutlet weak var placeNameTF: UITextField!
     @IBOutlet weak var placeLocationTF: UITextField!
     @IBOutlet weak var placeTypeTF: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupEditScreen()
         tableView.tableFooterView = UIView()
         placeNameTF.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
     }
-    func saveNewPlace() {
+    
+    func savePlace() {
         var image: UIImage?
         if imageIsChanged {
             image = placeImage.image
@@ -38,7 +42,16 @@ class AddPlaceViewController: BaseViewController {
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
                              imageData: imageData)
-        StorageManager.saveObject(newPlace)
+        guard let currentPlace = currentPlace else {
+            StorageManager.saveObject(newPlace)
+            return
+        }
+        try! realm.write {
+            currentPlace.name = newPlace.name
+            currentPlace.location = newPlace.location
+            currentPlace.type = newPlace.type
+            currentPlace.imageData = newPlace.imageData
+        }
     }
     
     // MARK: - Table View Delegate
@@ -70,6 +83,26 @@ class AddPlaceViewController: BaseViewController {
             view.addGestureRecognizer(tap)
         }
     }
+    
+    private func setupEditScreen() {
+        guard let currentPlace = currentPlace else { return }
+        imageIsChanged = true
+        setupNavigationBar()
+        guard let data = currentPlace.imageData, let image = UIImage(data: data) else { return }
+        placeImage.image = image
+        placeImage.contentMode = .scaleAspectFill
+        placeLocationTF.text = currentPlace.location
+        placeNameTF.text = currentPlace.name
+        placeTypeTF.text = currentPlace.type
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationController!.navigationBar.topItem!.title = ""
+        navigationItem.leftBarButtonItem = nil
+        title = currentPlace?.name
+        addButton.isEnabled = true
+    }
+    
     @IBAction func cancelAction(_ sender: Any) {
         dismiss(animated: true)
     }

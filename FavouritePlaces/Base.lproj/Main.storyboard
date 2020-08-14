@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eiu-wi-giX">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,6 +68,7 @@
                                     <outlet property="locationOfPlaceLabel" destination="z03-l6-wuC" id="N6o-hU-KvW"/>
                                     <outlet property="nameOfPlaceLabel" destination="8A9-FW-GIL" id="yYF-uB-la7"/>
                                     <outlet property="typeOfPlaceLabel" destination="vpa-99-HD4" id="Xgu-WB-yrU"/>
+                                    <segue destination="2xK-pK-khb" kind="show" identifier="showDetail" id="98U-Ra-uxa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -75,7 +77,7 @@
                             <outlet property="delegate" destination="atB-6D-zh2" id="Exj-dv-bOx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Favourite Places" id="mEJ-8u-6Ic">
+                    <navigationItem key="navigationItem" title="Favourite Places" largeTitleDisplayMode="never" id="mEJ-8u-6Ic">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="PVt-G8-ZzT">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -232,14 +234,14 @@
                             <outlet property="delegate" destination="2xK-pK-khb" id="PeS-AE-sNM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add new place" id="q1p-VC-GbF">
+                    <navigationItem key="navigationItem" title="Add new place" largeTitleDisplayMode="always" id="q1p-VC-GbF">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MbO-8H-5S1">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="cancelAction:" destination="2xK-pK-khb" id="eMV-D6-Y0L"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="630-su-C6M">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="630-su-C6M">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="qLZ-Dj-D5o" kind="unwind" unwindAction="unwindSegue:" id="gRh-iB-2bi"/>
@@ -257,14 +259,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhw-Yx-zhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="qLZ-Dj-D5o" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1747.5" y="-280.98591549295776"/>
+            <point key="canvasLocation" x="1041" y="-279"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JCn-j9-hye">
             <objects>
                 <navigationController id="eiu-wi-giX" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w89-uN-4wZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="w89-uN-4wZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="21"/>
@@ -297,9 +299,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FwR-cm-OOp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1021.875" y="-280.98591549295776"/>
+            <point key="canvasLocation" x="1041" y="-985"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="hVE-zG-qRr"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Add_Photo_icon" width="133" height="133"/>
     </resources>

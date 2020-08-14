@@ -15,7 +15,7 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        places = realm.objects(Place.self).sorted(byKeyPath: "name")
+        places = realm.objects(Place.self)
     }
     
     // MARK: - Table view data source
@@ -51,7 +51,16 @@ class MainViewController: BaseViewController {
     // MARK: - Segues
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         guard let newPlaceVC = segue.source as? AddPlaceViewController else { return }
-        newPlaceVC.saveNewPlace()
+        newPlaceVC.savePlace()
         tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let newPlaceVC = segue.destination as? AddPlaceViewController else { return }
+        if segue.identifier == "showDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let place = places[indexPath.row]
+            newPlaceVC.currentPlace = place
+        }
     }
 }
