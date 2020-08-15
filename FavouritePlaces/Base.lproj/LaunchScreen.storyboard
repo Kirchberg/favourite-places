@@ -22,24 +22,11 @@
                                     <constraint firstAttribute="width" secondItem="b5t-vv-2Fq" secondAttribute="height" multiplier="1:1" id="BkI-1D-k2g"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favourite Places" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVk-dU-b8c">
-                                <rect key="frame" x="79" y="168" width="217" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="217" id="Vot-g9-yF2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="31"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.85882352941176465" green="0.91764705882352937" blue="0.58823529411764708" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="KVk-dU-b8c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="Bea-Jr-HCQ"/>
-                            <constraint firstItem="b5t-vv-2Fq" firstAttribute="top" secondItem="KVk-dU-b8c" secondAttribute="bottom" constant="42" id="DMn-g3-aOJ"/>
                             <constraint firstItem="b5t-vv-2Fq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="RIX-SL-G7L"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KVk-dU-b8c" secondAttribute="trailing" constant="50" id="Ykb-HI-P6H"/>
                             <constraint firstItem="b5t-vv-2Fq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fFn-MS-Mf1"/>
-                            <constraint firstItem="KVk-dU-b8c" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tgr-lW-CgX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

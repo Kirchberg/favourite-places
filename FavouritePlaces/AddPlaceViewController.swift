@@ -62,16 +62,18 @@ class AddPlaceViewController: BaseViewController {
             let actionSheet = UIAlertController(title: nil,
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
-            let cameraAction = UIAlertAction(title: "Take Photo",
+            let cameraAction = UIAlertAction(title: "Camera",
                                              style: .default) { _ in
                                                 self.chooseImagePicker(source: .camera)
             }
             cameraAction.setValue(cameraIconImage, forKey: "image")
-            let photoAction = UIAlertAction(title: "Choose Photo",
+            cameraAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+            let photoAction = UIAlertAction(title: "Photo",
                                             style: .default) { _ in
                                                 self.chooseImagePicker(source: .photoLibrary)
             }
             photoAction.setValue(libraryIconImage, forKey: "image")
+            photoAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             actionSheet.addAction(cameraAction)
             actionSheet.addAction(photoAction)
