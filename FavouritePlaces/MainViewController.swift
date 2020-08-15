@@ -9,43 +9,26 @@
 import UIKit
 import RealmSwift
 
-class MainViewController: BaseViewController {
+class MainViewController: UIViewController {
     
     var places: Results<Place>!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title="Favourite Places"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        places = realm.objects(Place.self)
-    }
-    
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return places.isEmpty ? 0 : places.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
-            else { fatalError("DequeueReusableCell failed while casting") }
-        let place = places[indexPath.row]
-        cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
-        cell.imageOfPlace.clipsToBounds = true
-        cell.imageOfPlace.image = UIImage(data: place.imageData!)
-        cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
-        cell.nameOfPlaceLabel.text = place.name
-        cell.nameOfPlaceLabel.numberOfLines = 0
-        cell.locationOfPlaceLabel.text = place.location
-        cell.typeOfPlaceLabel.text = place.type
-        return cell
-    }
-    
-    // MARK: - Table View Delegate
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let place = places[indexPath.row]
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (_, _) in
-            StorageManager.deleteObject(place)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+            self.navigationController?.navigationBar.titleTextAttributes
+                = [NSAttributedString.Key.foregroundColor: UIColor.black]
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.03702176504, green: 0.740731391, blue: 0.941593536, alpha: 1)
         }
-        return [deleteAction]
+        places = realm.objects(Place.self)
     }
     
     // MARK: - Segues
@@ -62,5 +45,45 @@ class MainViewController: BaseViewController {
             let place = places[indexPath.row]
             newPlaceVC.currentPlace = place
         }
+    }
+}
+
+// MARK: - Table View Delegate
+extension MainViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let place = places[indexPath.row]
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (_, _) in
+            StorageManager.deleteObject(place)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        return [deleteAction]
+    }
+}
+
+// MARK: - Table view data source
+extension MainViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return places.isEmpty ? 0 : places.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
+            else { fatalError("DequeueReusableCell failed while casting") }
+        let place = places[indexPath.row]
+        cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
+        cell.imageOfPlace.clipsToBounds = true
+        cell.imageOfPlace.image = UIImage(data: place.imageData!)
+        cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
+        cell.nameOfPlaceLabel.text = place.name
+        cell.nameOfPlaceLabel.numberOfLines = 0
+        cell.locationOfPlaceLabel.text = place.location
+        cell.typeOfPlaceLabel.text = place.type
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.5
     }
 }
