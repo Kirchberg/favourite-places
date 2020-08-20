@@ -41,9 +41,9 @@ class MainViewController: UIViewController {
             self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.03702176504, green: 0.740731391, blue: 0.941593536, alpha: 1)
         }
         places = realm.objects(Place.self)
+        searchController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -154,5 +154,19 @@ extension MainViewController: UISearchResultsUpdating {
     private func filterContentForSearchText(_ searchText: String) {
         filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
         tableView.reloadData()
+    }
+}
+
+// MARK: - Search Bar Customization
+extension MainViewController: UISearchControllerDelegate {
+    
+    func presentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.isTranslucent = false
+        searchController.searchBar.showsCancelButton = true
+        searchController.searchBar.autocorrectionType = .no
+        searchController.searchBar.backgroundColor = .white
+        searchController.searchBar.barTintColor = .black
+        searchController.searchBar.barStyle = .black
     }
 }
