@@ -11,8 +11,17 @@ import RealmSwift
 
 class MainViewController: UIViewController {
     
-    var places: Results<Place>!
-    var ascendingSorting: Bool = true
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var places: Results<Place>!
+    private var filteredPlaces: Results<Place>!
+    private var ascendingSorting: Bool = true
+    private var isSearchBarEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -32,6 +41,11 @@ class MainViewController: UIViewController {
             self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.03702176504, green: 0.740731391, blue: 0.941593536, alpha: 1)
         }
         places = realm.objects(Place.self)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     // MARK: - Segues
@@ -45,11 +59,17 @@ class MainViewController: UIViewController {
         guard let newPlaceVC = segue.destination as? AddPlaceViewController else { return }
         if segue.identifier == "showDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let place = places[indexPath.row]
+            var place = Place()
+            if isFiltering {
+                place = filteredPlaces[indexPath.row]
+            } else {
+                place = places[indexPath.row]
+            }
             newPlaceVC.currentPlace = place
         }
     }
     
+    // MARK: - Sort
     @IBAction func sortSelection(_ sender: UISegmentedControl) {
         sorting()
     }
@@ -93,13 +113,21 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return filteredPlaces.count
+        }
         return places.isEmpty ? 0 : places.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
             else { fatalError("DequeueReusableCell failed while casting") }
-        let place = places[indexPath.row]
+        var place = Place()
+        if isFiltering {
+            place = filteredPlaces[indexPath.row]
+        } else {
+            place = places[indexPath.row]
+        }
         cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
         cell.imageOfPlace.clipsToBounds = true
         cell.imageOfPlace.image = UIImage(data: place.imageData!)
@@ -113,5 +141,18 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.5
+    }
+}
+
+// MARK: - Search results updating
+extension MainViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+    private func filterContentForSearchText(_ searchText: String) {
+        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
+        tableView.reloadData()
     }
 }
