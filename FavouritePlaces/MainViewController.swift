@@ -12,8 +12,11 @@ import RealmSwift
 class MainViewController: UIViewController {
     
     var places: Results<Place>!
+    var ascendingSorting: Bool = true
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var sortButton: UIBarButtonItem!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,6 +48,31 @@ class MainViewController: UIViewController {
             let place = places[indexPath.row]
             newPlaceVC.currentPlace = place
         }
+    }
+    
+    @IBAction func sortSelection(_ sender: UISegmentedControl) {
+        sorting()
+    }
+    
+    @IBAction func reversedSorting(_ sender: Any) {
+        ascendingSorting.toggle()
+        if ascendingSorting {
+            sortButton.image = #imageLiteral(resourceName: "AZ")
+            segmentedControl.setTitle("A-Z", forSegmentAt: 1)
+        } else {
+            sortButton.image = #imageLiteral(resourceName: "ZA")
+            segmentedControl.setTitle("Z-A", forSegmentAt: 1)
+        }
+        sorting()
+    }
+    
+    private func sorting() {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            places = places.sorted(byKeyPath: "date", ascending: ascendingSorting)
+        } else {
+            places = places.sorted(byKeyPath: "name", ascending: ascendingSorting)
+        }
+        tableView.reloadData()
     }
 }
 

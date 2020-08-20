@@ -277,9 +277,12 @@
                                     <constraint firstAttribute="height" constant="35" id="clP-GL-k3c"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Date"/>
+                                    <segment title="A-Z"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sortSelection:" destination="qWw-EG-oM6" eventType="valueChanged" id="TdV-Hy-Q0R"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -297,6 +300,9 @@
                     <navigationItem key="navigationItem" title="Favourite Places" largeTitleDisplayMode="never" id="ygI-6B-GQJ">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="AZ" id="sv0-Dt-6V9">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="reversedSorting:" destination="qWw-EG-oM6" id="JG1-Lo-My2"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3k0-mD-hh3">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -306,6 +312,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentedControl" destination="J0P-HC-4Iy" id="5ke-F1-XZk"/>
+                        <outlet property="sortButton" destination="sv0-Dt-6V9" id="viX-vR-pxo"/>
                         <outlet property="tableView" destination="Okw-Vo-Y72" id="Qua-iY-lqe"/>
                     </connections>
                 </viewController>
@@ -323,6 +331,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="21"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
