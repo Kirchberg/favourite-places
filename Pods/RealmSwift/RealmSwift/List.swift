@@ -27,7 +27,7 @@ public class ListBase: RLMListBase {
     // and it has to be defined as override, which can't be done in a
     // generic class.
     /// Returns a human-readable description of the objects contained in the List.
-    @objc public override var description: String {
+    @objc override public var description: String {
         return descriptionWithMaxDepth(RLMDescriptionMaxDepth)
     }
 
@@ -54,7 +54,6 @@ public class ListBase: RLMListBase {
  Properties of `List` type defined on `Object` subclasses must be declared as `let` and cannot be `dynamic`.
  */
 public final class List<Element: RealmCollectionValue>: ListBase {
-
     // MARK: Properties
 
     /// The Realm which manages the list, or `nil` if the list is unmanaged.
@@ -68,7 +67,7 @@ public final class List<Element: RealmCollectionValue>: ListBase {
     // MARK: Initializers
 
     /// Creates a `List` that holds Realm model objects of type `Element`.
-    public override init() {
+    override public init() {
         super.init()
     }
 
@@ -88,10 +87,10 @@ public final class List<Element: RealmCollectionValue>: ListBase {
     }
 
     /**
-     Returns the index of the first object in the list matching the predicate, or `nil` if no objects match.
+      Returns the index of the first object in the list matching the predicate, or `nil` if no objects match.
 
-     - parameter predicate: The predicate with which to filter the objects.
-    */
+      - parameter predicate: The predicate with which to filter the objects.
+     */
     public func index(matching predicate: NSPredicate) -> Int? {
         return notFoundToNil(index: _rlmArray.indexOfObject(with: predicate))
     }
@@ -143,14 +142,14 @@ public final class List<Element: RealmCollectionValue>: ListBase {
     }
 
     /**
-     Invokes `setValue(_:forKey:)` on each of the collection's objects using the specified `value` and `key`.
+      Invokes `setValue(_:forKey:)` on each of the collection's objects using the specified `value` and `key`.
 
-     - warning: This method can only be called during a write transaction.
+      - warning: This method can only be called during a write transaction.
 
-     - parameter value: The object value.
-     - parameter key:   The name of the property whose value should be set on each object.
-    */
-    public override func setValue(_ value: Any?, forKey key: String) {
+      - parameter value: The object value.
+      - parameter key:   The name of the property whose value should be set on each object.
+     */
+    override public func setValue(_ value: Any?, forKey key: String) {
         return _rlmArray.setValue(value, forKeyPath: key)
     }
 
@@ -185,16 +184,17 @@ public final class List<Element: RealmCollectionValue>: ListBase {
     }
 
     /**
-     Returns a `Results` containing the objects in the list, but sorted.
+      Returns a `Results` containing the objects in the list, but sorted.
 
-     - warning: Lists may only be sorted by properties of boolean, `Date`, `NSDate`, single and double-precision
-                floating point, integer, and string types.
+      - warning: Lists may only be sorted by properties of boolean, `Date`, `NSDate`, single and double-precision
+                 floating point, integer, and string types.
 
-     - see: `sorted(byKeyPath:ascending:)`
-    */
+      - see: `sorted(byKeyPath:ascending:)`
+     */
     public func sorted<S: Sequence>(by sortDescriptors: S) -> Results<Element>
-        where S.Iterator.Element == SortDescriptor {
-            return Results<Element>(_rlmArray.sortedResults(using: sortDescriptors.map { $0.rlmSortDescriptorValue }))
+        where S.Iterator.Element == SortDescriptor
+    {
+        return Results<Element>(_rlmArray.sortedResults(using: sortDescriptors.map { $0.rlmSortDescriptorValue }))
     }
 
     // MARK: Aggregate Operations
@@ -262,10 +262,10 @@ public final class List<Element: RealmCollectionValue>: ListBase {
     }
 
     /**
-     Appends the objects in the given sequence to the end of the list.
+      Appends the objects in the given sequence to the end of the list.
 
-     - warning: This method may only be called during a write transaction.
-    */
+      - warning: This method may only be called during a write transaction.
+     */
     public func append<S: Sequence>(objectsIn objects: S) where S.Iterator.Element == Element {
         for obj in objects {
             _rlmArray.add(dynamicBridgeCast(fromSwift: obj) as AnyObject)
@@ -418,7 +418,8 @@ public final class List<Element: RealmCollectionValue>: ListBase {
      - returns: A token which must be held for as long as you want updates to be delivered.
      */
     public func observe(on queue: DispatchQueue? = nil,
-                        _ block: @escaping (RealmCollectionChange<List>) -> Void) -> NotificationToken {
+                        _ block: @escaping (RealmCollectionChange<List>) -> Void) -> NotificationToken
+    {
         return _rlmArray.addNotificationBlock(wrapObserveBlock(block), queue: queue)
     }
 
@@ -494,14 +495,15 @@ extension List: RealmCollection {
      - parameter newElements: The new elements to be inserted into the List.
      */
     public func replaceSubrange<C: Collection, R>(_ subrange: R, with newElements: C)
-        where C.Iterator.Element == Element, R: RangeExpression, List<Element>.Index == R.Bound {
-            let subrange = subrange.relative(to: self)
-            for _ in subrange.lowerBound..<subrange.upperBound {
-                remove(at: subrange.lowerBound)
-            }
-            for x in newElements.reversed() {
-                insert(x, at: subrange.lowerBound)
-            }
+        where C.Iterator.Element == Element, R: RangeExpression, List<Element>.Index == R.Bound
+    {
+        let subrange = subrange.relative(to: self)
+        for _ in subrange.lowerBound ..< subrange.upperBound {
+            remove(at: subrange.lowerBound)
+        }
+        for x in newElements.reversed() {
+            insert(x, at: subrange.lowerBound)
+        }
     }
 
     /// The position of the first element in a non-empty collection.
@@ -520,12 +522,14 @@ extension List: RealmCollection {
     // swiftlint:disable:next identifier_name
     public func _observe(_ queue: DispatchQueue?,
                          _ block: @escaping (RealmCollectionChange<AnyRealmCollection<Element>>) -> Void)
-        -> NotificationToken {
-            return _rlmArray.addNotificationBlock(wrapObserveBlock(block), queue: queue)
+        -> NotificationToken
+    {
+        return _rlmArray.addNotificationBlock(wrapObserveBlock(block), queue: queue)
     }
 }
 
 // MARK: - MutableCollection conformance, range replaceable collection emulation
+
 extension List: MutableCollection {
     public typealias SubSequence = Slice<List>
 
@@ -542,7 +546,7 @@ extension List: MutableCollection {
             return SubSequence(base: self, bounds: bounds)
         }
         set {
-            replaceSubrange(bounds.lowerBound..<bounds.upperBound, with: newValue)
+            replaceSubrange(bounds.lowerBound ..< bounds.upperBound, with: newValue)
         }
     }
 
@@ -559,7 +563,7 @@ extension List: MutableCollection {
             throwRealmException("It is not possible to remove more objects (\(number)) from a list"
                 + " than it already contains (\(count)).")
         }
-        for _ in 0..<number {
+        for _ in 0 ..< number {
             _rlmArray.removeObject(at: 0)
         }
     }
@@ -577,7 +581,7 @@ extension List: MutableCollection {
             throwRealmException("It is not possible to remove more objects (\(number)) from a list"
                 + " than it already contains (\(count)).")
         }
-        for _ in 0..<number {
+        for _ in 0 ..< number {
             _rlmArray.removeLastObject()
         }
     }
@@ -594,6 +598,7 @@ extension List: MutableCollection {
             currentIndex += 1
         }
     }
+
     /**
      Removes objects from the list at the given range.
 
@@ -605,6 +610,7 @@ extension List: MutableCollection {
             remove(at: bounds.lowerBound)
         }
     }
+
     /// :nodoc:
     public func remove(atOffsets offsets: IndexSet) {
         for offset in offsets.reversed() {
@@ -627,7 +633,6 @@ extension List: MutableCollection {
             remove(at: o)
         }
     }
-
 }
 
 // MARK: - Codable
@@ -654,7 +659,7 @@ extension List: Encodable where Element: Encodable {
 // MARK: - AssistedObjectiveCBridgeable
 
 extension List: AssistedObjectiveCBridgeable {
-    internal static func bridging(from objectiveCValue: Any, with metadata: Any?) -> List {
+    internal static func bridging(from objectiveCValue: Any, with _: Any?) -> List {
         guard let objectiveCValue = objectiveCValue as? RLMArray<AnyObject> else { preconditionFailure() }
         return List(objc: objectiveCValue)
     }

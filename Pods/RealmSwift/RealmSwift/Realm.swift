@@ -43,7 +43,6 @@ import Realm.Private
  queue may fail as queues are not always run on the same thread.
  */
 public struct Realm {
-
     // MARK: Properties
 
     /// The `Schema` used by the Realm.
@@ -131,7 +130,8 @@ public struct Realm {
     @discardableResult
     public static func asyncOpen(configuration: Realm.Configuration = .defaultConfiguration,
                                  callbackQueue: DispatchQueue = .main,
-                                 callback: @escaping (Realm?, Swift.Error?) -> Void) -> AsyncOpenTask {
+                                 callback: @escaping (Realm?, Swift.Error?) -> Void) -> AsyncOpenTask
+    {
         return AsyncOpenTask(rlmTask: RLMRealm.asyncOpen(with: configuration.rlmConfiguration, callbackQueue: callbackQueue) { rlmRealm, error in
             callback(rlmRealm.flatMap(Realm.init), error)
         })
@@ -171,7 +171,8 @@ public struct Realm {
          - parameter block: The block to invoke when notifications are available.
          */
         public func addProgressNotification(queue: DispatchQueue = .main,
-                                            block: @escaping (SyncSession.Progress) -> Void) {
+                                            block: @escaping (SyncSession.Progress) -> Void)
+        {
             rlmTask.addProgressNotification(on: queue) { transferred, transferrable in
                 block(SyncSession.Progress(transferred: transferred, transferrable: transferrable))
             }
@@ -220,12 +221,12 @@ public struct Realm {
                If `block` throws, the function throws the propagated `ErrorType` instead.
      */
     @discardableResult
-    public func write<Result>(withoutNotifying tokens: [NotificationToken] = [], _ block: (() throws -> Result)) throws -> Result {
+    public func write<Result>(withoutNotifying tokens: [NotificationToken] = [], _ block: () throws -> Result) throws -> Result {
         beginWrite()
         var ret: Result!
         do {
             ret = try block()
-        } catch let error {
+        } catch {
             if isInWriteTransaction { cancelWrite() }
             throw error
         }
@@ -370,7 +371,7 @@ public struct Realm {
 
     /// :nodoc:
     @available(*, unavailable, message: "Pass .error, .modified or .all rather than a boolean. .error is equivalent to false and .all is equivalent to true.")
-    public func add(_ object: Object, update: Bool) {
+    public func add(_: Object, update _: Bool) {
         fatalError()
     }
 
@@ -398,7 +399,7 @@ public struct Realm {
      without a primary key.
      */
     public func add(_ object: Object, update: UpdatePolicy = .error) {
-        if update != .error && object.objectSchema.primaryKeyProperty == nil {
+        if update != .error, object.objectSchema.primaryKeyProperty == nil {
             throwRealmException("'\(object.objectSchema.className)' does not have a primary key and can not be updated")
         }
         RLMAddObjectToRealm(object, rlmRealm, RLMUpdatePolicy(rawValue: UInt(update.rawValue))!)
@@ -406,7 +407,7 @@ public struct Realm {
 
     /// :nodoc:
     @available(*, unavailable, message: "Pass .error, .modified or .all rather than a boolean. .error is equivalent to false and .all is equivalent to true.")
-    public func add<S: Sequence>(_ objects: S, update: Bool) where S.Iterator.Element: Object {
+    public func add<S: Sequence>(_: S, update _: Bool) where S.Iterator.Element: Object {
         fatalError()
     }
 
@@ -432,7 +433,7 @@ public struct Realm {
     /// :nodoc:
     @discardableResult
     @available(*, unavailable, message: "Pass .error, .modified or .all rather than a boolean. .error is equivalent to false and .all is equivalent to true.")
-    public func create<T: Object>(_ type: T.Type, value: Any = [:], update: Bool) -> T {
+    public func create<T: Object>(_: T.Type, value _: Any = [:], update _: Bool) -> T {
         fatalError()
     }
 
@@ -479,7 +480,7 @@ public struct Realm {
     /// :nodoc:
     @discardableResult
     @available(*, unavailable, message: "Pass .error, .modified or .all rather than a boolean. .error is equivalent to false and .all is equivalent to true.")
-    public func dynamicCreate(_ typeName: String, value: Any = [:], update: Bool) -> DynamicObject {
+    public func dynamicCreate(_: String, value _: Any = [:], update _: Bool) -> DynamicObject {
         fatalError()
     }
 
@@ -509,7 +510,6 @@ public struct Realm {
      or (if you are passing in an instance of an `Object` subclass) setting the corresponding
      property on `value` to nil.
 
-
      - warning: This method can only be called during a write transaction.
 
      - parameter className:  The class name of the object to create.
@@ -523,7 +523,7 @@ public struct Realm {
      */
     @discardableResult
     public func dynamicCreate(_ typeName: String, value: Any = [:], update: UpdatePolicy = .error) -> DynamicObject {
-        if update != .error && schema[typeName]?.primaryKeyProperty == nil {
+        if update != .error, schema[typeName]?.primaryKeyProperty == nil {
             throwRealmException("'\(typeName)' does not have a primary key and can not be updated")
         }
         return noWarnUnsafeBitCast(RLMCreateObjectInRealmWithValue(rlmRealm, typeName, value,
@@ -644,7 +644,7 @@ public struct Realm {
     public func object<Element: Object, KeyType>(ofType type: Element.Type, forPrimaryKey key: KeyType) -> Element? {
         return unsafeBitCast(RLMGetObject(rlmRealm, (type as Object.Type).className(),
                                           dynamicBridgeCast(fromSwift: key)) as! RLMObjectBase?,
-                             to: Optional<Element>.self)
+                             to: Element?.self)
     }
 
     /**
@@ -670,7 +670,7 @@ public struct Realm {
      :nodoc:
      */
     public func dynamicObject(ofType typeName: String, forPrimaryKey key: Any) -> DynamicObject? {
-        return unsafeBitCast(RLMGetObject(rlmRealm, typeName, key) as! RLMObjectBase?, to: Optional<DynamicObject>.self)
+        return unsafeBitCast(RLMGetObject(rlmRealm, typeName, key) as! RLMObjectBase?, to: DynamicObject?.self)
     }
 
     // MARK: Notifications
@@ -795,17 +795,17 @@ public struct Realm {
     }
 
     /**
-     Returns a frozen (immutable) snapshot of the given collection.
+      Returns a frozen (immutable) snapshot of the given collection.
 
-     The frozen copy is an immutable collection which contains the same data as the given
-     collection currently contains, but will not update when writes are made to the containing
-     Realm. Unlike live collections, frozen collections can be accessed from any thread.
+      The frozen copy is an immutable collection which contains the same data as the given
+      collection currently contains, but will not update when writes are made to the containing
+      Realm. Unlike live collections, frozen collections can be accessed from any thread.
 
-     - warning: This method cannot be called during a write transaction, or when the Realm is read-only.
-     - warning: Holding onto a frozen collection for an extended period while performing write
-     transaction on the Realm may result in the Realm file growing to large sizes. See
-     `Realm.Configuration.maximumNumberOfActiveVersions` for more information.
-    */
+      - warning: This method cannot be called during a write transaction, or when the Realm is read-only.
+      - warning: Holding onto a frozen collection for an extended period while performing write
+      transaction on the Realm may result in the Realm file growing to large sizes. See
+      `Realm.Configuration.maximumNumberOfActiveVersions` for more information.
+     */
     public func freeze<Collection: RealmCollection>(_ collection: Collection) -> Collection {
         return collection.freeze()
     }

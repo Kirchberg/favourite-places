@@ -9,27 +9,27 @@
 import UIKit
 
 class AddPlaceViewController: BaseViewController {
-    
     var currentPlace: Place?
     var imageIsChanged: Bool = false
-    
-    @IBOutlet weak var addButton: UIBarButtonItem! {
+
+    @IBOutlet var addButton: UIBarButtonItem! {
         didSet {
             addButton.isEnabled = false
         }
     }
-    @IBOutlet weak var placeImage: UIImageView!
-    @IBOutlet weak var placeNameTF: UITextField!
-    @IBOutlet weak var placeLocationTF: UITextField!
-    @IBOutlet weak var placeTypeTF: UITextField!
-    
+
+    @IBOutlet var placeImage: UIImageView!
+    @IBOutlet var placeNameTF: UITextField!
+    @IBOutlet var placeLocationTF: UITextField!
+    @IBOutlet var placeTypeTF: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupEditScreen()
         tableView.tableFooterView = UIView()
         placeNameTF.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
     }
-    
+
     func savePlace() {
         var image: UIImage?
         if imageIsChanged {
@@ -53,9 +53,10 @@ class AddPlaceViewController: BaseViewController {
             currentPlace.imageData = newPlace.imageData
         }
     }
-    
+
     // MARK: - Table View Delegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let cameraIconImage = #imageLiteral(resourceName: "camera")
             let libraryIconImage = #imageLiteral(resourceName: "photo")
@@ -64,13 +65,13 @@ class AddPlaceViewController: BaseViewController {
                                                 preferredStyle: .actionSheet)
             let cameraAction = UIAlertAction(title: "Camera",
                                              style: .default) { _ in
-                                                self.chooseImagePicker(source: .camera)
+                self.chooseImagePicker(source: .camera)
             }
             cameraAction.setValue(cameraIconImage, forKey: "image")
             cameraAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
             let photoAction = UIAlertAction(title: "Photo",
                                             style: .default) { _ in
-                                                self.chooseImagePicker(source: .photoLibrary)
+                self.chooseImagePicker(source: .photoLibrary)
             }
             photoAction.setValue(libraryIconImage, forKey: "image")
             photoAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
@@ -78,14 +79,14 @@ class AddPlaceViewController: BaseViewController {
             actionSheet.addAction(cameraAction)
             actionSheet.addAction(photoAction)
             actionSheet.addAction(cancelAction)
-            self.present(actionSheet, animated: true, completion: nil)
+            present(actionSheet, animated: true, completion: nil)
         } else {
-            let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+            let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
             tap.cancelsTouchesInView = false
             view.addGestureRecognizer(tap)
         }
     }
-    
+
     private func setupEditScreen() {
         guard let currentPlace = currentPlace else { return }
         imageIsChanged = true
@@ -97,15 +98,15 @@ class AddPlaceViewController: BaseViewController {
         placeNameTF.text = currentPlace.name
         placeTypeTF.text = currentPlace.type
     }
-    
+
     private func setupNavigationBar() {
-        self.navigationController!.navigationBar.topItem!.title = ""
+        navigationController!.navigationBar.topItem!.title = ""
         navigationItem.leftBarButtonItem = nil
         title = currentPlace?.name
         addButton.isEnabled = true
     }
-    
-    @IBAction func cancelAction(_ sender: Any) {
+
+    @IBAction func cancelAction(_: Any) {
         dismiss(animated: true)
     }
 }
@@ -113,15 +114,17 @@ class AddPlaceViewController: BaseViewController {
 // MARK: - Text Field Delegate
 
 extension AddPlaceViewController: UITextFieldDelegate {
-    //Hide the keyboard
+    // Hide the keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+
     private func isEmptyTF(_ textField: String?) -> Bool {
-        let str = textField?.filter {!(" ").contains($0)}
+        let str = textField?.filter { !" ".contains($0) }
         return (str == "") ? true : false
     }
+
     @objc private func textFieldChanged() {
         if isEmptyTF(placeNameTF.text) == false {
             addButton.isEnabled = true
@@ -143,8 +146,10 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
             present(imagePicker, animated: true)
         }
     }
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
+    func imagePickerController(_: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any])
+    {
         placeImage.image = info[.editedImage] as? UIImage
         placeImage.contentMode = .scaleAspectFill
         placeImage.clipsToBounds = true

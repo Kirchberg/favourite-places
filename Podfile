@@ -7,4 +7,5 @@ target 'FavouritePlaces' do
 
   # Pods for FavouritePlaces
   pod 'RealmSwift'
+  pod 'SwiftFormat/CLI'
 end

@@ -83,7 +83,7 @@ open class Object: RLMObjectBase, RealmCollectionValue {
 
      - see: `Realm().add(_:)`
      */
-    public override required init() {
+    override public required init() {
         super.init()
     }
 
@@ -107,7 +107,6 @@ open class Object: RLMObjectBase, RealmCollectionValue {
         RLMInitializeWithValue(self, value, .partialPrivateShared())
     }
 
-
     // MARK: Properties
 
     /// The Realm which manages the object, or `nil` if the object is unmanaged.
@@ -127,17 +126,17 @@ open class Object: RLMObjectBase, RealmCollectionValue {
     ///
     /// An object can no longer be accessed if the object has been deleted from the Realm that manages it, or if
     /// `invalidate()` is called on that Realm. This property is key-value observable.
-    @objc dynamic open override var isInvalidated: Bool { return super.isInvalidated }
+    @objc override open dynamic var isInvalidated: Bool { return super.isInvalidated }
 
     /// A human-readable description of the object.
-    open override var description: String { return super.description }
+    override open var description: String { return super.description }
 
     /**
      WARNING: This is an internal helper method not intended for public use.
      It is not considered part of the public API.
      :nodoc:
      */
-    public override final class func _getProperties(withInstance instance: Any) -> [RLMProperty] {
+    override public final class func _getProperties(withInstance instance: Any) -> [RLMProperty] {
         return ObjectUtil.getSwiftProperties(instance as! RLMObjectBase)
     }
 
@@ -245,7 +244,8 @@ open class Object: RLMObjectBase, RealmCollectionValue {
      - returns: A token which must be held for as long as you want updates to be delivered.
      */
     public func observe<T: Object>(on queue: DispatchQueue? = nil,
-                                   _ block: @escaping (ObjectChange<T>) -> Void) -> NotificationToken {
+                                   _ block: @escaping (ObjectChange<T>) -> Void) -> NotificationToken
+    {
         precondition(self as? T != nil)
         return RLMObjectBaseAddNotificationBlock(self, queue) { object, names, oldValues, newValues, error in
             if let error = error {
@@ -257,7 +257,7 @@ open class Object: RLMObjectBase, RealmCollectionValue {
                 return
             }
 
-            block(.change(object as! T, (0..<newValues.count).map { i in
+            block(.change(object as! T, (0 ..< newValues.count).map { i in
                 PropertyChange(name: names[i], oldValue: oldValues?[i], newValue: newValues[i])
             }))
         }
@@ -284,6 +284,7 @@ open class Object: RLMObjectBase, RealmCollectionValue {
     }
 
     // MARK: Comparison
+
     /**
      Returns whether two Realm objects are the same.
 
@@ -302,8 +303,6 @@ open class Object: RLMObjectBase, RealmCollectionValue {
     public func isSameObject(as object: Object?) -> Bool {
         return RLMObjectBaseAreEqual(self, object)
     }
-
-
 }
 
 extension Object: ThreadConfined {
@@ -332,33 +331,32 @@ extension Object: ThreadConfined {
     }
 }
 
-
 /**
  Information about a specific property which changed in an `Object` change notification.
  */
 public struct PropertyChange {
     /**
-     The name of the property which changed.
-    */
+      The name of the property which changed.
+     */
     public let name: String
 
     /**
-     Value of the property before the change occurred. This is not supplied if
-     the change happened on the same thread as the notification and for `List`
-     properties.
+      Value of the property before the change occurred. This is not supplied if
+      the change happened on the same thread as the notification and for `List`
+      properties.
 
-     For object properties this will give the object which was previously
-     linked to, but that object will have its new values and not the values it
-     had before the changes. This means that `previousValue` may be a deleted
-     object, and you will need to check `isInvalidated` before accessing any
-     of its properties.
-    */
+      For object properties this will give the object which was previously
+      linked to, but that object will have its new values and not the values it
+      had before the changes. This means that `previousValue` may be a deleted
+      object, and you will need to check `isInvalidated` before accessing any
+      of its properties.
+     */
     public let oldValue: Any?
 
     /**
-     The value of the property after the change occurred. This is not supplied
-     for `List` properties and will always be nil.
-    */
+      The value of the property after the change occurred. This is not supplied
+      for `List` properties and will always be nil.
+     */
     public let newValue: Any?
 }
 
@@ -386,7 +384,7 @@ public enum ObjectChange<T: Object> {
 /// Object interface which allows untyped getters and setters for Objects.
 /// :nodoc:
 public final class DynamicObject: Object {
-    public override subscript(key: String) -> Any? {
+    override public subscript(key: String) -> Any? {
         get {
             let value = RLMDynamicGetByName(self, key)
             if let array = value as? RLMArray<AnyObject> {
@@ -400,22 +398,22 @@ public final class DynamicObject: Object {
     }
 
     /// :nodoc:
-    public override func dynamicList(_ propertyName: String) -> List<DynamicObject> {
+    override public func dynamicList(_ propertyName: String) -> List<DynamicObject> {
         return self[propertyName] as! List<DynamicObject>
     }
 
     /// :nodoc:
-    public override func value(forUndefinedKey key: String) -> Any? {
+    override public func value(forUndefinedKey key: String) -> Any? {
         return self[key]
     }
 
     /// :nodoc:
-    public override func setValue(_ value: Any?, forUndefinedKey key: String) {
+    override public func setValue(_ value: Any?, forUndefinedKey key: String) {
         self[key] = value
     }
 
     /// :nodoc:
-    public override class func shouldIncludeInDefaultSchema() -> Bool {
+    override public class func shouldIncludeInDefaultSchema() -> Bool {
         return false
     }
 }
@@ -456,10 +454,12 @@ public extension RealmEnum where Self: RawRepresentable, Self.RawValue: _Managed
     static func _rlmToRawValue(_ value: Any) -> Any {
         return (value as! Self).rawValue
     }
+
     // swiftlint:disable:next identifier_name
     static func _rlmFromRawValue(_ value: Any) -> Any {
-        return Self.init(rawValue: value as! RawValue)!
+        return Self(rawValue: value as! RawValue)!
     }
+
     // swiftlint:disable:next identifier_name
     static func _rlmProperty(_ prop: RLMProperty) {
         RawValue._rlmProperty(prop)
@@ -476,10 +476,11 @@ public protocol _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
     static func _rlmRequireObjc() -> Bool
 }
+
 /// :nodoc:
 extension _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
-    public func _rlmProperty(_ prop: RLMProperty) { }
+    public func _rlmProperty(_: RLMProperty) {}
     // swiftlint:disable:next identifier_name
     public static func _rlmRequireObjc() -> Bool { return true }
 }
@@ -491,6 +492,7 @@ extension Int: _ManagedPropertyType {
         prop.type = .int
     }
 }
+
 /// :nodoc:
 extension Int8: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -498,6 +500,7 @@ extension Int8: _ManagedPropertyType {
         prop.type = .int
     }
 }
+
 /// :nodoc:
 extension Int16: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -505,6 +508,7 @@ extension Int16: _ManagedPropertyType {
         prop.type = .int
     }
 }
+
 /// :nodoc:
 extension Int32: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -512,6 +516,7 @@ extension Int32: _ManagedPropertyType {
         prop.type = .int
     }
 }
+
 /// :nodoc:
 extension Int64: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -519,6 +524,7 @@ extension Int64: _ManagedPropertyType {
         prop.type = .int
     }
 }
+
 /// :nodoc:
 extension Float: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -526,6 +532,7 @@ extension Float: _ManagedPropertyType {
         prop.type = .float
     }
 }
+
 /// :nodoc:
 extension Double: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -533,6 +540,7 @@ extension Double: _ManagedPropertyType {
         prop.type = .double
     }
 }
+
 /// :nodoc:
 extension Bool: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -540,6 +548,7 @@ extension Bool: _ManagedPropertyType {
         prop.type = .bool
     }
 }
+
 /// :nodoc:
 extension String: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -547,6 +556,7 @@ extension String: _ManagedPropertyType {
         prop.type = .string
     }
 }
+
 /// :nodoc:
 extension NSString: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -554,6 +564,7 @@ extension NSString: _ManagedPropertyType {
         prop.type = .string
     }
 }
+
 /// :nodoc:
 extension Data: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -561,6 +572,7 @@ extension Data: _ManagedPropertyType {
         prop.type = .data
     }
 }
+
 /// :nodoc:
 extension NSData: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -568,6 +580,7 @@ extension NSData: _ManagedPropertyType {
         prop.type = .data
     }
 }
+
 /// :nodoc:
 extension Date: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -575,6 +588,7 @@ extension Date: _ManagedPropertyType {
         prop.type = .date
     }
 }
+
 /// :nodoc:
 extension NSDate: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
@@ -587,10 +601,10 @@ extension NSDate: _ManagedPropertyType {
 extension Object: _ManagedPropertyType {
     // swiftlint:disable:next identifier_name
     public static func _rlmProperty(_ prop: RLMProperty) {
-        if !prop.optional && !prop.array {
+        if !prop.optional, !prop.array {
             throwRealmException("Object property '\(prop.name)' must be marked as optional.")
         }
-        if prop.optional && prop.array {
+        if prop.optional, prop.array {
             throwRealmException("List<\(className())> property '\(prop.name)' must not be marked as optional.")
         }
         prop.type = .object
@@ -605,6 +619,7 @@ extension List: _ManagedPropertyType where Element: _ManagedPropertyType {
         prop.array = true
         Element._rlmProperty(prop)
     }
+
     // swiftlint:disable:next identifier_name
     public static func _rlmRequireObjc() -> Bool { return false }
 }
@@ -612,9 +627,11 @@ extension List: _ManagedPropertyType where Element: _ManagedPropertyType {
 /// :nodoc:
 class LinkingObjectsAccessor<Element: Object>: RLMManagedPropertyAccessor {
     @objc override class func initializeObject(_ ptr: UnsafeMutableRawPointer,
-                                               parent: RLMObjectBase, property: RLMProperty) {
+                                               parent: RLMObjectBase, property: RLMProperty)
+    {
         ptr.assumingMemoryBound(to: LinkingObjects.self).pointee.handle = RLMLinkingObjectsHandle(object: parent, property: property)
     }
+
     @objc override class func get(_ ptr: UnsafeMutableRawPointer) -> Any {
         return ptr.assumingMemoryBound(to: LinkingObjects<Element>.self).pointee
     }
@@ -629,10 +646,12 @@ extension LinkingObjects: _ManagedPropertyType {
         prop.objectClassName = Element.className()
         prop.swiftAccessor = LinkingObjectsAccessor<Element>.self
     }
+
     // swiftlint:disable:next identifier_name
     public func _rlmProperty(_ prop: RLMProperty) {
-        prop.linkOriginPropertyName = self.propertyName
+        prop.linkOriginPropertyName = propertyName
     }
+
     // swiftlint:disable:next identifier_name
     public static func _rlmRequireObjc() -> Bool { return false }
 }
@@ -653,6 +672,7 @@ extension RealmOptional: _ManagedPropertyType where Value: _ManagedPropertyType 
         prop.optional = true
         Value._rlmProperty(prop)
     }
+
     // swiftlint:disable:next identifier_name
     public static func _rlmRequireObjc() -> Bool { return false }
 }
@@ -670,11 +690,11 @@ internal class ObjectUtil {
     }()
 
     private class func swiftVersion() -> NSString {
-#if SWIFT_PACKAGE
-        return "5.1"
-#else
-        return swiftLanguageVersion as NSString
-#endif
+        #if SWIFT_PACKAGE
+            return "5.1"
+        #else
+            return swiftLanguageVersion as NSString
+        #endif
     }
 
     // If the property is a storage property for a lazy Swift property, return
@@ -768,7 +788,7 @@ internal class ObjectUtil {
                     free(attrs)
                 }
                 var computed = true
-                for i in 0..<Int(count) {
+                for i in 0 ..< Int(count) {
                     let attr = attrs[i]
                     switch attr.name[0] {
                     case Int8(UInt8(ascii: "R")): // Read only
@@ -787,7 +807,7 @@ internal class ObjectUtil {
                 // If there's no ivar name and no ivar with the same name as
                 // the property then this is a computed property and we should
                 // implicitly ignore it
-                if computed && class_getInstanceVariable(cls, label) == nil {
+                if computed, class_getInstanceVariable(cls, label) == nil {
                     return nil
                 }
             } else if valueType._rlmRequireObjc() {
@@ -811,7 +831,7 @@ private func forceCastToInferred<T, V>(_ x: T) -> V {
 }
 
 extension Object: AssistedObjectiveCBridgeable {
-    internal static func bridging(from objectiveCValue: Any, with metadata: Any?) -> Self {
+    internal static func bridging(from objectiveCValue: Any, with _: Any?) -> Self {
         return forceCastToInferred(objectiveCValue)
     }
 

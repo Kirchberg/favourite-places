@@ -49,6 +49,7 @@ public protocol AddableType {
     /// :nodoc:
     init()
 }
+
 extension NSNumber: AddableType {}
 extension Double: AddableType {}
 extension Float: AddableType {}
@@ -79,7 +80,6 @@ extension Int64: AddableType {}
  Results instances cannot be directly instantiated.
  */
 public struct Results<Element: RealmCollectionValue>: Equatable {
-
     internal let rlmResults: RLMResults<AnyObject>
 
     /// A human-readable description of the objects represented by the results.
@@ -111,6 +111,7 @@ public struct Results<Element: RealmCollectionValue>: Equatable {
     internal init(_ rlmResults: RLMResults<AnyObject>) {
         self.rlmResults = rlmResults
     }
+
     internal init(objc rlmResults: RLMResults<AnyObject>) {
         self.rlmResults = rlmResults
     }
@@ -225,8 +226,9 @@ public struct Results<Element: RealmCollectionValue>: Equatable {
      - parameter sortDescriptors: A sequence of `SortDescriptor`s to sort by.
      */
     public func sorted<S: Sequence>(by sortDescriptors: S) -> Results<Element>
-        where S.Iterator.Element == SortDescriptor {
-            return Results<Element>(rlmResults.sortedResults(using: sortDescriptors.map { $0.rlmSortDescriptorValue }))
+        where S.Iterator.Element == SortDescriptor
+    {
+        return Results<Element>(rlmResults.sortedResults(using: sortDescriptors.map { $0.rlmSortDescriptorValue }))
     }
 
     /**
@@ -235,8 +237,9 @@ public struct Results<Element: RealmCollectionValue>: Equatable {
      - parameter keyPaths:  The key paths used produce distinct results
      */
     public func distinct<S: Sequence>(by keyPaths: S) -> Results<Element>
-        where S.Iterator.Element == String {
-            return Results<Element>(rlmResults.distinctResults(usingKeyPaths: Array(keyPaths)))
+        where S.Iterator.Element == String
+    {
+        return Results<Element>(rlmResults.distinctResults(usingKeyPaths: Array(keyPaths)))
     }
 
     // MARK: Aggregate Operations
@@ -346,7 +349,8 @@ public struct Results<Element: RealmCollectionValue>: Equatable {
      - returns: A token which must be held for as long as you want updates to be delivered.
      */
     public func observe(on queue: DispatchQueue? = nil,
-                        _ block: @escaping (RealmCollectionChange<Results>) -> Void) -> NotificationToken {
+                        _ block: @escaping (RealmCollectionChange<Results>) -> Void) -> NotificationToken
+    {
         return rlmResults.addNotificationBlock(wrapObserveBlock(block), queue: queue)
     }
 
@@ -373,7 +377,6 @@ extension Results: RealmCollection {
     // swiftlint:disable:next identifier_name
     public func _asNSFastEnumerator() -> Any {
         return rlmResults
-
     }
 
     // MARK: Collection Support
@@ -394,15 +397,16 @@ extension Results: RealmCollection {
     // swiftlint:disable:next identifier_name
     public func _observe(_ queue: DispatchQueue?,
                          _ block: @escaping (RealmCollectionChange<AnyRealmCollection<Element>>) -> Void)
-        -> NotificationToken {
-            return rlmResults.addNotificationBlock(wrapObserveBlock(block), queue: queue)
+        -> NotificationToken
+    {
+        return rlmResults.addNotificationBlock(wrapObserveBlock(block), queue: queue)
     }
 }
 
 // MARK: AssistedObjectiveCBridgeable
 
 extension Results: AssistedObjectiveCBridgeable {
-    internal static func bridging(from objectiveCValue: Any, with metadata: Any?) -> Results {
+    internal static func bridging(from objectiveCValue: Any, with _: Any?) -> Results {
         return Results(objectiveCValue as! RLMResults)
     }
 

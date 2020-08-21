@@ -9,17 +9,17 @@
 import UIKit
 
 class MainTableViewCell: UITableViewCell {
-    @IBOutlet weak var imageOfPlace: UIImageView!
-    @IBOutlet weak var nameOfPlaceLabel: UILabel!
-    @IBOutlet weak var locationOfPlaceLabel: UILabel!
-    @IBOutlet weak var typeOfPlaceLabel: UILabel!
-    
+    @IBOutlet var imageOfPlace: UIImageView!
+    @IBOutlet var nameOfPlaceLabel: UILabel!
+    @IBOutlet var locationOfPlaceLabel: UILabel!
+    @IBOutlet var typeOfPlaceLabel: UILabel!
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            self.contentView.backgroundColor = #colorLiteral(red: 0.8846201301, green: 0.9258134365, blue: 0.6525990963, alpha: 0.8470588235)
+            backgroundColor = #colorLiteral(red: 0.8846201301, green: 0.9258134365, blue: 0.6525990963, alpha: 0.8470588235)
         } else {
-            self.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
 }

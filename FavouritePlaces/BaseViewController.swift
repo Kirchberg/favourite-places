@@ -9,7 +9,6 @@
 import UIKit
 
 class BaseViewController: UITableViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {

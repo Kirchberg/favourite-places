@@ -109,10 +109,10 @@ public struct LinkingObjects<Element: Object> {
     }
 
     /// Returns the first object in the linking objects, or `nil` if the linking objects are empty.
-    public var first: Element? { return unsafeBitCast(rlmResults.firstObject(), to: Optional<Element>.self) }
+    public var first: Element? { return unsafeBitCast(rlmResults.firstObject(), to: Element?.self) }
 
     /// Returns the last object in the linking objects, or `nil` if the linking objects are empty.
-    public var last: Element? { return unsafeBitCast(rlmResults.lastObject(), to: Optional<Element>.self) }
+    public var last: Element? { return unsafeBitCast(rlmResults.lastObject(), to: Element?.self) }
 
     // MARK: KVC
 
@@ -188,8 +188,9 @@ public struct LinkingObjects<Element: Object> {
      - parameter sortDescriptors: A sequence of `SortDescriptor`s to sort by.
      */
     public func sorted<S: Sequence>(by sortDescriptors: S) -> Results<Element>
-        where S.Iterator.Element == SortDescriptor {
-            return Results(rlmResults.sortedResults(using: sortDescriptors.map { $0.rlmSortDescriptorValue }))
+        where S.Iterator.Element == SortDescriptor
+    {
+        return Results(rlmResults.sortedResults(using: sortDescriptors.map { $0.rlmSortDescriptorValue }))
     }
 
     // MARK: Aggregate Operations
@@ -302,14 +303,15 @@ public struct LinkingObjects<Element: Object> {
      - returns: A token which must be held for as long as you want updates to be delivered.
      */
     public func observe(on queue: DispatchQueue? = nil,
-                        _ block: @escaping (RealmCollectionChange<LinkingObjects>) -> Void) -> NotificationToken {
+                        _ block: @escaping (RealmCollectionChange<LinkingObjects>) -> Void) -> NotificationToken
+    {
         return rlmResults.addNotificationBlock(wrapObserveBlock(block), queue: queue)
     }
 
     // MARK: Frozen Objects
 
     /// Returns if this collection is frozen.
-    public var isFrozen: Bool { return self.rlmResults.isFrozen }
+    public var isFrozen: Bool { return rlmResults.isFrozen }
 
     /**
      Returns a frozen (immutable) snapshot of this collection.
@@ -334,9 +336,10 @@ public struct LinkingObjects<Element: Object> {
         self.propertyName = propertyName
         self.handle = handle
     }
+
     internal init(objc: RLMResults<AnyObject>) {
-        self.propertyName = ""
-        self.handle = RLMLinkingObjectsHandle(linkingObjects: objc)
+        propertyName = ""
+        handle = RLMLinkingObjectsHandle(linkingObjects: objc)
     }
 
     internal var rlmResults: RLMResults<AnyObject> {
@@ -373,26 +376,27 @@ extension LinkingObjects: RealmCollection {
     public var endIndex: Int { return count }
 
     public func index(after: Int) -> Int {
-      return after + 1
+        return after + 1
     }
 
     public func index(before: Int) -> Int {
-      return before - 1
+        return before - 1
     }
 
     /// :nodoc:
     // swiftlint:disable:next identifier_name
     public func _observe(_ queue: DispatchQueue?,
                          _ block: @escaping (RealmCollectionChange<AnyRealmCollection<Element>>) -> Void)
-        -> NotificationToken {
-            return rlmResults.addNotificationBlock(wrapObserveBlock(block), queue: queue)
+        -> NotificationToken
+    {
+        return rlmResults.addNotificationBlock(wrapObserveBlock(block), queue: queue)
     }
 }
 
 // MARK: AssistedObjectiveCBridgeable
 
 extension LinkingObjects: AssistedObjectiveCBridgeable {
-    internal static func bridging(from objectiveCValue: Any, with metadata: Any?) -> LinkingObjects {
+    internal static func bridging(from objectiveCValue: Any, with _: Any?) -> LinkingObjects {
         guard let object = objectiveCValue as? RLMResults<Element> else { preconditionFailure() }
         return LinkingObjects<Element>(objc: object as! RLMResults<AnyObject>)
     }

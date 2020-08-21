@@ -81,7 +81,6 @@ extension Realm {
  modifying the Realm during the migration.
  */
 public struct Migration {
-
     // MARK: Properties
 
     /// The old schema, describing the Realm before applying a migration.
@@ -173,7 +172,6 @@ public struct Migration {
         self.rlmMigration = rlmMigration
     }
 }
-
 
 // MARK: Private Helpers
 

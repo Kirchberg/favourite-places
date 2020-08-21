@@ -19,8 +19,7 @@
 import Realm
 
 /// A protocol describing types that can parameterize a `RealmOptional`.
-public protocol RealmOptionalType {
-}
+public protocol RealmOptionalType {}
 
 public extension RealmOptionalType {
     /// :nodoc:
@@ -28,6 +27,7 @@ public extension RealmOptionalType {
         return ""
     }
 }
+
 extension Int: RealmOptionalType {}
 extension Int8: RealmOptionalType {}
 extension Int16: RealmOptionalType {}
@@ -71,13 +71,13 @@ extension RealmOptional: Codable where Value: Codable {
         // `try decoder.singleValueContainer().decode(Value?.self)` incorrectly
         // rejects null values: https://bugs.swift.org/browse/SR-7404
         let container = try decoder.singleValueContainer()
-        self.value = container.decodeNil() ? nil : try container.decode(Value.self)
+        value = container.decodeNil() ? nil : try container.decode(Value.self)
     }
 
     public func encode(to encoder: Encoder) throws {
-        try self.value.encode(to: encoder)
+        try value.encode(to: encoder)
     }
 }
 
-internal protocol RealmOptionalProtocol { }
-extension RealmOptional: RealmOptionalProtocol { }
+internal protocol RealmOptionalProtocol {}
+extension RealmOptional: RealmOptionalProtocol {}

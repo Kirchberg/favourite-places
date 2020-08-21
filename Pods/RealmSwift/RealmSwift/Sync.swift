@@ -126,7 +126,8 @@ extension SyncError {
     public func clientResetInfo() -> (String, SyncError.ActionToken)? {
         if code == SyncError.clientResetError,
             let recoveryPath = userInfo[kRLMSyncPathOfRealmBackupCopyKey] as? String,
-            let token = _nsError.__rlmSync_errorActionToken() {
+            let token = _nsError.__rlmSync_errorActionToken()
+        {
             return (recoveryPath, token)
         }
         return nil
@@ -275,17 +276,17 @@ public struct SyncConfiguration {
     public let cancelAsyncOpenOnNonFatalErrors: Bool
 
     internal init(config: RLMSyncConfiguration) {
-        self.user = config.user
-        self.realmURL = config.realmURL
-        self.stopPolicy = config.stopPolicy
+        user = config.user
+        realmURL = config.realmURL
+        stopPolicy = config.stopPolicy
         if let certificateURL = config.pinnedCertificateURL {
-            self.serverValidationPolicy = .pinCertificate(path: certificateURL)
+            serverValidationPolicy = .pinCertificate(path: certificateURL)
         } else {
-            self.serverValidationPolicy = config.enableSSLValidation ? .system : .none
+            serverValidationPolicy = config.enableSSLValidation ? .system : .none
         }
-        self.fullSynchronization = config.fullSynchronization
-        self.urlPrefix = config.urlPrefix
-        self.cancelAsyncOpenOnNonFatalErrors = config.cancelAsyncOpenOnNonFatalErrors
+        fullSynchronization = config.fullSynchronization
+        urlPrefix = config.urlPrefix
+        cancelAsyncOpenOnNonFatalErrors = config.cancelAsyncOpenOnNonFatalErrors
     }
 
     func asConfig() -> RLMSyncConfiguration {
@@ -296,7 +297,7 @@ public struct SyncConfiguration {
             validateSSL = false
         case .system:
             break
-        case .pinCertificate(let path):
+        case let .pinCertificate(path):
             certificate = path
         }
         let c = RLMSyncConfiguration(user: user, realmURL: realmURL,
@@ -311,7 +312,7 @@ public struct SyncConfiguration {
 
     /// :nodoc:
     @available(*, unavailable, message: "Use SyncUser.configuration() instead")
-    public init(user: SyncUser, realmURL: URL, enableSSLValidation: Bool = true, isPartial: Bool = false, urlPrefix: String? = nil) {
+    public init(user _: SyncUser, realmURL _: URL, enableSSLValidation _: Bool = true, isPartial _: Bool = false, urlPrefix _: String? = nil) {
         fatalError()
     }
 
@@ -323,7 +324,7 @@ public struct SyncConfiguration {
 
     /// :nodoc:
     @available(*, unavailable, message: "Use SyncUser.configuration() instead")
-    public static func automatic(user: SyncUser) -> Realm.Configuration {
+    public static func automatic(user _: SyncUser) -> Realm.Configuration {
         fatalError()
     }
 }
@@ -348,9 +349,9 @@ public struct SyncCredentials {
     }
 
     internal init(_ credentials: RLMSyncCredentials) {
-        self.token = credentials.token
-        self.provider = credentials.provider
-        self.userInfo = credentials.userInfo
+        token = credentials.token
+        provider = credentials.provider
+        userInfo = credentials.userInfo
     }
 
     /// Initialize new credentials using a Facebook account token.
@@ -371,7 +372,8 @@ public struct SyncCredentials {
     /// Initialize new credentials using a Realm Object Server username and password.
     public static func usernamePassword(username: String,
                                         password: String,
-                                        register: Bool = false) -> SyncCredentials {
+                                        register: Bool = false) -> SyncCredentials
+    {
         return SyncCredentials(RLMSyncCredentials(username: username, password: password, register: register))
     }
 
@@ -427,7 +429,8 @@ extension SyncUser {
                              server authServerURL: URL,
                              timeout: TimeInterval = 30,
                              callbackQueue queue: DispatchQueue = DispatchQueue.main,
-                             onCompletion completion: @escaping UserCompletionBlock) {
+                             onCompletion completion: @escaping UserCompletionBlock)
+    {
         return SyncUser.__logIn(with: RLMSyncCredentials(credentials),
                                 authServerURL: authServerURL,
                                 timeout: timeout,
@@ -467,7 +470,7 @@ extension SyncUser {
         }
         set {
             if let newValue = newValue {
-                __errorHandler = { (user, error) in
+                __errorHandler = { user, error in
                     newValue(user, error as! SyncAuthError)
                 }
             } else {
@@ -499,8 +502,9 @@ extension SyncUser {
     public func createOfferForRealm(at url: URL,
                                     accessLevel: SyncAccessLevel,
                                     expiration: Date? = nil,
-                                    callback: @escaping (String?, Error?) -> Void) {
-        self.__createOfferForRealm(at: url, accessLevel: accessLevel, expiration: expiration, callback: callback)
+                                    callback: @escaping (String?, Error?) -> Void)
+    {
+        __createOfferForRealm(at: url, accessLevel: accessLevel, expiration: expiration, callback: callback)
     }
 
     /**
@@ -518,11 +522,12 @@ extension SyncUser {
      - warning: NEVER disable SSL validation for a system running in production.
      */
     public func configuration(realmURL: URL? = nil, fullSynchronization: Bool = false,
-                              enableSSLValidation: Bool, urlPrefix: String? = nil) -> Realm.Configuration {
-        let config = self.__configuration(with: realmURL,
-                                          fullSynchronization: fullSynchronization,
-                                          enableSSLValidation: enableSSLValidation,
-                                          urlPrefix: urlPrefix)
+                              enableSSLValidation: Bool, urlPrefix: String? = nil) -> Realm.Configuration
+    {
+        let config = __configuration(with: realmURL,
+                                     fullSynchronization: fullSynchronization,
+                                     enableSSLValidation: enableSSLValidation,
+                                     urlPrefix: urlPrefix)
         return ObjectiveCSupport.convert(object: config)
     }
 
@@ -554,8 +559,9 @@ extension SyncUser {
     public func configuration(realmURL: URL? = nil, fullSynchronization: Bool = false,
                               serverValidationPolicy: ServerValidationPolicy = .system,
                               urlPrefix: String? = nil,
-                              cancelAsyncOpenOnNonFatalErrors: Bool = false) -> Realm.Configuration {
-        let config = self.__configuration(with: realmURL, fullSynchronization: fullSynchronization)
+                              cancelAsyncOpenOnNonFatalErrors: Bool = false) -> Realm.Configuration
+    {
+        let config = __configuration(with: realmURL, fullSynchronization: fullSynchronization)
         let syncConfig = config.syncConfiguration!
         syncConfig.urlPrefix = urlPrefix
         syncConfig.cancelAsyncOpenOnNonFatalErrors = cancelAsyncOpenOnNonFatalErrors
@@ -564,7 +570,7 @@ extension SyncUser {
             syncConfig.enableSSLValidation = false
         case .system:
             break
-        case .pinCertificate(let path):
+        case let .pinCertificate(path):
             syncConfig.pinnedCertificateURL = path
         }
         config.syncConfiguration = syncConfig
@@ -722,12 +728,13 @@ public extension SyncSession {
      */
     func addProgressNotification(for direction: ProgressDirection,
                                  mode: ProgressMode,
-                                 block: @escaping (Progress) -> Void) -> ProgressNotificationToken? {
-        return __addProgressNotification(for: (direction == .upload ? .upload : .download),
-                                         mode: (mode == .reportIndefinitely
-                                            ? .reportIndefinitely
-                                            : .forCurrentlyOutstandingWork)) { transferred, transferrable in
-                                                block(Progress(transferred: transferred, transferrable: transferrable))
+                                 block: @escaping (Progress) -> Void) -> ProgressNotificationToken?
+    {
+        return __addProgressNotification(for: direction == .upload ? .upload : .download,
+                                         mode: mode == .reportIndefinitely
+                                             ? .reportIndefinitely
+                                             : .forCurrentlyOutstandingWork) { transferred, transferrable in
+            block(Progress(transferred: transferred, transferrable: transferrable))
         }
     }
 }
@@ -735,15 +742,16 @@ public extension SyncSession {
 extension Realm {
     /// :nodoc:
     @available(*, unavailable, message: "Use Results.subscribe()")
-    public func subscribe<T: Object>(to objects: T.Type, where: String,
-                                     completion: @escaping (Results<T>?, Swift.Error?) -> Void) {
+    public func subscribe<T: Object>(to _: T.Type, where _: String,
+                                     completion _: @escaping (Results<T>?, Swift.Error?) -> Void)
+    {
         fatalError()
     }
 
     /**
-     Get the SyncSession used by this Realm. Will be nil if this is not a
-     synchronized Realm.
-    */
+      Get the SyncSession used by this Realm. Will be nil if this is not a
+      synchronized Realm.
+     */
     public var syncSession: SyncSession? {
         return SyncSession(for: rlmRealm)
     }
@@ -751,7 +759,7 @@ extension Realm {
 
 // MARK: - Permissions and permission results
 
-extension SyncPermission: RealmCollectionValue { }
+extension SyncPermission: RealmCollectionValue {}
 
 /**
  An array containing sync permission results.
@@ -797,7 +805,7 @@ public enum SyncSubscriptionState: Equatable {
         switch (lhs, rhs) {
         case (.creating, .creating), (.pending, .pending), (.complete, .complete), (.invalidated, .invalidated):
             return true
-        case (.error(let e1), .error(let e2)):
+        case let (.error(e1), .error(e2)):
             return e1 == e2
         default:
             return false
@@ -908,9 +916,10 @@ public struct SyncSubscription: RealmCollectionValue {
     ///                      is supported at this time.
     /// - parameter block: The block to be called whenever a change occurs.
     /// - returns: A token which must be held for as long as you want updates to be delivered.
-    public func observe(_ keyPath: KeyPath<SyncSubscription, SyncSubscriptionState>,
+    public func observe(_: KeyPath<SyncSubscription, SyncSubscriptionState>,
                         options: NSKeyValueObservingOptions = [],
-                        _ block: @escaping (SyncSubscriptionState) -> Void) -> NotificationToken {
+                        _ block: @escaping (SyncSubscriptionState) -> Void) -> NotificationToken
+    {
         let observation = rlmSubscription.observe(\.state, options: options) { rlmSubscription, _ in
             block(SyncSubscriptionState(rlmSubscription))
         }
@@ -933,6 +942,7 @@ extension SyncSubscription: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> SyncSubscription {
         return ObjectiveCSupport.convert(object: RLMCastToSyncSubscription(objCValue))
     }
+
     internal var objCValue: Any {
         return 0
     }
@@ -1022,7 +1032,8 @@ extension Results {
     /// - returns: The subscription.
     public func subscribe(named subscriptionName: String? = nil, limit: Int? = nil,
                           update: Bool = false, timeToLive: TimeInterval? = nil,
-                          includingLinkingObjects: [String] = []) -> SyncSubscription {
+                          includingLinkingObjects: [String] = []) -> SyncSubscription
+    {
         let options = RLMSyncSubscriptionOptions()
         options.name = subscriptionName
         options.overwriteExisting = update
@@ -1045,8 +1056,8 @@ internal class KeyValueObservationNotificationToken: NotificationToken {
         self.observation = observation
     }
 
-    public override func invalidate() {
-        self.observation = nil
+    override public func invalidate() {
+        observation = nil
     }
 }
 
@@ -1070,42 +1081,42 @@ public class Permission: Object {
     /// objects/classes/realms which use this Permission.
     ///
     /// This property cannot be modified once set.
-    @objc dynamic public var role: PermissionRole?
+    @objc public dynamic var role: PermissionRole?
 
     /// Whether the user can read the object to which this Permission is attached.
-    @objc dynamic public var canRead = false
+    @objc public dynamic var canRead = false
 
     /// Whether the user can modify the object to which this Permission is attached.
-    @objc dynamic public var canUpdate = false
+    @objc public dynamic var canUpdate = false
 
     /// Whether the user can delete the object to which this Permission is attached.
     ///
     /// This field is only applicable to Permissions attached to Objects, and not
     /// to Realms or Classes.
-    @objc dynamic public var canDelete = false
+    @objc public dynamic var canDelete = false
 
     /// Whether the user can add or modify Permissions for the object which this
     /// Permission is attached to.
-    @objc dynamic public var canSetPermissions = false
+    @objc public dynamic var canSetPermissions = false
 
     /// Whether the user can subscribe to queries for this object type.
     ///
     /// This field is only applicable to Permissions attached to Classes, and not
     /// to Realms or Objects.
-    @objc dynamic public var canQuery = false
+    @objc public dynamic var canQuery = false
 
     /// Whether the user can create new objects of the type this Permission is attached to.
     ///
     /// This field is only applicable to Permissions attached to Classes, and not
     /// to Realms or Objects.
-    @objc dynamic public var canCreate = false
+    @objc public dynamic var canCreate = false
 
     /// Whether the user can modify the schema of the Realm which this
     /// Permission is attached to.
     ///
     /// This field is only applicable to Permissions attached to Realms, and not
     /// to Realms or Objects.
-    @objc dynamic public var canModifySchema = false
+    @objc public dynamic var canModifySchema = false
 
     /// :nodoc:
     @objc override public class func _realmObjectName() -> String {
@@ -1127,7 +1138,7 @@ public class Permission: Object {
 @objc(RealmSwiftPermissionRole)
 public class PermissionRole: Object {
     /// The name of the Role
-    @objc dynamic public var name = ""
+    @objc public dynamic var name = ""
     /// The users which belong to the role
     public let users = List<PermissionUser>()
 
@@ -1135,10 +1146,12 @@ public class PermissionRole: Object {
     @objc override public class func _realmObjectName() -> String {
         return "__Role"
     }
+
     /// :nodoc:
     @objc override public class func primaryKey() -> String {
         return "name"
     }
+
     /// :nodoc:
     @objc override public class func _realmColumnNames() -> [String: String] {
         return ["users": "members"]
@@ -1157,11 +1170,11 @@ public class PermissionRole: Object {
 public class PermissionUser: Object {
     /// The unique Realm Object Server user ID string identifying this user. This will
     /// have the same value as `SyncUser.identity`
-    @objc dynamic public var identity = ""
+    @objc public dynamic var identity = ""
 
     /// The user's private role. This will be initialized to a role named for the user's
     /// identity that contains this user as its only member.
-    @objc dynamic public var role: PermissionRole?
+    @objc public dynamic var role: PermissionRole?
 
     /// Roles which this user belongs to.
     public let roles = LinkingObjects(fromType: PermissionRole.self, property: "users")
@@ -1170,10 +1183,12 @@ public class PermissionUser: Object {
     @objc override public class func _realmObjectName() -> String {
         return "__User"
     }
+
     /// :nodoc:
     @objc override public class func primaryKey() -> String {
         return "identity"
     }
+
     /// :nodoc:
     @objc override public class func _realmColumnNames() -> [String: String] {
         return ["identity": "id", "role": "role"]
@@ -1199,6 +1214,7 @@ public class RealmPermission: Object {
     @objc override public class func _realmObjectName() -> String {
         return "__Realm"
     }
+
     /// :nodoc:
     @objc override public class func primaryKey() -> String {
         return "id"
@@ -1214,7 +1230,7 @@ public class RealmPermission: Object {
 @objc(RealmSwiftClassPermission)
 public class ClassPermission: Object {
     /// The name of the class which these permissions apply to.
-    @objc dynamic public var name = ""
+    @objc public dynamic var name = ""
     /// The permissions for this class.
     public let permissions = List<Permission>()
 
@@ -1222,6 +1238,7 @@ public class ClassPermission: Object {
     @objc override public class func _realmObjectName() -> String {
         return "__Class"
     }
+
     /// :nodoc:
     @objc override public class func primaryKey() -> String {
         return "name"
@@ -1229,10 +1246,11 @@ public class ClassPermission: Object {
 }
 
 private func optionSetDescription<T: OptionSet>(_ optionSet: T,
-                                                _ allValues: [(T.Element, String)]) -> String {
-    let valueStr = allValues.filter({ value, _ in optionSet.contains(value) })
-                            .map({ _, name in name })
-                            .joined(separator: ", ")
+                                                _ allValues: [(T.Element, String)]) -> String
+{
+    let valueStr = allValues.filter { value, _ in optionSet.contains(value) }
+        .map { _, name in name }
+        .joined(separator: ", ")
     return "\(String(describing: T.self))[\(valueStr)]"
 }
 
@@ -1422,125 +1440,125 @@ extension Realm {
     // MARK: Sync - Permissions
 
     /**
-    Returns the computed privileges which the current user has for this Realm.
+     Returns the computed privileges which the current user has for this Realm.
 
-    This combines all privileges granted on the Realm by all Roles which the
-    current User is a member of into the final privileges which will be
-    enforced by the server.
+     This combines all privileges granted on the Realm by all Roles which the
+     current User is a member of into the final privileges which will be
+     enforced by the server.
 
-    The privilege calculation is done locally using cached data, and inherently
-    may be stale. It is possible that this method may indicate that an
-    operation is permitted but the server will still reject it if permission is
-    revoked before the changes have been integrated on the server.
+     The privilege calculation is done locally using cached data, and inherently
+     may be stale. It is possible that this method may indicate that an
+     operation is permitted but the server will still reject it if permission is
+     revoked before the changes have been integrated on the server.
 
-    Non-synchronized and fully-synchronized Realms always have permission to
-    perform all operations.
+     Non-synchronized and fully-synchronized Realms always have permission to
+     perform all operations.
 
-     - returns: The privileges which the current user has for the current Realm.
-     */
+      - returns: The privileges which the current user has for the current Realm.
+           */
     public func getPrivileges() -> RealmPrivileges {
         return RealmPrivileges(rawValue: RLMGetComputedPermissions(rlmRealm, nil))
     }
 
     /**
-    Returns the computed privileges which the current user has for the given object.
+     Returns the computed privileges which the current user has for the given object.
 
-    This combines all privileges granted on the object by all Roles which the
-    current User is a member of into the final privileges which will be
-    enforced by the server.
+     This combines all privileges granted on the object by all Roles which the
+     current User is a member of into the final privileges which will be
+     enforced by the server.
 
-    The privilege calculation is done locally using cached data, and inherently
-    may be stale. It is possible that this method may indicate that an
-    operation is permitted but the server will still reject it if permission is
-    revoked before the changes have been integrated on the server.
+     The privilege calculation is done locally using cached data, and inherently
+     may be stale. It is possible that this method may indicate that an
+     operation is permitted but the server will still reject it if permission is
+     revoked before the changes have been integrated on the server.
 
-    Non-synchronized and fully-synchronized Realms always have permission to
-    perform all operations.
+     Non-synchronized and fully-synchronized Realms always have permission to
+     perform all operations.
 
-    The object must be a valid object managed by this Realm. Passing in an
-    invalidated object, an unmanaged object, or an object managed by a
-    different Realm will throw an exception.
+     The object must be a valid object managed by this Realm. Passing in an
+     invalidated object, an unmanaged object, or an object managed by a
+     different Realm will throw an exception.
 
-     - parameter object: A managed object to get the privileges for.
-     - returns: The privileges which the current user has for the given object.
-    */
+      - parameter object: A managed object to get the privileges for.
+      - returns: The privileges which the current user has for the given object.
+     */
     public func getPrivileges(_ object: Object) -> ObjectPrivileges {
         return ObjectPrivileges(rawValue: RLMGetComputedPermissions(rlmRealm, object))
     }
 
     /**
-    Returns the computed privileges which the current user has for the given class.
+     Returns the computed privileges which the current user has for the given class.
 
-    This combines all privileges granted on the class by all Roles which the
-    current User is a member of into the final privileges which will be
-    enforced by the server.
+     This combines all privileges granted on the class by all Roles which the
+     current User is a member of into the final privileges which will be
+     enforced by the server.
 
-    The privilege calculation is done locally using cached data, and inherently
-    may be stale. It is possible that this method may indicate that an
-    operation is permitted but the server will still reject it if permission is
-    revoked before the changes have been integrated on the server.
+     The privilege calculation is done locally using cached data, and inherently
+     may be stale. It is possible that this method may indicate that an
+     operation is permitted but the server will still reject it if permission is
+     revoked before the changes have been integrated on the server.
 
-    Non-synchronized and fully-synchronized Realms always have permission to
-    perform all operations.
+     Non-synchronized and fully-synchronized Realms always have permission to
+     perform all operations.
 
-     - parameter cls: An Object subclass to get the privileges for.
-     - returns: The privileges which the current user has for the given class.
-    */
+      - parameter cls: An Object subclass to get the privileges for.
+      - returns: The privileges which the current user has for the given class.
+     */
     public func getPrivileges<T: Object>(_ cls: T.Type) -> ClassPrivileges {
         return ClassPrivileges(rawValue: RLMGetComputedPermissions(rlmRealm, cls.className()))
     }
 
     /**
-    Returns the computed privileges which the current user has for the named class.
+     Returns the computed privileges which the current user has for the named class.
 
-    This combines all privileges granted on the class by all Roles which the
-    current User is a member of into the final privileges which will be
-    enforced by the server.
+     This combines all privileges granted on the class by all Roles which the
+     current User is a member of into the final privileges which will be
+     enforced by the server.
 
-    The privilege calculation is done locally using cached data, and inherently
-    may be stale. It is possible that this method may indicate that an
-    operation is permitted but the server will still reject it if permission is
-    revoked before the changes have been integrated on the server.
+     The privilege calculation is done locally using cached data, and inherently
+     may be stale. It is possible that this method may indicate that an
+     operation is permitted but the server will still reject it if permission is
+     revoked before the changes have been integrated on the server.
 
-    Non-synchronized and fully-synchronized Realms always have permission to
-    perform all operations.
+     Non-synchronized and fully-synchronized Realms always have permission to
+     perform all operations.
 
-     - parameter className: The name of an Object subclass to get the privileges for.
-     - returns: The privileges which the current user has for the named class.
-    */
+      - parameter className: The name of an Object subclass to get the privileges for.
+      - returns: The privileges which the current user has for the named class.
+     */
     public func getPrivileges(forClassNamed className: String) -> ClassPrivileges {
         return ClassPrivileges(rawValue: RLMGetComputedPermissions(rlmRealm, className))
     }
 
     /**
-    Returns the class-wide permissions for the given class.
+     Returns the class-wide permissions for the given class.
 
-     - parameter cls: An Object subclass to get the permissions for.
-     - returns: The class-wide permissions for the given class.
-     - requires: This must only be called on a Realm using query-based sync.
-    */
+      - parameter cls: An Object subclass to get the permissions for.
+      - returns: The class-wide permissions for the given class.
+      - requires: This must only be called on a Realm using query-based sync.
+     */
     public func permissions<T: Object>(forType cls: T.Type) -> List<Permission> {
         return permissions(forClassNamed: cls._realmObjectName() ?? cls.className())
     }
 
     /**
-    Returns the class-wide permissions for the named class.
+     Returns the class-wide permissions for the named class.
 
-     - parameter cls: The name of an Object subclass to get the permissions for.
-     - returns: The class-wide permissions for the named class.
-     - requires: className must name a class in this Realm's schema.
-     - requires: This must only be called on a Realm using query-based sync.
-    */
+      - parameter cls: The name of an Object subclass to get the permissions for.
+      - returns: The class-wide permissions for the named class.
+      - requires: className must name a class in this Realm's schema.
+      - requires: This must only be called on a Realm using query-based sync.
+     */
     public func permissions(forClassNamed className: String) -> List<Permission> {
         let classPermission = object(ofType: ClassPermission.self, forPrimaryKey: className)!
         return classPermission.permissions
     }
 
     /**
-    Returns the Realm-wide permissions.
+     Returns the Realm-wide permissions.
 
-     - requires: This must only be called on a Realm using query-based sync.
-    */
+      - requires: This must only be called on a Realm using query-based sync.
+     */
     public var permissions: List<Permission> {
         return object(ofType: RealmPermission.self, forPrimaryKey: 0)!.permissions
     }
@@ -1548,32 +1566,32 @@ extension Realm {
     // MARK: Sync - Subscriptions
 
     /**
-    Returns this list of the query-based sync subscriptions made for this Realm.
+     Returns this list of the query-based sync subscriptions made for this Realm.
 
-    This list includes all subscriptions which are currently in the states
-    `.pending`, `.created`, and `.error`. Newly created subscriptions which are
-    still in the `.creating` state are not included, and calling this
-    immediately after calling `Results.subscribe()` will typically not include
-    that subscription. Similarly, because unsubscription happens asynchronously,
-    this may continue to include subscriptions after
-    `SyncSubscription.unsubscribe()` is called on them.
+     This list includes all subscriptions which are currently in the states
+     `.pending`, `.created`, and `.error`. Newly created subscriptions which are
+     still in the `.creating` state are not included, and calling this
+     immediately after calling `Results.subscribe()` will typically not include
+     that subscription. Similarly, because unsubscription happens asynchronously,
+     this may continue to include subscriptions after
+     `SyncSubscription.unsubscribe()` is called on them.
 
-     - requires: This must only be called on a Realm using query-based sync.
-    */
+      - requires: This must only be called on a Realm using query-based sync.
+     */
     public func subscriptions() -> Results<SyncSubscription> {
         return Results(rlmRealm.subscriptions() as! RLMResults<AnyObject>)
     }
 
     /**
-    Returns the named query-based sync subscription, if it exists.
+     Returns the named query-based sync subscription, if it exists.
 
-    Subscriptions are created asynchronously, so calling this immediately after
-    calling Results.subscribe(named:)` will typically return `nil`. Only
-    subscriptions which are currently in the states `.pending`, `.created`,
-    and `.error` can be retrieved with this method.
+     Subscriptions are created asynchronously, so calling this immediately after
+     calling Results.subscribe(named:)` will typically return `nil`. Only
+     subscriptions which are currently in the states `.pending`, `.created`,
+     and `.error` can be retrieved with this method.
 
-     - requires: This must only be called on a Realm using query-based sync.
-    */
+      - requires: This must only be called on a Realm using query-based sync.
+     */
     public func subscription(named: String) -> SyncSubscription? {
         return rlmRealm.subscription(withName: named).map(SyncSubscription.init)
     }
@@ -1581,36 +1599,36 @@ extension Realm {
 
 extension List where Element == Permission {
     /**
-    Returns the Permission object for the named Role in this List, creating it if needed.
+     Returns the Permission object for the named Role in this List, creating it if needed.
 
-    This function should be used in preference to manually querying the List for
-    the applicable Permission as it ensures that there is exactly one Permission
-    for the given Role, merging duplicates and inserting new ones as needed.
+     This function should be used in preference to manually querying the List for
+     the applicable Permission as it ensures that there is exactly one Permission
+     for the given Role, merging duplicates and inserting new ones as needed.
 
-     - warning: This can only be called on a managed List<Permission>.
-     - warning: The managing Realm must be in a write transaction.
+      - warning: This can only be called on a managed List<Permission>.
+      - warning: The managing Realm must be in a write transaction.
 
-     - parameter roleName: The name of the Role to obtain the Permission for.
-     - returns: A Permission object contained in this List for the named Role.
-    */
+      - parameter roleName: The name of the Role to obtain the Permission for.
+      - returns: A Permission object contained in this List for the named Role.
+     */
     public func findOrCreate(forRoleNamed roleName: String) -> Permission {
         precondition(realm != nil, "Cannot be called on an unmanaged object")
         return RLMPermissionForRole(_rlmArray, realm!.create(PermissionRole.self, value: [roleName], update: .modified)) as! Permission
     }
 
     /**
-    Returns the Permission object for the named Role in this List, creating it if needed.
+     Returns the Permission object for the named Role in this List, creating it if needed.
 
-    This function should be used in preference to manually querying the List for
-    the applicable Permission as it ensures that there is exactly one Permission
-    for the given Role, merging duplicates and inserting new ones as needed.
+     This function should be used in preference to manually querying the List for
+     the applicable Permission as it ensures that there is exactly one Permission
+     for the given Role, merging duplicates and inserting new ones as needed.
 
-     - warning: This can only be called on a managed List<Permission>.
-     - warning: The managing Realm must be in a write transaction.
+      - warning: This can only be called on a managed List<Permission>.
+      - warning: The managing Realm must be in a write transaction.
 
-     - parameter roleName: The name of the Role to obtain the Permission for.
-     - returns: A Permission object contained in this List for the named Role.
-    */
+      - parameter roleName: The name of the Role to obtain the Permission for.
+      - returns: A Permission object contained in this List for the named Role.
+     */
     public func findOrCreate(forRole role: PermissionRole) -> Permission {
         precondition(realm != nil, "Cannot be called on an unmanaged object")
         return RLMPermissionForRole(_rlmArray, role) as! Permission

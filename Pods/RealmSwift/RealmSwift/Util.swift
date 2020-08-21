@@ -20,7 +20,7 @@ import Foundation
 import Realm
 
 #if BUILDING_REALM_SWIFT_TESTS
-import RealmSwift
+    import RealmSwift
 #endif
 
 // MARK: Internal Helpers
@@ -60,7 +60,7 @@ internal func throwForNegativeIndex(_ int: Int, parameterName: String = "index")
     }
 }
 
-internal func gsub(pattern: String, template: String, string: String, error: NSErrorPointer = nil) -> String? {
+internal func gsub(pattern: String, template: String, string: String, error _: NSErrorPointer = nil) -> String? {
     let regex = try? NSRegularExpression(pattern: pattern, options: [])
     return regex?.stringByReplacingMatches(in: string, options: [],
                                            range: NSRange(location: 0, length: string.utf16.count),
@@ -120,6 +120,7 @@ extension Float: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> Float {
         return (objCValue as! NSNumber).floatValue
     }
+
     internal var objCValue: Any {
         return NSNumber(value: self)
     }
@@ -129,34 +130,42 @@ extension Int8: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> Int8 {
         return (objCValue as! NSNumber).int8Value
     }
+
     internal var objCValue: Any {
         return NSNumber(value: self)
     }
 }
+
 extension Int16: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> Int16 {
         return (objCValue as! NSNumber).int16Value
     }
+
     internal var objCValue: Any {
         return NSNumber(value: self)
     }
 }
+
 extension Int32: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> Int32 {
         return (objCValue as! NSNumber).int32Value
     }
+
     internal var objCValue: Any {
         return NSNumber(value: self)
     }
 }
+
 extension Int64: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> Int64 {
         return (objCValue as! NSNumber).int64Value
     }
+
     internal var objCValue: Any {
         return NSNumber(value: self)
     }
 }
+
 extension Optional: CustomObjectiveCBridgeable {
     internal static func bridging(objCValue: Any) -> Optional {
         if objCValue is NSNull {
@@ -165,6 +174,7 @@ extension Optional: CustomObjectiveCBridgeable {
             return .some(dynamicBridgeCast(fromObjectiveC: objCValue))
         }
     }
+
     internal var objCValue: Any {
         if let value = self {
             return dynamicBridgeCast(fromSwift: value)
