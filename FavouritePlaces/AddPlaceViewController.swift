@@ -22,11 +22,15 @@ class AddPlaceViewController: BaseViewController {
     @IBOutlet var placeNameTF: UITextField!
     @IBOutlet var placeLocationTF: UITextField!
     @IBOutlet var placeTypeTF: UITextField!
+    @IBOutlet var placeRating: RatingControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupEditScreen()
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0,
+                                                         y: 0,
+                                                         width: tableView.frame.size.width,
+                                                         height: 1))
         placeNameTF.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
     }
 
@@ -41,7 +45,8 @@ class AddPlaceViewController: BaseViewController {
         let newPlace = Place(name: placeNameTF.text!,
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
-                             imageData: imageData)
+                             imageData: imageData,
+                             rating: placeRating.rating.toDouble())
         guard let currentPlace = currentPlace else {
             StorageManager.saveObject(newPlace)
             return
@@ -51,6 +56,7 @@ class AddPlaceViewController: BaseViewController {
             currentPlace.location = newPlace.location
             currentPlace.type = newPlace.type
             currentPlace.imageData = newPlace.imageData
+            currentPlace.rating = newPlace.rating
         }
     }
 
@@ -97,6 +103,7 @@ class AddPlaceViewController: BaseViewController {
         placeLocationTF.text = currentPlace.location
         placeNameTF.text = currentPlace.name
         placeTypeTF.text = currentPlace.type
+        placeRating.rating = currentPlace.rating.toInt()
     }
 
     private func setupNavigationBar() {
@@ -120,13 +127,8 @@ extension AddPlaceViewController: UITextFieldDelegate {
         return true
     }
 
-    private func isEmptyTF(_ textField: String?) -> Bool {
-        let str = textField?.filter { !" ".contains($0) }
-        return (str == "") ? true : false
-    }
-
     @objc private func textFieldChanged() {
-        if isEmptyTF(placeNameTF.text) == false {
+        if placeNameTF.text?.isEmpty == false {
             addButton.isEnabled = true
         } else {
             addButton.isEnabled = false
@@ -155,5 +157,15 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
         placeImage.clipsToBounds = true
         imageIsChanged = true
         dismiss(animated: true)
+    }
+}
+
+// MARK: - Extension for String Literals
+
+extension String {
+    // String isEmpty
+    func isEmpty() -> Bool {
+        let str = filter { !" ".contains($0) }
+        return (str == "") ? true : false
     }
 }

@@ -188,6 +188,7 @@
                         <outlet property="placeImage" destination="re8-IQ-zbX" id="mKG-Fv-8u0"/>
                         <outlet property="placeLocationTF" destination="dSG-20-5S6" id="czF-WH-j13"/>
                         <outlet property="placeNameTF" destination="fmv-2f-gpM" id="yzw-yB-0dA"/>
+                        <outlet property="placeRating" destination="QDx-8j-phV" id="fzx-uO-358"/>
                         <outlet property="placeTypeTF" destination="IBl-Uq-8qG" id="5VE-PR-IOk"/>
                     </connections>
                 </tableViewController>
@@ -224,7 +225,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-Vo-Y72">
-                                <rect key="frame" x="0.0" y="123" width="414" height="739"/>
+                                <rect key="frame" x="0.0" y="123" width="414" height="773"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="lAj-gt-klQ" customClass="MainTableViewCell" customModule="FavouritePlaces" customModuleProvider="target">
@@ -306,7 +307,7 @@
                         <constraints>
                             <constraint firstItem="iym-e0-xjV" firstAttribute="trailing" secondItem="J0P-HC-4Iy" secondAttribute="trailing" id="B8F-b1-bRr"/>
                             <constraint firstItem="Okw-Vo-Y72" firstAttribute="top" secondItem="J0P-HC-4Iy" secondAttribute="bottom" id="I7K-3a-TBj"/>
-                            <constraint firstItem="Okw-Vo-Y72" firstAttribute="bottom" secondItem="iym-e0-xjV" secondAttribute="bottom" id="Mog-xT-bSH"/>
+                            <constraint firstItem="Okw-Vo-Y72" firstAttribute="bottom" secondItem="kSu-kc-pm0" secondAttribute="bottom" id="Mog-xT-bSH"/>
                             <constraint firstItem="J0P-HC-4Iy" firstAttribute="leading" secondItem="iym-e0-xjV" secondAttribute="leading" id="Xsm-wg-CH4"/>
                             <constraint firstItem="J0P-HC-4Iy" firstAttribute="top" secondItem="iym-e0-xjV" secondAttribute="top" id="ah2-86-z7T"/>
                             <constraint firstItem="Okw-Vo-Y72" firstAttribute="leading" secondItem="iym-e0-xjV" secondAttribute="leading" id="gf2-ul-Axp"/>
