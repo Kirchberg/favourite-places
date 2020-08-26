@@ -297,6 +297,7 @@
                                 <segments>
                                     <segment title="Date"/>
                                     <segment title="A-Z"/>
+                                    <segment title="Rating"/>
                                 </segments>
                                 <connections>
                                     <action selector="sortSelection:" destination="qWw-EG-oM6" eventType="valueChanged" id="TdV-Hy-Q0R"/>
@@ -337,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPC-Qd-2Wy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="266" y="-279"/>
+            <point key="canvasLocation" x="265.21739130434787" y="-279.24107142857139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Jm7-Aj-yAg">

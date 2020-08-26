@@ -91,8 +91,10 @@ class MainViewController: UIViewController {
     private func sorting() {
         if segmentedControl.selectedSegmentIndex == 0 {
             places = places.sorted(byKeyPath: "date", ascending: ascendingSorting)
-        } else {
+        } else if segmentedControl.selectedSegmentIndex == 1 {
             places = places.sorted(byKeyPath: "name", ascending: ascendingSorting)
+        } else {
+            places = places.sorted(byKeyPath: "rating", ascending: !ascendingSorting)
         }
         tableView.reloadData()
     }
