@@ -13,4 +13,5 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet var nameOfPlaceLabel: UILabel!
     @IBOutlet var locationOfPlaceLabel: UILabel!
     @IBOutlet var typeOfPlaceLabel: UILabel!
+    @IBOutlet var placeStar: [UIImageView]!
 }

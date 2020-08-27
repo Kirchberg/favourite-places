@@ -15,10 +15,12 @@ class BaseViewController: UITableViewController {
             overrideUserInterfaceStyle = .light
             self.navigationController?.navigationBar.titleTextAttributes
                 = [NSAttributedString.Key.foregroundColor: UIColor.black]
-            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.03702176504, green: 0.740731391, blue: 0.941593536, alpha: 1)
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
 }
+
+// MARK: - Extension for Int variables
 
 extension Int {
     func toDouble() -> Double {
@@ -26,8 +28,20 @@ extension Int {
     }
 }
 
+// MARK: - Extension for Double variables
+
 extension Double {
     func toInt() -> Int {
         return Int(self)
+    }
+}
+
+// MARK: - Extension for String Literals
+
+extension String {
+    // String isEmpty
+    func isEmpty() -> Bool {
+        let str = filter { !" ".contains($0) }
+        return (str == "") ? true : false
     }
 }

@@ -159,13 +159,3 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
         dismiss(animated: true)
     }
 }
-
-// MARK: - Extension for String Literals
-
-extension String {
-    // String isEmpty
-    func isEmpty() -> Bool {
-        let str = filter { !" ".contains($0) }
-        return (str == "") ? true : false
-    }
-}

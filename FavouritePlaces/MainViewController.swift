@@ -32,18 +32,21 @@ class MainViewController: UIViewController {
         navigationItem.title = "Favourite Places"
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
             self.navigationController?.navigationBar.titleTextAttributes
                 = [NSAttributedString.Key.foregroundColor: UIColor.black]
-            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.03702176504, green: 0.740731391, blue: 0.941593536, alpha: 1)
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
         places = realm.objects(Place.self)
         searchController.delegate = self
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -142,13 +145,21 @@ extension MainViewController: UITableViewDataSource {
         cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
         cell.nameOfPlaceLabel.text = place.name
         cell.nameOfPlaceLabel.numberOfLines = 0
+        cell.locationOfPlaceLabel.numberOfLines = 0
+        cell.typeOfPlaceLabel.numberOfLines = 0
         cell.locationOfPlaceLabel.text = place.location
         cell.typeOfPlaceLabel.text = place.type
+        setImageStar(cell, place)
         return cell
     }
 
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 100.5
+    private func setImageStar(_ cell: MainTableViewCell, _ place: Place) {
+        for star in cell.placeStar {
+            star.image = #imageLiteral(resourceName: "emptyStar")
+        }
+        for (index, star) in cell.placeStar.enumerated() where index < place.rating.toInt() {
+            star.image = #imageLiteral(resourceName: "filledStar")
+        }
     }
 }
 
@@ -169,12 +180,12 @@ extension MainViewController: UISearchResultsUpdating {
 
 extension MainViewController: UISearchControllerDelegate {
     func presentSearchController(_ searchController: UISearchController) {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         searchController.searchBar.isTranslucent = false
-        searchController.searchBar.showsCancelButton = true
         searchController.searchBar.autocorrectionType = .no
+        searchController.searchBar.tintColor = UIColor.black
         searchController.searchBar.backgroundColor = .white
-        searchController.searchBar.barTintColor = .black
-        searchController.searchBar.barStyle = .black
     }
 }
