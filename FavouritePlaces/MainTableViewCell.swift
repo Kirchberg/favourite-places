@@ -9,9 +9,31 @@
 import UIKit
 
 class MainTableViewCell: UITableViewCell {
-    @IBOutlet var imageOfPlace: UIImageView!
-    @IBOutlet var nameOfPlaceLabel: UILabel!
-    @IBOutlet var locationOfPlaceLabel: UILabel!
-    @IBOutlet var typeOfPlaceLabel: UILabel!
+    @IBOutlet var imageOfPlace: UIImageView! {
+        didSet {
+            imageOfPlace.layer.cornerRadius = imageOfPlace.frame.size.height / 2
+            imageOfPlace.clipsToBounds = true
+        }
+    }
+
+    @IBOutlet var nameOfPlaceLabel: UILabel! {
+        didSet {
+            nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
+            nameOfPlaceLabel.numberOfLines = 0
+        }
+    }
+
+    @IBOutlet var locationOfPlaceLabel: UILabel! {
+        didSet {
+            locationOfPlaceLabel.numberOfLines = 0
+        }
+    }
+
+    @IBOutlet var typeOfPlaceLabel: UILabel! {
+        didSet {
+            typeOfPlaceLabel.numberOfLines = 0
+        }
+    }
+
     @IBOutlet var placeStar: [UIImageView]!
 }

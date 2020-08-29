@@ -63,12 +63,7 @@ class MainViewController: UIViewController {
         guard let newPlaceVC = segue.destination as? AddPlaceViewController else { return }
         if segue.identifier == "showDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            var place = Place()
-            if isFiltering {
-                place = filteredPlaces[indexPath.row]
-            } else {
-                place = places[indexPath.row]
-            }
+            let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
             newPlaceVC.currentPlace = place
         }
     }
@@ -124,29 +119,15 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        if isFiltering {
-            return filteredPlaces.count
-        }
-        return places.isEmpty ? 0 : places.count
+        return isFiltering ? filteredPlaces.count : places.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
         else { fatalError("DequeueReusableCell failed while casting") }
-        var place = Place()
-        if isFiltering {
-            place = filteredPlaces[indexPath.row]
-        } else {
-            place = places[indexPath.row]
-        }
-        cell.imageOfPlace.layer.cornerRadius = cell.imageOfPlace.frame.size.height / 2
-        cell.imageOfPlace.clipsToBounds = true
+        let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
         cell.imageOfPlace.image = UIImage(data: place.imageData!)
-        cell.nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
         cell.nameOfPlaceLabel.text = place.name
-        cell.nameOfPlaceLabel.numberOfLines = 0
-        cell.locationOfPlaceLabel.numberOfLines = 0
-        cell.typeOfPlaceLabel.numberOfLines = 0
         cell.locationOfPlaceLabel.text = place.location
         cell.typeOfPlaceLabel.text = place.type
         setImageStar(cell, place)
