@@ -30,9 +30,22 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add_Photo_icon" translatesAutoresizingMaskIntoConstraints="NO" id="re8-IQ-zbX">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APU-KN-yNT">
+                                                    <rect key="frame" x="344" y="139" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="2xK-Mi-Slu"/>
+                                                        <constraint firstAttribute="width" constant="50" id="7vx-u7-EuY"/>
+                                                    </constraints>
+                                                    <state key="normal" image="44785011-6093-4a97-8076-415c07fc0336"/>
+                                                    <connections>
+                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" modalPresentationStyle="fullScreen" id="Lwm-lH-28g"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="re8-IQ-zbX" secondAttribute="bottom" id="E79-8C-uIf"/>
+                                                <constraint firstItem="APU-KN-yNT" firstAttribute="bottom" secondItem="XA3-rW-gpA" secondAttribute="bottomMargin" id="FKd-b4-TIh"/>
+                                                <constraint firstItem="APU-KN-yNT" firstAttribute="trailing" secondItem="XA3-rW-gpA" secondAttribute="trailingMargin" id="OTm-na-eWl"/>
                                                 <constraint firstAttribute="trailing" secondItem="re8-IQ-zbX" secondAttribute="trailing" id="RZq-tQ-uwr"/>
                                                 <constraint firstItem="re8-IQ-zbX" firstAttribute="top" secondItem="XA3-rW-gpA" secondAttribute="top" id="bBS-Vv-Thf"/>
                                                 <constraint firstItem="re8-IQ-zbX" firstAttribute="leading" secondItem="XA3-rW-gpA" secondAttribute="leading" id="lzc-9U-onX"/>
@@ -196,6 +209,45 @@
                 <exit id="qLZ-Dj-D5o" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1041" y="-279"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="b3e-Hq-b9d">
+            <objects>
+                <viewController id="qGe-Mw-Mz8" customClass="MapViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QPD-Mn-erb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KGG-Zj-O7C">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBl-w1-a7L">
+                                <rect key="frame" x="20" y="64" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="HIk-5z-lyd"/>
+                                    <constraint firstAttribute="width" constant="20" id="clE-At-ZJp"/>
+                                </constraints>
+                                <state key="normal" image="cancel"/>
+                                <connections>
+                                    <action selector="closeVC" destination="qGe-Mw-Mz8" eventType="touchUpInside" id="eMi-8s-kEx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="KGG-Zj-O7C" firstAttribute="top" secondItem="QPD-Mn-erb" secondAttribute="top" id="5x1-3q-VQc"/>
+                            <constraint firstAttribute="bottom" secondItem="KGG-Zj-O7C" secondAttribute="bottom" id="IUw-Jr-kQu"/>
+                            <constraint firstItem="OBl-w1-a7L" firstAttribute="top" secondItem="d7h-NL-T5a" secondAttribute="top" constant="20" id="VMd-li-4HD"/>
+                            <constraint firstItem="KGG-Zj-O7C" firstAttribute="leading" secondItem="d7h-NL-T5a" secondAttribute="leading" id="WOO-tx-YqG"/>
+                            <constraint firstItem="KGG-Zj-O7C" firstAttribute="trailing" secondItem="d7h-NL-T5a" secondAttribute="trailing" id="mgo-g1-Zrm"/>
+                            <constraint firstItem="OBl-w1-a7L" firstAttribute="leading" secondItem="d7h-NL-T5a" secondAttribute="leading" constant="20" id="vOf-Gp-lli"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="d7h-NL-T5a"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jia-pP-evb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1842.0289855072465" y="-278.57142857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JCn-j9-hye">
@@ -438,8 +490,10 @@
         <segue reference="ECh-ox-1nX"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="44785011-6093-4a97-8076-415c07fc0336" width="170.66667175292969" height="170.66667175292969"/>
         <image name="AZ" width="25" height="24"/>
         <image name="Add_Photo_icon" width="133.33332824707031" height="133.33332824707031"/>
+        <image name="cancel" width="128" height="128"/>
         <image name="emptyStar" width="255" height="256"/>
     </resources>
 </document>
