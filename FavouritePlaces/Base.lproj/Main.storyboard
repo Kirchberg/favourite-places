@@ -30,22 +30,9 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add_Photo_icon" translatesAutoresizingMaskIntoConstraints="NO" id="re8-IQ-zbX">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APU-KN-yNT">
-                                                    <rect key="frame" x="344" y="139" width="50" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="2xK-Mi-Slu"/>
-                                                        <constraint firstAttribute="width" constant="50" id="7vx-u7-EuY"/>
-                                                    </constraints>
-                                                    <state key="normal" image="44785011-6093-4a97-8076-415c07fc0336"/>
-                                                    <connections>
-                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" modalPresentationStyle="fullScreen" id="Lwm-lH-28g"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="re8-IQ-zbX" secondAttribute="bottom" id="E79-8C-uIf"/>
-                                                <constraint firstItem="APU-KN-yNT" firstAttribute="bottom" secondItem="XA3-rW-gpA" secondAttribute="bottomMargin" id="FKd-b4-TIh"/>
-                                                <constraint firstItem="APU-KN-yNT" firstAttribute="trailing" secondItem="XA3-rW-gpA" secondAttribute="trailingMargin" id="OTm-na-eWl"/>
                                                 <constraint firstAttribute="trailing" secondItem="re8-IQ-zbX" secondAttribute="trailing" id="RZq-tQ-uwr"/>
                                                 <constraint firstItem="re8-IQ-zbX" firstAttribute="top" secondItem="XA3-rW-gpA" secondAttribute="top" id="bBS-Vv-Thf"/>
                                                 <constraint firstItem="re8-IQ-zbX" firstAttribute="leading" secondItem="XA3-rW-gpA" secondAttribute="leading" id="lzc-9U-onX"/>
@@ -98,19 +85,35 @@
                                                     <rect key="frame" x="16" y="8" width="382" height="63"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKg-Be-rD9">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="24"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS-Italic" family="Euphemia UCAS" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Add place location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-20-5S6">
-                                                            <rect key="frame" x="0.0" y="32" width="382" height="31"/>
-                                                            <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                                            <connections>
-                                                                <outlet property="delegate" destination="2xK-pK-khb" id="s4y-cG-qgL"/>
-                                                            </connections>
-                                                        </textField>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="i26-CG-ECN">
+                                                            <rect key="frame" x="0.0" y="28" width="382" height="35"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Add place location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-20-5S6">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="35"/>
+                                                                    <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
+                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="2xK-pK-khb" id="s4y-cG-qgL"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ni5-tP-RCr">
+                                                                    <rect key="frame" x="347" y="0.0" width="35" height="35"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="35" id="BHY-Ky-biB"/>
+                                                                        <constraint firstAttribute="height" constant="35" id="rL3-vT-Oq7"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="map"/>
+                                                                    <connections>
+                                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" id="NIb-Gd-6L6"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -215,14 +218,14 @@
             <objects>
                 <viewController id="qGe-Mw-Mz8" customClass="MapViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QPD-Mn-erb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KGG-Zj-O7C">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBl-w1-a7L">
-                                <rect key="frame" x="20" y="64" width="20" height="20"/>
+                                <rect key="frame" x="20" y="20" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="HIk-5z-lyd"/>
                                     <constraint firstAttribute="width" constant="20" id="clE-At-ZJp"/>
@@ -490,10 +493,10 @@
         <segue reference="ECh-ox-1nX"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="44785011-6093-4a97-8076-415c07fc0336" width="170.66667175292969" height="170.66667175292969"/>
         <image name="AZ" width="25" height="24"/>
         <image name="Add_Photo_icon" width="133.33332824707031" height="133.33332824707031"/>
         <image name="cancel" width="128" height="128"/>
         <image name="emptyStar" width="255" height="256"/>
+        <image name="map" width="50" height="50"/>
     </resources>
 </document>
