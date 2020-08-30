@@ -18,20 +18,42 @@ class AddPlaceViewController: BaseViewController {
         }
     }
 
-    @IBOutlet var placeImage: UIImageView!
+    @IBOutlet var placeImage: UIImageView! {
+        didSet {
+            placeImage.contentMode = .scaleAspectFill
+        }
+    }
+
+    @IBOutlet var bottomTextViewConstraint: NSLayoutConstraint!
     @IBOutlet var placeNameTF: UITextField!
     @IBOutlet var placeLocationTF: UITextField!
     @IBOutlet var placeTypeTF: UITextField!
     @IBOutlet var placeRating: RatingControl!
+    @IBOutlet var placeDesciptionTV: UITextView! {
+        didSet {
+            placeDesciptionTV.keyboardType = .asciiCapable
+            placeDesciptionTV.enablesReturnKeyAutomatically = true
+            placeDesciptionTV.allowsEditingTextAttributes = true
+            placeDesciptionTV.autocorrectionType = .default
+            placeDesciptionTV.autocapitalizationType = .sentences
+            placeDesciptionTV.returnKeyType = .default
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addToolBar(textView: placeDesciptionTV)
         setupEditScreen()
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,
                                                          y: 0,
                                                          width: tableView.frame.size.width,
                                                          height: 1))
         placeNameTF.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        placeDesciptionTV.resignFirstResponder()
     }
 
     func savePlace() {
@@ -46,6 +68,7 @@ class AddPlaceViewController: BaseViewController {
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
                              imageData: imageData,
+                             descriptionString: placeDesciptionTV.text,
                              rating: placeRating.rating.toDouble())
         guard let currentPlace = currentPlace else {
             StorageManager.saveObject(newPlace)
@@ -56,6 +79,7 @@ class AddPlaceViewController: BaseViewController {
             currentPlace.location = newPlace.location
             currentPlace.type = newPlace.type
             currentPlace.imageData = newPlace.imageData
+            currentPlace.descriptionString = newPlace.descriptionString
             currentPlace.rating = newPlace.rating
         }
     }
@@ -99,10 +123,10 @@ class AddPlaceViewController: BaseViewController {
         setupNavigationBar()
         guard let data = currentPlace.imageData, let image = UIImage(data: data) else { return }
         placeImage.image = image
-        placeImage.contentMode = .scaleAspectFill
         placeLocationTF.text = currentPlace.location
         placeNameTF.text = currentPlace.name
         placeTypeTF.text = currentPlace.type
+        placeDesciptionTV.text = currentPlace.descriptionString
         placeRating.rating = currentPlace.rating.toInt()
     }
 
@@ -111,6 +135,28 @@ class AddPlaceViewController: BaseViewController {
         navigationItem.leftBarButtonItem = nil
         title = currentPlace?.name
         addButton.isEnabled = true
+    }
+
+    private func addToolBar(textView: UITextView) {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearPressed))
+        clearButton.tintColor = .red
+        let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
+        toolBar.setItems([clearButton, flexButton, doneButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        toolBar.sizeToFit()
+        textView.inputAccessoryView = toolBar
+    }
+
+    @objc private func donePressed() {
+        view.endEditing(true)
+    }
+
+    @objc private func clearPressed() {
+        placeDesciptionTV.text = nil
     }
 
     @IBAction func cancelAction(_: Any) {
