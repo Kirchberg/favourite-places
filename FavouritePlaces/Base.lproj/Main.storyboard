@@ -109,7 +109,7 @@
                                                                     </constraints>
                                                                     <state key="normal" image="map"/>
                                                                     <connections>
-                                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" id="NIb-Gd-6L6"/>
+                                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" id="NIb-Gd-6L6"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -283,6 +283,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d7h-NL-T5a"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="KGG-Zj-O7C" id="ZRi-aR-8hV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jia-pP-evb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

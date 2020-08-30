@@ -24,7 +24,6 @@ class AddPlaceViewController: BaseViewController {
         }
     }
 
-    @IBOutlet var bottomTextViewConstraint: NSLayoutConstraint!
     @IBOutlet var placeNameTF: UITextField!
     @IBOutlet var placeLocationTF: UITextField!
     @IBOutlet var placeTypeTF: UITextField!
@@ -55,6 +54,15 @@ class AddPlaceViewController: BaseViewController {
         super.touchesBegan(touches, with: event)
         placeDesciptionTV.resignFirstResponder()
     }
+
+    // MARK: - Segues
+
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        guard let mapVC = segue.destination as? MapViewController, segue.identifier == "showMap" else { return }
+        mapVC.place = currentPlace
+    }
+
+    // MARK: - Save place to DB
 
     func savePlace() {
         var image: UIImage?
