@@ -28,14 +28,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add_Photo_icon" translatesAutoresizingMaskIntoConstraints="NO" id="re8-IQ-zbX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                                    <rect key="frame" x="10" y="10" width="394" height="180"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="re8-IQ-zbX" secondAttribute="bottom" id="E79-8C-uIf"/>
-                                                <constraint firstAttribute="trailing" secondItem="re8-IQ-zbX" secondAttribute="trailing" id="RZq-tQ-uwr"/>
-                                                <constraint firstItem="re8-IQ-zbX" firstAttribute="top" secondItem="XA3-rW-gpA" secondAttribute="top" id="bBS-Vv-Thf"/>
-                                                <constraint firstItem="re8-IQ-zbX" firstAttribute="leading" secondItem="XA3-rW-gpA" secondAttribute="leading" id="lzc-9U-onX"/>
+                                                <constraint firstItem="re8-IQ-zbX" firstAttribute="leading" secondItem="XA3-rW-gpA" secondAttribute="leading" constant="10" id="6HJ-bH-fc6"/>
+                                                <constraint firstAttribute="trailing" secondItem="re8-IQ-zbX" secondAttribute="trailing" constant="10" id="cWi-hV-ZU6"/>
+                                                <constraint firstAttribute="bottom" secondItem="re8-IQ-zbX" secondAttribute="bottom" constant="10" id="s4b-hF-JZf"/>
+                                                <constraint firstItem="re8-IQ-zbX" firstAttribute="top" secondItem="XA3-rW-gpA" secondAttribute="top" constant="10" id="zKO-ge-dxw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -50,13 +50,13 @@
                                                     <rect key="frame" x="16" y="8" width="382" height="63"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZE2-iF-tlv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="27.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS-Italic" family="Euphemia UCAS" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Add place name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fmv-2f-gpM">
-                                                            <rect key="frame" x="0.0" y="32" width="382" height="31"/>
+                                                            <rect key="frame" x="0.0" y="31.666666666666664" width="382" height="31.333333333333336"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                             <connections>
@@ -82,46 +82,43 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="kni-Bo-n6g">
-                                                    <rect key="frame" x="16" y="8" width="382" height="63"/>
+                                                    <rect key="frame" x="16" y="8" width="343" height="63"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKg-Be-rD9">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="24"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="27.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS-Italic" family="Euphemia UCAS" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="i26-CG-ECN">
-                                                            <rect key="frame" x="0.0" y="28" width="382" height="35"/>
-                                                            <subviews>
-                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Add place location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-20-5S6">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="35"/>
-                                                                    <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
-                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                                                    <connections>
-                                                                        <outlet property="delegate" destination="2xK-pK-khb" id="s4y-cG-qgL"/>
-                                                                    </connections>
-                                                                </textField>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ni5-tP-RCr">
-                                                                    <rect key="frame" x="347" y="0.0" width="35" height="35"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="35" id="BHY-Ky-biB"/>
-                                                                        <constraint firstAttribute="height" constant="35" id="rL3-vT-Oq7"/>
-                                                                    </constraints>
-                                                                    <state key="normal" image="map"/>
-                                                                    <connections>
-                                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" id="NIb-Gd-6L6"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                        </stackView>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Add place location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-20-5S6">
+                                                            <rect key="frame" x="0.0" y="31.666666666666664" width="343" height="31.333333333333336"/>
+                                                            <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="2xK-pK-khb" id="s4y-cG-qgL"/>
+                                                            </connections>
+                                                        </textField>
                                                     </subviews>
                                                 </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ni5-tP-RCr">
+                                                    <rect key="frame" x="363" y="36" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="Qc0-40-GMx"/>
+                                                        <constraint firstAttribute="width" constant="35" id="Y8a-PA-0j6"/>
+                                                    </constraints>
+                                                    <state key="normal" image="map"/>
+                                                    <connections>
+                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" id="NIb-Gd-6L6"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="kni-Bo-n6g" firstAttribute="leading" secondItem="GkR-WZ-oZE" secondAttribute="leading" constant="16" id="Teo-oJ-Vii"/>
-                                                <constraint firstItem="kni-Bo-n6g" firstAttribute="top" secondItem="GkR-WZ-oZE" secondAttribute="top" constant="8" id="ccx-ad-R1I"/>
-                                                <constraint firstAttribute="bottom" secondItem="kni-Bo-n6g" secondAttribute="bottom" constant="4" id="ixu-oe-MUX"/>
-                                                <constraint firstAttribute="trailing" secondItem="kni-Bo-n6g" secondAttribute="trailing" constant="16" id="p9w-yg-Rkj"/>
+                                                <constraint firstItem="ni5-tP-RCr" firstAttribute="leading" secondItem="kni-Bo-n6g" secondAttribute="trailing" constant="4" id="FOd-Z3-hgl"/>
+                                                <constraint firstItem="kni-Bo-n6g" firstAttribute="top" secondItem="GkR-WZ-oZE" secondAttribute="top" constant="8" id="gA3-MW-Twi"/>
+                                                <constraint firstAttribute="bottom" secondItem="ni5-tP-RCr" secondAttribute="bottom" constant="4" id="hpq-Jj-yvO"/>
+                                                <constraint firstAttribute="bottom" secondItem="kni-Bo-n6g" secondAttribute="bottom" constant="4" id="p1F-iM-xAU"/>
+                                                <constraint firstItem="kni-Bo-n6g" firstAttribute="leading" secondItem="GkR-WZ-oZE" secondAttribute="leading" constant="16" id="taF-yG-ZJa"/>
+                                                <constraint firstAttribute="trailing" secondItem="ni5-tP-RCr" secondAttribute="trailing" constant="16" id="yZU-nr-cAe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -136,13 +133,13 @@
                                                     <rect key="frame" x="16" y="8" width="382" height="63"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgR-uM-FbF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="27.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS-Italic" family="Euphemia UCAS" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Add type of place" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IBl-Uq-8qG">
-                                                            <rect key="frame" x="0.0" y="32" width="382" height="31"/>
+                                                            <rect key="frame" x="0.0" y="31.666666666666664" width="382" height="31.333333333333336"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                             <connections>
@@ -179,7 +176,6 @@
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qZl-1c-SlQ">
                                                             <rect key="frame" x="0.0" y="25.333333333333329" width="382" height="162.66666666666669"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -236,6 +232,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="630-su-C6M" id="t5d-fn-U7r"/>
+                        <outlet property="imageViewCell" destination="OrS-dM-cEr" id="M1Q-Th-foe"/>
                         <outlet property="placeDesciptionTV" destination="qZl-1c-SlQ" id="P7v-lr-oAJ"/>
                         <outlet property="placeImage" destination="re8-IQ-zbX" id="mKG-Fv-8u0"/>
                         <outlet property="placeLocationTF" destination="dSG-20-5S6" id="czF-WH-j13"/>
@@ -247,7 +244,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhw-Yx-zhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="qLZ-Dj-D5o" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1041" y="-279"/>
+            <point key="canvasLocation" x="1040.5797101449275" y="-279.24107142857139"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="b3e-Hq-b9d">
@@ -427,6 +424,8 @@
                                                 <constraint firstItem="5Wh-vM-LA3" firstAttribute="leading" secondItem="5QX-N1-fLH" secondAttribute="trailing" constant="10" id="2CV-3e-biI"/>
                                                 <constraint firstItem="5QX-N1-fLH" firstAttribute="centerY" secondItem="aA2-82-DGb" secondAttribute="centerY" id="9Wb-rT-5wZ"/>
                                                 <constraint firstAttribute="trailing" secondItem="5Wh-vM-LA3" secondAttribute="trailing" constant="5" id="AKH-Q4-cH0"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5QX-N1-fLH" secondAttribute="bottom" constant="10" id="BDL-U6-X4K"/>
+                                                <constraint firstItem="5QX-N1-fLH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aA2-82-DGb" secondAttribute="top" constant="10" id="KxP-sc-BLN"/>
                                                 <constraint firstItem="5Wh-vM-LA3" firstAttribute="top" secondItem="aA2-82-DGb" secondAttribute="top" constant="10" id="OwQ-fB-5Kc"/>
                                                 <constraint firstItem="5QX-N1-fLH" firstAttribute="leading" secondItem="aA2-82-DGb" secondAttribute="leading" constant="16" id="bsa-pm-8YP"/>
                                                 <constraint firstAttribute="bottom" secondItem="5Wh-vM-LA3" secondAttribute="bottom" constant="10" id="eXq-sf-977"/>

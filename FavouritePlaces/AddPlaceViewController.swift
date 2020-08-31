@@ -20,7 +20,15 @@ class AddPlaceViewController: BaseViewController {
 
     @IBOutlet var placeImage: UIImageView! {
         didSet {
-            placeImage.contentMode = .scaleAspectFill
+            placeImage.layer.masksToBounds = true
+            placeImage.layer.cornerRadius = 10
+        }
+    }
+
+    @IBOutlet var imageViewCell: UITableViewCell! {
+        didSet {
+            imageViewCell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+            imageViewCell.directionalLayoutMargins = .zero
         }
     }
 
@@ -131,6 +139,7 @@ class AddPlaceViewController: BaseViewController {
         setupNavigationBar()
         guard let data = currentPlace.imageData, let image = UIImage(data: data) else { return }
         placeImage.image = image
+        placeImage.contentMode = .scaleAspectFill
         placeLocationTF.text = currentPlace.location
         placeNameTF.text = currentPlace.name
         placeTypeTF.text = currentPlace.type
@@ -207,9 +216,9 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any])
     {
         placeImage.image = info[.editedImage] as? UIImage
+        imageIsChanged = true
         placeImage.contentMode = .scaleAspectFill
         placeImage.clipsToBounds = true
-        imageIsChanged = true
         dismiss(animated: true)
     }
 }
