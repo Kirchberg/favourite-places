@@ -12,7 +12,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let schemaVersion: UInt64 = 3
+        let schemaVersion: UInt64 = 5
 
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
