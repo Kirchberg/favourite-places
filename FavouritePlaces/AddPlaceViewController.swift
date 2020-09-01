@@ -219,6 +219,7 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
         imageIsChanged = true
         placeImage.contentMode = .scaleAspectFill
         placeImage.clipsToBounds = true
+        imageViewCell.isSelected = false
         dismiss(animated: true)
     }
 }

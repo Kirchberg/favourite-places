@@ -32,11 +32,6 @@ class MainViewController: UIViewController {
         navigationItem.title = "Favourite Places"
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
@@ -49,6 +44,7 @@ class MainViewController: UIViewController {
         searchController.delegate = self
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     // MARK: - Segues
@@ -123,8 +119,7 @@ extension MainViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? MainTableViewCell
-        else { fatalError("DequeueReusableCell failed while casting") }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MainTableViewCell
         let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
         cell.imageOfPlace.image = UIImage(data: place.imageData!)
         cell.nameOfPlaceLabel.text = place.name
