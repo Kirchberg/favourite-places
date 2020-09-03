@@ -8,9 +8,10 @@
 
 import UIKit
 
-class AddPlaceViewController: BaseViewController {
+class AddPlaceViewController: UITableViewController {
     var currentPlace: Place?
     var imageIsChanged: Bool = false
+    private var finishedLoadingInitialTableCells = false
 
     @IBOutlet var addButton: UIBarButtonItem! {
         didSet {
@@ -49,6 +50,7 @@ class AddPlaceViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCustomInterfaceStyle()
         addToolBar(textView: placeDesciptionTV)
         setupEditScreen()
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,
@@ -56,6 +58,10 @@ class AddPlaceViewController: BaseViewController {
                                                          width: tableView.frame.size.width,
                                                          height: 1))
         placeNameTF.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+    }
+
+    override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        finishedLoadingInitialTableCells = firstAppearanceCell(cell, forRowAt: indexPath, for: tableView, checkFor: finishedLoadingInitialTableCells)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

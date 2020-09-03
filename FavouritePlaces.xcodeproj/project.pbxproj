@@ -11,14 +11,15 @@
 		4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4251F60424E5846700B94CB8 /* StorageManager.swift */; };
 		4263242324E2FE420003B223 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242224E2FE420003B223 /* PlaceModel.swift */; };
 		4263242524E315370003B223 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242424E315370003B223 /* AddPlaceViewController.swift */; };
-		4263242724E31BF60003B223 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242624E31BF60003B223 /* BaseViewController.swift */; };
 		42AD08B824DC3B620054494E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD08B724DC3B620054494E /* AppDelegate.swift */; };
-		42AD08BA24DC3B630054494E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD08B924DC3B630054494E /* SceneDelegate.swift */; };
 		42AD08BF24DC3B630054494E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08BD24DC3B630054494E /* Main.storyboard */; };
 		42AD08C124DC3B640054494E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08C024DC3B640054494E /* Assets.xcassets */; };
 		42AD08C424DC3B640054494E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08C224DC3B640054494E /* LaunchScreen.storyboard */; };
 		42AD08CC24DC51730054494E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD08CB24DC51730054494E /* MainViewController.swift */; };
 		42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD08CD24DD37750054494E /* MainTableViewCell.swift */; };
+		42B3EFE22500F8CE00087A69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE12500F8CE00087A69 /* SceneDelegate.swift */; };
+		42B3EFE42501039600087A69 /* BaseMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE32501039600087A69 /* BaseMethods.swift */; };
+		42B3EFE6250112EC00087A69 /* HeroHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE5250112EC00087A69 /* HeroHelper.swift */; };
 		42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C18D6924FAC69C00D10290 /* MapViewController.swift */; };
 		496E5730357A4487584C2063 /* Pods_FavouritePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */; };
 /* End PBXBuildFile section */
@@ -29,16 +30,17 @@
 		4251F60424E5846700B94CB8 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		4263242224E2FE420003B223 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		4263242424E315370003B223 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
-		4263242624E31BF60003B223 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		42AD08B424DC3B620054494E /* FavouritePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouritePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42AD08B724DC3B620054494E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		42AD08B924DC3B630054494E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		42AD08BE24DC3B630054494E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42AD08C024DC3B640054494E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42AD08C324DC3B640054494E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42AD08C524DC3B640054494E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42AD08CB24DC51730054494E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		42AD08CD24DD37750054494E /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		42B3EFE12500F8CE00087A69 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = ../../../../../../.Trash/SceneDelegate.swift; sourceTree = "<group>"; };
+		42B3EFE32501039600087A69 /* BaseMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMethods.swift; sourceTree = "<group>"; };
+		42B3EFE5250112EC00087A69 /* HeroHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHelper.swift; sourceTree = "<group>"; };
 		42C18D6924FAC69C00D10290 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FavouritePlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2541285A2F20E848AE785A7 /* Pods-FavouritePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouritePlaces.release.xcconfig"; path = "Target Support Files/Pods-FavouritePlaces/Pods-FavouritePlaces.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,22 +88,56 @@
 		42AD08B624DC3B620054494E /* FavouritePlaces */ = {
 			isa = PBXGroup;
 			children = (
-				42AD08B724DC3B620054494E /* AppDelegate.swift */,
-				42AD08B924DC3B630054494E /* SceneDelegate.swift */,
-				4263242624E31BF60003B223 /* BaseViewController.swift */,
-				42AD08CB24DC51730054494E /* MainViewController.swift */,
-				42AD08CD24DD37750054494E /* MainTableViewCell.swift */,
-				4263242424E315370003B223 /* AddPlaceViewController.swift */,
-				42C18D6924FAC69C00D10290 /* MapViewController.swift */,
-				423D266424EEC040003F2BBE /* RatingControl.swift */,
-				4263242224E2FE420003B223 /* PlaceModel.swift */,
-				4251F60424E5846700B94CB8 /* StorageManager.swift */,
-				42AD08BD24DC3B630054494E /* Main.storyboard */,
+				42B3EFE72501133200087A69 /* Helper */,
+				42B3EFDE2500F81F00087A69 /* Controller */,
+				42B3EFDF2500F84500087A69 /* View */,
+				42B3EFE02500F86500087A69 /* Model */,
 				42AD08C024DC3B640054494E /* Assets.xcassets */,
-				42AD08C224DC3B640054494E /* LaunchScreen.storyboard */,
 				42AD08C524DC3B640054494E /* Info.plist */,
 			);
 			path = FavouritePlaces;
+			sourceTree = "<group>";
+		};
+		42B3EFDE2500F81F00087A69 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				42AD08B724DC3B620054494E /* AppDelegate.swift */,
+				42B3EFE12500F8CE00087A69 /* SceneDelegate.swift */,
+				42AD08CB24DC51730054494E /* MainViewController.swift */,
+				4263242424E315370003B223 /* AddPlaceViewController.swift */,
+				42C18D6924FAC69C00D10290 /* MapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		42B3EFDF2500F84500087A69 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				42AD08CD24DD37750054494E /* MainTableViewCell.swift */,
+				423D266424EEC040003F2BBE /* RatingControl.swift */,
+				42AD08BD24DC3B630054494E /* Main.storyboard */,
+				42AD08C224DC3B640054494E /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		42B3EFE02500F86500087A69 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4263242224E2FE420003B223 /* PlaceModel.swift */,
+				4251F60424E5846700B94CB8 /* StorageManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		42B3EFE72501133200087A69 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				42B3EFE32501039600087A69 /* BaseMethods.swift */,
+				42B3EFE5250112EC00087A69 /* HeroHelper.swift */,
+			);
+			name = Helper;
+			path = Controller/Helper;
 			sourceTree = "<group>";
 		};
 		F7591B8AD954ECAF1B581618 /* Frameworks */ = {
@@ -251,10 +287,11 @@
 				42AD08B824DC3B620054494E /* AppDelegate.swift in Sources */,
 				42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */,
 				4263242324E2FE420003B223 /* PlaceModel.swift in Sources */,
+				42B3EFE22500F8CE00087A69 /* SceneDelegate.swift in Sources */,
 				423D266524EEC040003F2BBE /* RatingControl.swift in Sources */,
 				42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */,
-				4263242724E31BF60003B223 /* BaseViewController.swift in Sources */,
-				42AD08BA24DC3B630054494E /* SceneDelegate.swift in Sources */,
+				42B3EFE42501039600087A69 /* BaseMethods.swift in Sources */,
+				42B3EFE6250112EC00087A69 /* HeroHelper.swift in Sources */,
 				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

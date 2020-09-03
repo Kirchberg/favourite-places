@@ -8,6 +8,7 @@ target 'FavouritePlaces' do
   # Pods for FavouritePlaces
   pod 'RealmSwift'
   pod 'SwiftFormat/CLI'
+  pod 'Hero'
 end
 
 post_install do |installer|

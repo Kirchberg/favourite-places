@@ -10,6 +10,7 @@ import RealmSwift
 import UIKit
 
 class MainViewController: UIViewController {
+    private var finishedLoadingInitialTableCells = false
     private let searchController = UISearchController(searchResultsController: nil)
     private var places: Results<Place>!
     private var filteredPlaces: Results<Place>!
@@ -34,6 +35,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCustomInterfaceStyle()
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
             self.navigationController?.navigationBar.titleTextAttributes
@@ -45,6 +47,10 @@ class MainViewController: UIViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         tableView.rowHeight = UITableView.automaticDimension
+    }
+
+    func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        finishedLoadingInitialTableCells = firstAppearanceCell(cell, forRowAt: indexPath, for: tableView, checkFor: finishedLoadingInitialTableCells)
     }
 
     // MARK: - Segues
