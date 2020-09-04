@@ -489,7 +489,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3k0-mD-hh3">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="HlM-Si-4T8" kind="presentation" modalTransitionStyle="flipHorizontal" id="Zre-l3-LcE"/>
+                                <segue destination="HlM-Si-4T8" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="Zre-l3-LcE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

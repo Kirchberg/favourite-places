@@ -36,12 +36,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomInterfaceStyle()
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-            self.navigationController?.navigationBar.titleTextAttributes
-                = [NSAttributedString.Key.foregroundColor: UIColor.black]
-            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        }
         places = realm.objects(Place.self)
         searchController.delegate = self
         navigationItem.searchController = searchController

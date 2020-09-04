@@ -11,10 +11,13 @@ import UIKit
 
 class MapViewController: UIViewController {
     var place: Place!
+    let annotationIdentfier: String = "annotationIdentfier"
 
     @IBOutlet var mapView: MKMapView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         setupPlacemark()
     }
 
@@ -24,21 +27,57 @@ class MapViewController: UIViewController {
 
     private func setupPlacemark() {
         guard let location = place.location else { return }
+
+        // Object that converts the names of the places between geographic coordinates
         let geocoder = CLGeocoder()
+
+        // Attempt to get placemarks of place and show the place on the map
         geocoder.geocodeAddressString(location) { placemarks, error in
             if let error = error {
                 print(error)
                 return
             }
+
+            // Get placemarks of place
             guard let placemarks = placemarks else { return }
+
+            // In our task we need only one placemark
             let placemark = placemarks.first
+
+            // Create annotation for placemark
             let annotation = MKPointAnnotation()
             annotation.title = self.place.name
             annotation.subtitle = self.place.type
+
+            // Get latitude and longitude location of a place
             guard let placemarkLocation = placemark?.location else { return }
+
+            // Attach an annotation to a placemark
             annotation.coordinate = placemarkLocation.coordinate
+
+            // Show and select a place annotation on a map
             self.mapView.showAnnotations([annotation], animated: true)
             self.mapView.selectAnnotation(annotation, animated: true)
         }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !(annotation is MKUserLocation) else { return nil }
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentfier) as? MKPinAnnotationView
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentfier)
+            annotationView?.canShowCallout = true
+        }
+        if let imageData = place.imageData, let image = UIImage(data: imageData) {
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            imageView.image = image
+            imageView.layer.cornerRadius = 10.0
+            imageView.clipsToBounds = true
+            imageView.contentMode = .scaleAspectFill
+            annotationView?.rightCalloutAccessoryView = imageView
+        }
+        return annotationView
     }
 }

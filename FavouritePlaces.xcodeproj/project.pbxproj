@@ -18,8 +18,7 @@
 		42AD08CC24DC51730054494E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD08CB24DC51730054494E /* MainViewController.swift */; };
 		42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD08CD24DD37750054494E /* MainTableViewCell.swift */; };
 		42B3EFE22500F8CE00087A69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE12500F8CE00087A69 /* SceneDelegate.swift */; };
-		42B3EFE42501039600087A69 /* BaseMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE32501039600087A69 /* BaseMethods.swift */; };
-		42B3EFE6250112EC00087A69 /* HeroHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE5250112EC00087A69 /* HeroHelper.swift */; };
+		42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE32501039600087A69 /* BaseHelper.swift */; };
 		42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C18D6924FAC69C00D10290 /* MapViewController.swift */; };
 		496E5730357A4487584C2063 /* Pods_FavouritePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */; };
 /* End PBXBuildFile section */
@@ -39,8 +38,7 @@
 		42AD08CB24DC51730054494E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		42AD08CD24DD37750054494E /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		42B3EFE12500F8CE00087A69 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = ../../../../../../.Trash/SceneDelegate.swift; sourceTree = "<group>"; };
-		42B3EFE32501039600087A69 /* BaseMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMethods.swift; sourceTree = "<group>"; };
-		42B3EFE5250112EC00087A69 /* HeroHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHelper.swift; sourceTree = "<group>"; };
+		42B3EFE32501039600087A69 /* BaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHelper.swift; sourceTree = "<group>"; };
 		42C18D6924FAC69C00D10290 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FavouritePlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2541285A2F20E848AE785A7 /* Pods-FavouritePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouritePlaces.release.xcconfig"; path = "Target Support Files/Pods-FavouritePlaces/Pods-FavouritePlaces.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 		42AD08B624DC3B620054494E /* FavouritePlaces */ = {
 			isa = PBXGroup;
 			children = (
-				42B3EFE72501133200087A69 /* Helper */,
 				42B3EFDE2500F81F00087A69 /* Controller */,
 				42B3EFDF2500F84500087A69 /* View */,
 				42B3EFE02500F86500087A69 /* Model */,
@@ -101,6 +98,7 @@
 		42B3EFDE2500F81F00087A69 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				42B3EFE72501133200087A69 /* Helper */,
 				42AD08B724DC3B620054494E /* AppDelegate.swift */,
 				42B3EFE12500F8CE00087A69 /* SceneDelegate.swift */,
 				42AD08CB24DC51730054494E /* MainViewController.swift */,
@@ -133,11 +131,9 @@
 		42B3EFE72501133200087A69 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				42B3EFE32501039600087A69 /* BaseMethods.swift */,
-				42B3EFE5250112EC00087A69 /* HeroHelper.swift */,
+				42B3EFE32501039600087A69 /* BaseHelper.swift */,
 			);
-			name = Helper;
-			path = Controller/Helper;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		F7591B8AD954ECAF1B581618 /* Frameworks */ = {
@@ -290,8 +286,7 @@
 				42B3EFE22500F8CE00087A69 /* SceneDelegate.swift in Sources */,
 				423D266524EEC040003F2BBE /* RatingControl.swift in Sources */,
 				42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */,
-				42B3EFE42501039600087A69 /* BaseMethods.swift in Sources */,
-				42B3EFE6250112EC00087A69 /* HeroHelper.swift in Sources */,
+				42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */,
 				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
