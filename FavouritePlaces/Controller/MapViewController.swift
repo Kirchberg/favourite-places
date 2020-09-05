@@ -10,7 +10,7 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController {
-    var place: Place!
+    var place = Place()
     let annotationIdentfier: String = "annotationIdentfier"
 
     @IBOutlet var mapView: MKMapView!
@@ -24,6 +24,8 @@ class MapViewController: UIViewController {
     @IBAction func closeVC() {
         dismiss(animated: true)
     }
+
+    // MARK: - Converting an address name to a coordinate on the map
 
     private func setupPlacemark() {
         guard let location = place.location else { return }
@@ -62,10 +64,18 @@ class MapViewController: UIViewController {
     }
 }
 
+// MARK: - MKMapViewDelegate
+
 extension MapViewController: MKMapViewDelegate {
+    // Creating a custom annotaion on the map
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Check that annotation in not user current position
         guard !(annotation is MKUserLocation) else { return nil }
+
+        // If we had an annotationView earlier then we use this value instead of creating a new one
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentfier) as? MKPinAnnotationView
+
+        // Else we create a new annotationView
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentfier)
             annotationView?.canShowCallout = true
