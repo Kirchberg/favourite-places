@@ -6,12 +6,14 @@
 //  Copyright © 2020 Kostarev Kirill Pavlovich. All rights reserved.
 //
 
+import CoreLocation
 import MapKit
 import UIKit
 
 class MapViewController: UIViewController {
     var place = Place()
     let annotationIdentfier: String = "annotationIdentfier"
+    let locationManager = CLLocationManager()
 
     @IBOutlet var mapView: MKMapView!
 
@@ -19,6 +21,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         setupPlacemark()
+        checkLocationServices()
     }
 
     @IBAction func closeVC() {
@@ -62,6 +65,45 @@ class MapViewController: UIViewController {
             self.mapView.selectAnnotation(annotation, animated: true)
         }
     }
+
+    // MARK: - User location services
+
+    private func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAuthorization()
+        } else {
+            errorLocationServices()
+        }
+    }
+
+    private func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+
+    private func checkLocationAuthorization() {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            mapView.showsUserLocation = true
+        case .authorizedAlways:
+            break
+        case .denied:
+            errorLocationServices()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            errorLocationServices()
+        @unknown default:
+            print("I hate new features 👺. \nBut I love programming 💌.")
+        }
+    }
+
+    private func errorLocationServices() {
+        let alert = UIAlertController(title: "Geolocation services are disabled", message: "Change an app’s location authorization in Settings > Privacy > Location Services, or in Settings > (the app) > Location Services.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - MKMapViewDelegate
@@ -89,5 +131,13 @@ extension MapViewController: MKMapViewDelegate {
             annotationView?.rightCalloutAccessoryView = imageView
         }
         return annotationView
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
+        checkLocationAuthorization()
     }
 }
