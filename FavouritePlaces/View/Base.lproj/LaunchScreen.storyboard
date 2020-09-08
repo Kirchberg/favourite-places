@@ -16,14 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="44785011-6093-4a97-8076-415c07fc0336" translatesAutoresizingMaskIntoConstraints="NO" id="b5t-vv-2Fq">
-                                <rect key="frame" x="102" y="248" width="171" height="171"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="03-Location-icon" translatesAutoresizingMaskIntoConstraints="NO" id="b5t-vv-2Fq">
+                                <rect key="frame" x="43.5" y="189.5" width="288" height="288"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="b5t-vv-2Fq" secondAttribute="height" multiplier="1:1" id="BkI-1D-k2g"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.85882352941176465" green="0.91764705882352937" blue="0.58823529411764708" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.85882352939999995" green="0.91764705879999997" blue="0.58823529409999997" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="b5t-vv-2Fq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="RIX-SL-G7L"/>
                             <constraint firstItem="b5t-vv-2Fq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fFn-MS-Mf1"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="44785011-6093-4a97-8076-415c07fc0336" width="170.5" height="170.5"/>
+        <image name="03-Location-icon" width="288" height="288"/>
     </resources>
 </document>

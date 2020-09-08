@@ -72,11 +72,15 @@ class AddPlaceViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-        guard let mapVC = segue.destination as? MapViewController, segue.identifier == "showMap" else { return }
-        mapVC.place.name = placeNameTF.text!
-        mapVC.place.location = placeLocationTF.text
-        mapVC.place.type = placeTypeTF.text
-        mapVC.place.imageData = placeImage.image?.pngData()
+        guard let mapVC = segue.destination as? MapViewController, let identifier = segue.identifier
+        else { return }
+        mapVC.incomeSegueIdentifier = identifier
+        if identifier == "showMap" {
+            mapVC.place.name = placeNameTF.text!
+            mapVC.place.location = placeLocationTF.text
+            mapVC.place.type = placeTypeTF.text
+            mapVC.place.imageData = placeImage.image?.pngData()
+        }
     }
 
     // MARK: - Save place to DB

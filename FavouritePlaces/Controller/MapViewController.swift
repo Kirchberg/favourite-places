@@ -12,30 +12,57 @@ import UIKit
 
 class MapViewController: UIViewController {
     var place = Place()
+    var incomeSegueIdentifier = String()
     let regionInMeters = 5000.0
     let annotationIdentfier: String = "annotationIdentfier"
+
+    // Object that helps us get the user's location
     let locationManager = CLLocationManager()
 
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var centerUserLocationButton: UIButton!
+    @IBOutlet var markerLocationView: UIImageView!
+    @IBOutlet var doneButton: UIButton! {
+        didSet {
+            doneButton.backgroundColor = .black
+            doneButton.setTitleColor(.white, for: .normal)
+            doneButton.layer.cornerRadius = 7.0
+            doneButton.setTitle("Done", for: .normal)
+            doneButton.titleLabel?.font = UIFont(name: "EuphemiaUCAS", size: 16.0)
+        }
+    }
+
+    @IBOutlet var currentAddressLabel: UILabel! {
+        didSet {
+            currentAddressLabel.font = UIFont(name: "EuphemiaUCAS", size: 30.0)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         checkLocationServices()
-        setupPlacemark()
+        setupMapView()
     }
 
-    @IBAction func showUserLocation() {
-        if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion(center: location,
-                                            latitudinalMeters: regionInMeters,
-                                            longitudinalMeters: regionInMeters)
-            mapView.setRegion(region, animated: true)
-        }
+    @IBAction func centerViewInUserLocation() {
+        // Get user location
+        showUserLocation()
     }
 
     @IBAction func closeVC() {
         dismiss(animated: true)
+    }
+
+    @IBAction func doneButtonPressed() {}
+
+    private func setupMapView() {
+        if incomeSegueIdentifier == "showMap" {
+            setupPlacemark()
+            markerLocationView.isHidden = true
+            currentAddressLabel.isHidden = true
+            doneButton.isHidden = true
+        }
     }
 
     // MARK: - Converting an address name to a coordinate on the map
@@ -103,6 +130,10 @@ class MapViewController: UIViewController {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
+            if incomeSegueIdentifier == "getLocationMap" {
+                centerUserLocationButton.isHidden = true
+                showUserLocation()
+            }
         case .authorizedAlways:
             break
         case .denied:
@@ -113,6 +144,18 @@ class MapViewController: UIViewController {
             errorLocationServices()
         @unknown default:
             print("I hate new features 👺. \nBut I love programming 💌.")
+        }
+    }
+
+    private func showUserLocation() {
+        if let location = locationManager.location?.coordinate {
+            // A rectangular geographic region centered around a specific latitude and longitude.
+            let region = MKCoordinateRegion(center: location,
+                                            latitudinalMeters: regionInMeters,
+                                            longitudinalMeters: regionInMeters)
+
+            // Changes the currently visible region and optionally animates the change
+            mapView.setRegion(region, animated: true)
         }
     }
 
