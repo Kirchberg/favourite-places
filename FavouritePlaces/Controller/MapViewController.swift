@@ -12,6 +12,7 @@ import UIKit
 
 class MapViewController: UIViewController {
     var place = Place()
+    let regionInMeters = 5000.0
     let annotationIdentfier: String = "annotationIdentfier"
     let locationManager = CLLocationManager()
 
@@ -20,8 +21,17 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        setupPlacemark()
         checkLocationServices()
+        setupPlacemark()
+    }
+
+    @IBAction func showUserLocation() {
+        if let location = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion(center: location,
+                                            latitudinalMeters: regionInMeters,
+                                            longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+        }
     }
 
     @IBAction func closeVC() {
@@ -69,16 +79,23 @@ class MapViewController: UIViewController {
     // MARK: - User location services
 
     private func checkLocationServices() {
+        // Checking the functionality of geolocation services and set user location
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
             checkLocationAuthorization()
         } else {
-            errorLocationServices()
+            // Load alert after 1 second if geolocation services are disabled
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.errorLocationServices()
+            }
         }
     }
 
+    // Setting up an object that gives us access to use the map
     private func setupLocationManager() {
         locationManager.delegate = self
+
+        // GPS accuracy type
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
@@ -100,8 +117,8 @@ class MapViewController: UIViewController {
     }
 
     private func errorLocationServices() {
-        let alert = UIAlertController(title: "Geolocation services are disabled", message: "Change an app’s location authorization in Settings > Privacy > Location Services, or in Settings > (the app) > Location Services.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        let alert = UIAlertController(title: "Geolocation services are disabled", message: "Change an app’s location authorization in Settings > Privacy > Location Services.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
 }
@@ -138,6 +155,7 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
+        // If authorization status changed, we would need to take actions
         checkLocationAuthorization()
     }
 }
