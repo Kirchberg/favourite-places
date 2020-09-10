@@ -35,6 +35,7 @@ class MapViewController: UIViewController {
     @IBOutlet var currentAddressLabel: UILabel! {
         didSet {
             currentAddressLabel.font = UIFont(name: "EuphemiaUCAS", size: 30.0)
+            currentAddressLabel.text = ""
         }
     }
 
@@ -159,6 +160,13 @@ class MapViewController: UIViewController {
         }
     }
 
+    private func getCenterLocation(for mapView: MKMapView) -> CLLocation {
+        let latitude = mapView.centerCoordinate.latitude
+        let longitude = mapView.centerCoordinate.longitude
+
+        return CLLocation(latitude: latitude, longitude: longitude)
+    }
+
     private func errorLocationServices() {
         let alert = UIAlertController(title: "Geolocation services are disabled", message: "Change an app’s location authorization in Settings > Privacy > Location Services.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -191,6 +199,34 @@ extension MapViewController: MKMapViewDelegate {
             annotationView?.rightCalloutAccessoryView = imageView
         }
         return annotationView
+    }
+
+    // This method is called every time we change the current region on the map
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated _: Bool) {
+        let center = getCenterLocation(for: mapView)
+
+        // Object that converts map coordinates to a street address
+        let geocoder = CLGeocoder()
+
+        geocoder.reverseGeocodeLocation(center) { placemarks, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let placemarks = placemarks else { return }
+            let placemark = placemarks.first
+            let streetName = placemark?.thoroughfare
+            let buildNumber = placemark?.subThoroughfare
+            DispatchQueue.main.async {
+                if let streetName = streetName, let buildNumber = buildNumber {
+                    self.currentAddressLabel.text = "\(streetName), \(buildNumber)"
+                } else if let streetName = streetName {
+                    self.currentAddressLabel.text = "\(streetName)"
+                } else {
+                    self.currentAddressLabel.text = ""
+                }
+            }
+        }
     }
 }
 
