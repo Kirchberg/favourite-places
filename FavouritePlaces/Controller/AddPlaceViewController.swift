@@ -75,6 +75,7 @@ class AddPlaceViewController: UITableViewController {
         guard let mapVC = segue.destination as? MapViewController, let identifier = segue.identifier
         else { return }
         mapVC.incomeSegueIdentifier = identifier
+        mapVC.mapViewControllerDelegate = self
         if identifier == "showMap" {
             mapVC.place.name = placeNameTF.text!
             mapVC.place.location = placeLocationTF.text
@@ -189,7 +190,7 @@ class AddPlaceViewController: UITableViewController {
     }
 }
 
-// MARK: - Text Field Delegate
+// MARK: - UITextFieldDelegate
 
 extension AddPlaceViewController: UITextFieldDelegate {
     // Hide the keyboard
@@ -207,7 +208,7 @@ extension AddPlaceViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - Work With Image
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func chooseImagePicker(source: UIImagePickerController.SourceType) {
@@ -229,5 +230,12 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
         placeImage.clipsToBounds = true
         imageViewCell.isSelected = false
         dismiss(animated: true)
+    }
+}
+
+// MARK: - MapViewControllerDelegate
+extension AddPlaceViewController: MapViewControllerDelegate {
+    func getInfoAboutPlace(_ address: String) {
+        placeLocationTF.text = address
     }
 }

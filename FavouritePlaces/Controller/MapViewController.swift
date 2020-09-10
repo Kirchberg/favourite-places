@@ -10,7 +10,12 @@ import CoreLocation
 import MapKit
 import UIKit
 
+protocol MapViewControllerDelegate {
+    func getInfoAboutPlace(_ address: String)
+}
+
 class MapViewController: UIViewController {
+    var mapViewControllerDelegate: MapViewControllerDelegate?
     var place = Place()
     var incomeSegueIdentifier = String()
     let regionInMeters = 5000.0
@@ -55,7 +60,10 @@ class MapViewController: UIViewController {
         dismiss(animated: true)
     }
 
-    @IBAction func doneButtonPressed() {}
+    @IBAction func doneButtonPressed() {
+        mapViewControllerDelegate?.getInfoAboutPlace(currentAddressLabel.text ?? "")
+        dismiss(animated: true)
+    }
 
     private func setupMapView() {
         if incomeSegueIdentifier == "showMap" {
