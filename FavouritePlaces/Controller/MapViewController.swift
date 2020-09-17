@@ -58,10 +58,18 @@ class MapViewController: UIViewController {
 
     @IBAction func zoomInButtonPressed(_: UIButton) {
         print("Zoom in works! 🐸")
+        var region = mapView.region
+        region.span.latitudeDelta /= 2.0
+        region.span.longitudeDelta /= 2.0
+        mapView.setRegion(region, animated: true)
     }
 
     @IBAction func zoomOutButtonPressed(_: UIButton) {
         print("Zoom out works! 🐸")
+        var region = mapView.region
+        region.span.latitudeDelta = min(region.span.latitudeDelta * 2.0, 180.0)
+        region.span.longitudeDelta = min(region.span.longitudeDelta * 2.0, 180.0)
+        mapView.setRegion(region, animated: true)
     }
 
     @IBAction func closeVC() {
@@ -231,10 +239,13 @@ extension MapViewController: MKMapViewDelegate {
             }
             guard let placemarks = placemarks else { return }
             let placemark = placemarks.first
-            let fullAddressName = placemark?.name
+            let streetName = placemark?.thoroughfare
+            let buildNumber = placemark?.subThoroughfare
             DispatchQueue.main.async {
-                if let fullAddressName = fullAddressName {
-                    self.currentAddressLabel.text = "\(fullAddressName)"
+                if let streetName = streetName, let buildNumber = buildNumber {
+                    self.currentAddressLabel.text = "\(streetName), \(buildNumber)"
+                } else if let streetName = streetName {
+                    self.currentAddressLabel.text = "\(streetName)"
                 } else {
                     self.currentAddressLabel.text = ""
                 }
