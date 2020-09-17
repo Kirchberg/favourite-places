@@ -39,7 +39,6 @@ class AddPlaceViewController: UITableViewController {
     @IBOutlet var placeRating: RatingControl!
     @IBOutlet var placeDesciptionTV: UITextView! {
         didSet {
-            placeDesciptionTV.keyboardType = .asciiCapable
             placeDesciptionTV.enablesReturnKeyAutomatically = true
             placeDesciptionTV.allowsEditingTextAttributes = true
             placeDesciptionTV.autocorrectionType = .default
@@ -234,6 +233,7 @@ extension AddPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
 }
 
 // MARK: - MapViewControllerDelegate
+
 extension AddPlaceViewController: MapViewControllerDelegate {
     func getInfoAboutPlace(_ address: String) {
         placeLocationTF.text = address

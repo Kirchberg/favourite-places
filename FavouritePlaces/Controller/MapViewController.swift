@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     var mapViewControllerDelegate: MapViewControllerDelegate?
     var place = Place()
     var incomeSegueIdentifier = String()
-    let regionInMeters = 5000.0
+    let regionInMeters = 1000.0
     let annotationIdentfier: String = "annotationIdentfier"
 
     // Object that helps us get the user's location
@@ -33,13 +33,13 @@ class MapViewController: UIViewController {
             doneButton.setTitleColor(.white, for: .normal)
             doneButton.layer.cornerRadius = 7.0
             doneButton.setTitle("Done", for: .normal)
-            doneButton.titleLabel?.font = UIFont(name: "EuphemiaUCAS", size: 16.0)
+            doneButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 16.0)
         }
     }
 
     @IBOutlet var currentAddressLabel: UILabel! {
         didSet {
-            currentAddressLabel.font = UIFont(name: "EuphemiaUCAS", size: 30.0)
+            currentAddressLabel.font = UIFont(name: "Ubuntu", size: 30.0)
             currentAddressLabel.text = ""
         }
     }
@@ -54,6 +54,14 @@ class MapViewController: UIViewController {
     @IBAction func centerViewInUserLocation() {
         // Get user location
         showUserLocation()
+    }
+
+    @IBAction func zoomInButtonPressed(_: UIButton) {
+        print("Zoom in works! 🐸")
+    }
+
+    @IBAction func zoomOutButtonPressed(_: UIButton) {
+        print("Zoom out works! 🐸")
     }
 
     @IBAction func closeVC() {
@@ -223,13 +231,10 @@ extension MapViewController: MKMapViewDelegate {
             }
             guard let placemarks = placemarks else { return }
             let placemark = placemarks.first
-            let streetName = placemark?.thoroughfare
-            let buildNumber = placemark?.subThoroughfare
+            let fullAddressName = placemark?.name
             DispatchQueue.main.async {
-                if let streetName = streetName, let buildNumber = buildNumber {
-                    self.currentAddressLabel.text = "\(streetName), \(buildNumber)"
-                } else if let streetName = streetName {
-                    self.currentAddressLabel.text = "\(streetName)"
+                if let fullAddressName = fullAddressName {
+                    self.currentAddressLabel.text = "\(fullAddressName)"
                 } else {
                     self.currentAddressLabel.text = ""
                 }
