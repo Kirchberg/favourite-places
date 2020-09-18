@@ -19,6 +19,7 @@ class MapViewController: UIViewController {
     var place = Place()
     var incomeSegueIdentifier = String()
     let regionInMeters = 1000.0
+    var placeCoordinate: CLLocationCoordinate2D?
     let annotationIdentfier: String = "annotationIdentfier"
 
     // Object that helps us get the user's location
@@ -34,6 +35,16 @@ class MapViewController: UIViewController {
             doneButton.layer.cornerRadius = 7.0
             doneButton.setTitle("Done", for: .normal)
             doneButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 16.0)
+        }
+    }
+
+    @IBOutlet var setRouteButton: UIButton! {
+        didSet {
+            setRouteButton.backgroundColor = .black
+            setRouteButton.setTitleColor(.white, for: .normal)
+            setRouteButton.layer.cornerRadius = 7.0
+            setRouteButton.setTitle("Set Route", for: .normal)
+            setRouteButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 16.0)
         }
     }
 
@@ -72,6 +83,10 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
 
+    @IBAction func setRouteButtonPressed(_: UIButton) {
+        getDirections()
+    }
+
     @IBAction func closeVC() {
         dismiss(animated: true)
     }
@@ -82,11 +97,16 @@ class MapViewController: UIViewController {
     }
 
     private func setupMapView() {
+        centerUserLocationButton.isHidden = true
+        setRouteButton.isHidden = true
+
         if incomeSegueIdentifier == "showMap" {
             setupPlacemark()
             markerLocationView.isHidden = true
             currentAddressLabel.isHidden = true
             doneButton.isHidden = true
+            centerUserLocationButton.isHidden = false
+            setRouteButton.isHidden = false
         }
     }
 
@@ -121,6 +141,7 @@ class MapViewController: UIViewController {
 
             // Attach an annotation to a placemark
             annotation.coordinate = placemarkLocation.coordinate
+            self.placeCoordinate = placemarkLocation.coordinate
 
             // Show and select a place annotation on a map
             self.mapView.showAnnotations([annotation], animated: true)
@@ -138,7 +159,8 @@ class MapViewController: UIViewController {
         } else {
             // Load alert after 1 second if geolocation services are disabled
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.errorLocationServices()
+                self.errorLocationServices(title: "Geolocation services are disabled",
+                                           message: "Change an app’s location authorization in Settings > Privacy > Location Services.")
             }
         }
     }
@@ -156,17 +178,18 @@ class MapViewController: UIViewController {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
             if incomeSegueIdentifier == "getLocationMap" {
-                centerUserLocationButton.isHidden = true
                 showUserLocation()
             }
         case .authorizedAlways:
             break
         case .denied:
-            errorLocationServices()
+            errorLocationServices(title: "Geolocation services are disabled",
+                                  message: "Change an app’s location authorization in Settings > Privacy > Location Services.")
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            errorLocationServices()
+            errorLocationServices(title: "Geolocation services are disabled",
+                                  message: "Change an app’s location authorization in Settings > Privacy > Location Services.")
         @unknown default:
             print("I hate new features 👺. \nBut I love programming 💌.")
         }
@@ -191,8 +214,56 @@ class MapViewController: UIViewController {
         return CLLocation(latitude: latitude, longitude: longitude)
     }
 
-    private func errorLocationServices() {
-        let alert = UIAlertController(title: "Geolocation services are disabled", message: "Change an app’s location authorization in Settings > Privacy > Location Services.", preferredStyle: .alert)
+    private func getDirections() {
+        guard let userLocation = locationManager.location?.coordinate else {
+            errorLocationServices(title: "Error", message: "The current location can't be determined")
+            return
+        }
+        guard let request = createDirectionRequest(from: userLocation) else {
+            errorLocationServices(title: "Error", message: "The current destination can't be calculated")
+            return
+        }
+
+        let directions = MKDirections(request: request)
+        directions.calculate { response, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let response = response else {
+                self.errorLocationServices(title: "Error", message: "The route isn't available")
+                return
+            }
+
+            for route in response.routes {
+                self.mapView.addOverlay(route.polyline)
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+
+                let distance = String(format: "%.1f", route.distance / 1000)
+                let timeInterval = route.expectedTravelTime
+
+                print("\(distance)\n\(timeInterval) 🥳")
+            }
+        }
+    }
+
+    private func createDirectionRequest(from sourceCoordinate: CLLocationCoordinate2D) -> MKDirections.Request? {
+        guard let destinationCoordinate = placeCoordinate else { return nil }
+
+        let startPosition = MKPlacemark(coordinate: sourceCoordinate)
+        let endPosition = MKPlacemark(coordinate: destinationCoordinate)
+
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: startPosition)
+        request.destination = MKMapItem(placemark: endPosition)
+        request.transportType = .walking
+        request.requestsAlternateRoutes = true
+
+        return request
+    }
+
+    private func errorLocationServices(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -251,6 +322,13 @@ extension MapViewController: MKMapViewDelegate {
                 }
             }
         }
+    }
+
+    func mapView(_: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        renderer.strokeColor = .blue
+
+        return renderer
     }
 }
 
