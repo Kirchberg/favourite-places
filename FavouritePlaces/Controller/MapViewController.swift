@@ -20,6 +20,13 @@ class MapViewController: UIViewController {
     var incomeSegueIdentifier = String()
     let regionInMeters = 1000.0
     var placeCoordinate: CLLocationCoordinate2D?
+    var previousUserLocation: CLLocation? {
+        didSet {
+            startTrackingUserLocation()
+        }
+    }
+
+    var directionsArray: [MKDirections] = []
     let annotationIdentfier: String = "annotationIdentfier"
 
     // Object that helps us get the user's location
@@ -38,15 +45,9 @@ class MapViewController: UIViewController {
         }
     }
 
-    @IBOutlet var setRouteButton: UIButton! {
-        didSet {
-            setRouteButton.backgroundColor = .black
-            setRouteButton.setTitleColor(.white, for: .normal)
-            setRouteButton.layer.cornerRadius = 7.0
-            setRouteButton.setTitle("Set Route", for: .normal)
-            setRouteButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 16.0)
-        }
-    }
+    @IBOutlet var setRouteAutomobileButton: UIButton!
+
+    @IBOutlet var setRouteWalkingButton: UIButton!
 
     @IBOutlet var currentAddressLabel: UILabel! {
         didSet {
@@ -83,8 +84,8 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
 
-    @IBAction func setRouteButtonPressed(_: UIButton) {
-        getDirections()
+    @IBAction func setRouteButtonPressed(_ sender: UIButton) {
+        getDirections(sender)
     }
 
     @IBAction func closeVC() {
@@ -98,7 +99,8 @@ class MapViewController: UIViewController {
 
     private func setupMapView() {
         centerUserLocationButton.isHidden = true
-        setRouteButton.isHidden = true
+        setRouteWalkingButton.isHidden = true
+        setRouteAutomobileButton.isHidden = true
 
         if incomeSegueIdentifier == "showMap" {
             setupPlacemark()
@@ -106,8 +108,17 @@ class MapViewController: UIViewController {
             currentAddressLabel.isHidden = true
             doneButton.isHidden = true
             centerUserLocationButton.isHidden = false
-            setRouteButton.isHidden = false
+            setRouteWalkingButton.isHidden = false
+            setRouteAutomobileButton.isHidden = false
         }
+    }
+
+    // Clears the map from the previous overlays
+    private func resetMapView(withNew directions: MKDirections) {
+        mapView.removeOverlays(mapView.overlays)
+        directionsArray.append(directions)
+        _ = directionsArray.map { $0.cancel() }
+        directionsArray.removeAll()
     }
 
     // MARK: - Converting an address name to a coordinate on the map
@@ -207,6 +218,19 @@ class MapViewController: UIViewController {
         }
     }
 
+    //Centering on the user when the location changes
+    private func startTrackingUserLocation() {
+        guard let previousUserLocation = previousUserLocation else { return }
+
+        let center = getCenterLocation(for: mapView)
+        guard center.distance(from: previousUserLocation) > 3 else { return }
+
+        self.previousUserLocation = center
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.showUserLocation()
+        }
+    }
+
     private func getCenterLocation(for mapView: MKMapView) -> CLLocation {
         let latitude = mapView.centerCoordinate.latitude
         let longitude = mapView.centerCoordinate.longitude
@@ -214,17 +238,25 @@ class MapViewController: UIViewController {
         return CLLocation(latitude: latitude, longitude: longitude)
     }
 
-    private func getDirections() {
+    private func getDirections(_ sender: UIButton) {
         guard let userLocation = locationManager.location?.coordinate else {
             errorLocationServices(title: "Error", message: "The current location can't be determined")
             return
         }
-        guard let request = createDirectionRequest(from: userLocation) else {
+
+        //Start monitoring the user's movement
+        locationManager.startUpdatingLocation()
+        previousUserLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+
+        guard let request = createDirectionRequest(from: userLocation, sender) else {
             errorLocationServices(title: "Error", message: "The current destination can't be calculated")
             return
         }
 
         let directions = MKDirections(request: request)
+        //Reset previous requests and overlays
+        resetMapView(withNew: directions)
+
         directions.calculate { response, error in
             if let error = error {
                 print(error)
@@ -247,7 +279,7 @@ class MapViewController: UIViewController {
         }
     }
 
-    private func createDirectionRequest(from sourceCoordinate: CLLocationCoordinate2D) -> MKDirections.Request? {
+    private func createDirectionRequest(from sourceCoordinate: CLLocationCoordinate2D, _ sender: UIButton) -> MKDirections.Request? {
         guard let destinationCoordinate = placeCoordinate else { return nil }
 
         let startPosition = MKPlacemark(coordinate: sourceCoordinate)
@@ -256,8 +288,13 @@ class MapViewController: UIViewController {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: startPosition)
         request.destination = MKMapItem(placemark: endPosition)
-        request.transportType = .walking
-        request.requestsAlternateRoutes = true
+        switch sender.accessibilityIdentifier {
+        case "walking":
+            request.transportType = .walking
+        default:
+            request.transportType = .automobile
+        }
+        request.requestsAlternateRoutes = false
 
         return request
     }
@@ -302,6 +339,9 @@ extension MapViewController: MKMapViewDelegate {
 
         // Object that converts map coordinates to a street address
         let geocoder = CLGeocoder()
+
+        //Cancel previous geocoding request
+        geocoder.cancelGeocode()
 
         geocoder.reverseGeocodeLocation(center) { placemarks, error in
             if let error = error {

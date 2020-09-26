@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eiu-wi-giX">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
@@ -19,7 +19,7 @@
             <objects>
                 <tableViewController modalPresentationStyle="fullScreen" id="2xK-pK-khb" customClass="AddPlaceViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DmY-bG-NyS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <inset key="separatorInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
@@ -44,7 +44,7 @@
                                                     </constraints>
                                                     <state key="normal" image="map"/>
                                                     <connections>
-                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" id="wZi-aA-CBO"/>
+                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="showMap" modalPresentationStyle="fullScreen" id="wZi-aA-CBO"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -127,7 +127,7 @@
                                                     </constraints>
                                                     <state key="normal" image="map-icon3"/>
                                                     <connections>
-                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="getLocationMap" id="790-VL-MYg"/>
+                                                        <segue destination="qGe-Mw-Mz8" kind="presentation" identifier="getLocationMap" modalPresentationStyle="fullScreen" id="790-VL-MYg"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -270,17 +270,17 @@
             <objects>
                 <viewController id="qGe-Mw-Mz8" customClass="MapViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QPD-Mn-erb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KGG-Zj-O7C">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBl-w1-a7L">
-                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                <rect key="frame" x="15" y="15" width="55" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="HIk-5z-lyd"/>
-                                    <constraint firstAttribute="width" constant="40" id="clE-At-ZJp"/>
+                                    <constraint firstAttribute="height" constant="55" id="HIk-5z-lyd"/>
+                                    <constraint firstAttribute="width" constant="55" id="clE-At-ZJp"/>
                                 </constraints>
                                 <state key="normal" image="close-button"/>
                                 <connections>
@@ -288,10 +288,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOU-Vi-yu3">
-                                <rect key="frame" x="265" y="15" width="40" height="40"/>
+                                <rect key="frame" x="250" y="15" width="55" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="8yJ-Eg-J9s"/>
-                                    <constraint firstAttribute="height" constant="40" id="wuc-H2-N17"/>
+                                    <constraint firstAttribute="width" constant="55" id="8yJ-Eg-J9s"/>
+                                    <constraint firstAttribute="height" constant="55" id="wuc-H2-N17"/>
                                 </constraints>
                                 <state key="normal" image="GeoButton3"/>
                                 <connections>
@@ -299,7 +299,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="03-Location-icon" translatesAutoresizingMaskIntoConstraints="NO" id="E3n-QO-RFc">
-                                <rect key="frame" x="125" y="165" width="70" height="70"/>
+                                <rect key="frame" x="125" y="219" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="MGe-ZX-iP7"/>
                                     <constraint firstAttribute="height" constant="70" id="l7B-R5-cRj"/>
@@ -312,7 +312,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKs-4V-iLe">
-                                <rect key="frame" x="235" y="15" width="70" height="40"/>
+                                <rect key="frame" x="235" y="20" width="70" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="OPb-CX-Lov"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="OtW-Ao-vv5"/>
@@ -323,14 +323,14 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Map_Stepper" translatesAutoresizingMaskIntoConstraints="NO" id="fdI-se-wKy">
-                                <rect key="frame" x="259" y="174" width="52" height="112"/>
+                                <rect key="frame" x="259" y="228" width="52" height="112"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="112" id="39X-3h-wPY"/>
                                     <constraint firstAttribute="width" constant="52" id="5yo-zN-Bdr"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-dv-QrK">
-                                <rect key="frame" x="265" y="176" width="40" height="108"/>
+                                <rect key="frame" x="265" y="230" width="40" height="108"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-nK-1cT">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="49"/>
@@ -358,15 +358,28 @@
                                     <constraint firstAttribute="width" constant="40" id="hct-Ik-JFM"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXT-z8-Svz">
-                                <rect key="frame" x="215" y="390" width="90" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXT-z8-Svz">
+                                <rect key="frame" x="250" y="483" width="55" height="55"/>
+                                <accessibility key="accessibilityConfiguration" identifier="walking"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="P7q-Nj-oCY"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="mzf-fm-ifk"/>
+                                    <constraint firstAttribute="height" constant="55" id="P7q-Nj-oCY"/>
+                                    <constraint firstAttribute="width" constant="55" id="mzf-fm-ifk"/>
                                 </constraints>
-                                <state key="normal" title="Set Route"/>
+                                <state key="normal" image="walking"/>
                                 <connections>
                                     <action selector="setRouteButtonPressed:" destination="qGe-Mw-Mz8" eventType="touchUpInside" id="enf-6F-3dt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76j-sX-5Y5">
+                                <rect key="frame" x="15" y="483" width="55" height="55"/>
+                                <accessibility key="accessibilityConfiguration" identifier="car"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="Nas-gs-Yl4"/>
+                                    <constraint firstAttribute="height" constant="55" id="RBO-HO-UeR"/>
+                                </constraints>
+                                <state key="normal" image="car"/>
+                                <connections>
+                                    <action selector="setRouteButtonPressed:" destination="qGe-Mw-Mz8" eventType="touchUpInside" id="c0j-ni-hQM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -378,15 +391,17 @@
                             <constraint firstItem="KGG-Zj-O7C" firstAttribute="top" secondItem="QPD-Mn-erb" secondAttribute="top" id="5x1-3q-VQc"/>
                             <constraint firstItem="d7h-NL-T5a" firstAttribute="trailing" secondItem="kOU-Vi-yu3" secondAttribute="trailing" constant="15" id="8xR-Yk-GOi"/>
                             <constraint firstItem="H0m-bA-LIg" firstAttribute="leading" secondItem="d7h-NL-T5a" secondAttribute="leading" constant="15" id="AT7-yH-K2L"/>
-                            <constraint firstItem="qXT-z8-Svz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="d7h-NL-T5a" secondAttribute="leading" constant="214" id="HLq-NP-1aI"/>
                             <constraint firstAttribute="bottom" secondItem="KGG-Zj-O7C" secondAttribute="bottom" id="IUw-Jr-kQu"/>
                             <constraint firstItem="d7h-NL-T5a" firstAttribute="bottom" secondItem="qXT-z8-Svz" secondAttribute="bottom" constant="30" id="Kff-4Y-TRK"/>
                             <constraint firstItem="E3n-QO-RFc" firstAttribute="centerY" secondItem="QPD-Mn-erb" secondAttribute="centerY" constant="-30" id="QaU-V9-9VL"/>
                             <constraint firstItem="OBl-w1-a7L" firstAttribute="top" secondItem="d7h-NL-T5a" secondAttribute="top" constant="15" id="VMd-li-4HD"/>
                             <constraint firstItem="KGG-Zj-O7C" firstAttribute="leading" secondItem="d7h-NL-T5a" secondAttribute="leading" id="WOO-tx-YqG"/>
                             <constraint firstItem="TKs-4V-iLe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OBl-w1-a7L" secondAttribute="trailing" constant="150" id="Z1B-Ns-8u8"/>
-                            <constraint firstItem="TKs-4V-iLe" firstAttribute="top" secondItem="d7h-NL-T5a" secondAttribute="top" constant="15" id="bVo-zC-FhX"/>
+                            <constraint firstItem="76j-sX-5Y5" firstAttribute="leading" secondItem="d7h-NL-T5a" secondAttribute="leading" constant="15" id="ack-Wf-pyr"/>
+                            <constraint firstItem="TKs-4V-iLe" firstAttribute="top" secondItem="d7h-NL-T5a" secondAttribute="top" constant="20" id="bVo-zC-FhX"/>
+                            <constraint firstItem="d7h-NL-T5a" firstAttribute="bottom" secondItem="76j-sX-5Y5" secondAttribute="bottom" constant="30" id="c6f-qQ-SGG"/>
                             <constraint firstItem="d7h-NL-T5a" firstAttribute="trailing" secondItem="fdI-se-wKy" secondAttribute="trailing" constant="9" id="ci9-Nd-bES"/>
+                            <constraint firstItem="qXT-z8-Svz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76j-sX-5Y5" secondAttribute="trailing" constant="180" id="dZV-JZ-AYm"/>
                             <constraint firstItem="kOU-Vi-yu3" firstAttribute="top" secondItem="d7h-NL-T5a" secondAttribute="top" constant="15" id="i7P-yB-oU6"/>
                             <constraint firstItem="fdI-se-wKy" firstAttribute="centerY" secondItem="QPD-Mn-erb" secondAttribute="centerY" id="iFc-iK-fJo"/>
                             <constraint firstItem="d7h-NL-T5a" firstAttribute="trailing" secondItem="qXT-z8-Svz" secondAttribute="trailing" constant="15" id="lYa-aL-DZO"/>
@@ -404,7 +419,8 @@
                         <outlet property="doneButton" destination="TKs-4V-iLe" id="IQJ-ub-HGz"/>
                         <outlet property="mapView" destination="KGG-Zj-O7C" id="ZRi-aR-8hV"/>
                         <outlet property="markerLocationView" destination="E3n-QO-RFc" id="Ozg-of-TpS"/>
-                        <outlet property="setRouteButton" destination="qXT-z8-Svz" id="wea-rC-zTx"/>
+                        <outlet property="setRouteAutomobileButton" destination="76j-sX-5Y5" id="qBD-xw-sem"/>
+                        <outlet property="setRouteWalkingButton" destination="qXT-z8-Svz" id="wea-rC-zTx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jia-pP-evb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -416,7 +432,7 @@
             <objects>
                 <navigationController id="eiu-wi-giX" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="w89-uN-4wZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="21"/>
@@ -438,11 +454,11 @@
             <objects>
                 <viewController id="qWw-EG-oM6" customClass="MainViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kSu-kc-pm0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-Vo-Y72">
-                                <rect key="frame" x="0.0" y="79" width="320" height="401"/>
+                                <rect key="frame" x="0.0" y="79" width="320" height="489"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="lAj-gt-klQ" customClass="MainTableViewCell" customModule="FavouritePlaces" customModuleProvider="target">
@@ -632,7 +648,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="HlM-Si-4T8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kR1-QX-Skr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="21"/>
@@ -668,10 +684,12 @@
         <image name="Add_Photo_icon" width="133" height="133"/>
         <image name="GeoButton3" width="1000" height="1000"/>
         <image name="Map_Stepper" width="185" height="450"/>
+        <image name="car" width="500" height="500"/>
         <image name="close-button" width="701" height="705"/>
         <image name="emptyStar" width="255" height="256"/>
         <image name="map" width="50" height="50"/>
         <image name="map-icon3" width="354" height="354"/>
+        <image name="walking" width="500" height="500"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
