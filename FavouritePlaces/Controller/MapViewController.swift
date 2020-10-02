@@ -218,7 +218,7 @@ class MapViewController: UIViewController {
         }
     }
 
-    //Centering on the user when the location changes
+    // Centering on the user when the location changes
     private func startTrackingUserLocation() {
         guard let previousUserLocation = previousUserLocation else { return }
 
@@ -244,7 +244,7 @@ class MapViewController: UIViewController {
             return
         }
 
-        //Start monitoring the user's movement
+        // Start monitoring the user's movement
         locationManager.startUpdatingLocation()
         previousUserLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
 
@@ -254,7 +254,7 @@ class MapViewController: UIViewController {
         }
 
         let directions = MKDirections(request: request)
-        //Reset previous requests and overlays
+        // Reset previous requests and overlays
         resetMapView(withNew: directions)
 
         directions.calculate { response, error in
@@ -340,7 +340,7 @@ extension MapViewController: MKMapViewDelegate {
         // Object that converts map coordinates to a street address
         let geocoder = CLGeocoder()
 
-        //Cancel previous geocoding request
+        // Cancel previous geocoding request
         geocoder.cancelGeocode()
 
         geocoder.reverseGeocodeLocation(center) { placemarks, error in

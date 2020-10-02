@@ -8,6 +8,9 @@ target 'FavouritePlaces' do
   # Pods for FavouritePlaces
   pod 'RealmSwift'
   pod 'SwiftFormat/CLI'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
   #pod 'Hero'
 end
 

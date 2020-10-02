@@ -9,9 +9,13 @@
 /* Begin PBXBuildFile section */
 		42332301250A74FB00A6BE1C /* Ubuntu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42332300250A74FB00A6BE1C /* Ubuntu.ttf */; };
 		423D266524EEC040003F2BBE /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423D266424EEC040003F2BBE /* RatingControl.swift */; };
+		424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ECCDD2524E049002B7198 /* LoginViewController.swift */; };
 		4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4251F60424E5846700B94CB8 /* StorageManager.swift */; };
 		4263242324E2FE420003B223 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242224E2FE420003B223 /* PlaceModel.swift */; };
 		4263242524E315370003B223 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242424E315370003B223 /* AddPlaceViewController.swift */; };
+		426EC3A52526FFBD00A4839D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */; };
+		426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AA25270E7100A4839D /* DesignableUITextField.swift */; };
+		426EC3B02527126D00A4839D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AF2527126D00A4839D /* DesignableView.swift */; };
 		42AD08BF24DC3B630054494E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08BD24DC3B630054494E /* Main.storyboard */; };
 		42AD08C124DC3B640054494E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08C024DC3B640054494E /* Assets.xcassets */; };
 		42AD08C424DC3B640054494E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08C224DC3B640054494E /* LaunchScreen.storyboard */; };
@@ -28,9 +32,13 @@
 		102F87A66C4C7EEF612C9BB2 /* Pods-FavouritePlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouritePlaces.debug.xcconfig"; path = "Target Support Files/Pods-FavouritePlaces/Pods-FavouritePlaces.debug.xcconfig"; sourceTree = "<group>"; };
 		42332300250A74FB00A6BE1C /* Ubuntu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ubuntu.ttf; sourceTree = "<group>"; };
 		423D266424EEC040003F2BBE /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
+		424ECCDD2524E049002B7198 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4251F60424E5846700B94CB8 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		4263242224E2FE420003B223 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		4263242424E315370003B223 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
+		426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		426EC3AA25270E7100A4839D /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
+		426EC3AF2527126D00A4839D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		42AD08B424DC3B620054494E /* FavouritePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouritePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42AD08BE24DC3B630054494E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42AD08C024DC3B640054494E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,6 +83,23 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		426EC3A22526FF7300A4839D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				424ECCDD2524E049002B7198 /* LoginViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		426EC3A925270E4700A4839D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				426EC3AA25270E7100A4839D /* DesignableUITextField.swift */,
+				426EC3AF2527126D00A4839D /* DesignableView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		42AD08AB24DC3B620054494E = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +127,7 @@
 				42B3EFE02500F86500087A69 /* Model */,
 				42AD08C024DC3B640054494E /* Assets.xcassets */,
 				42AD08C524DC3B640054494E /* Info.plist */,
+				426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */,
 			);
 			path = FavouritePlaces;
 			sourceTree = "<group>";
@@ -115,6 +141,7 @@
 				42AD08CB24DC51730054494E /* MainViewController.swift */,
 				4263242424E315370003B223 /* AddPlaceViewController.swift */,
 				42C18D6924FAC69C00D10290 /* MapViewController.swift */,
+				426EC3A22526FF7300A4839D /* Auth */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -122,6 +149,7 @@
 		42B3EFDF2500F84500087A69 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				426EC3A925270E4700A4839D /* Auth */,
 				42AD08CD24DD37750054494E /* MainTableViewCell.swift */,
 				423D266424EEC040003F2BBE /* RatingControl.swift */,
 				42AD08BD24DC3B630054494E /* Main.storyboard */,
@@ -218,6 +246,7 @@
 			files = (
 				42AD08C424DC3B640054494E /* LaunchScreen.storyboard in Resources */,
 				42332301250A74FB00A6BE1C /* Ubuntu.ttf in Resources */,
+				426EC3A52526FFBD00A4839D /* GoogleService-Info.plist in Resources */,
 				42AD08C124DC3B640054494E /* Assets.xcassets in Resources */,
 				42AD08BF24DC3B630054494E /* Main.storyboard in Resources */,
 			);
@@ -293,13 +322,16 @@
 				4263242524E315370003B223 /* AddPlaceViewController.swift in Sources */,
 				42AD08CC24DC51730054494E /* MainViewController.swift in Sources */,
 				42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */,
+				426EC3B02527126D00A4839D /* DesignableView.swift in Sources */,
 				4263242324E2FE420003B223 /* PlaceModel.swift in Sources */,
 				423D266524EEC040003F2BBE /* RatingControl.swift in Sources */,
 				42B411742504036B009A8A91 /* SceneDelegate.swift in Sources */,
 				42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */,
 				42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */,
+				426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */,
 				42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */,
 				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
+				424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +480,7 @@
 			baseConfigurationReference = 102F87A66C4C7EEF612C9BB2 /* Pods-FavouritePlaces.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M9U82X9XHA;
 				INFOPLIST_FILE = FavouritePlaces/Info.plist;
@@ -468,6 +501,7 @@
 			baseConfigurationReference = E2541285A2F20E848AE785A7 /* Pods-FavouritePlaces.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M9U82X9XHA;
 				INFOPLIST_FILE = FavouritePlaces/Info.plist;
