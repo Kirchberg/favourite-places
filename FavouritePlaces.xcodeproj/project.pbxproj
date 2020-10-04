@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		42332301250A74FB00A6BE1C /* Ubuntu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42332300250A74FB00A6BE1C /* Ubuntu.ttf */; };
 		423D266524EEC040003F2BBE /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423D266424EEC040003F2BBE /* RatingControl.swift */; };
+		424DF543252A088D0046ACE2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DF542252A088D0046ACE2 /* SignUpViewController.swift */; };
 		424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ECCDD2524E049002B7198 /* LoginViewController.swift */; };
 		4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4251F60424E5846700B94CB8 /* StorageManager.swift */; };
 		4263242324E2FE420003B223 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242224E2FE420003B223 /* PlaceModel.swift */; };
@@ -32,6 +33,7 @@
 		102F87A66C4C7EEF612C9BB2 /* Pods-FavouritePlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouritePlaces.debug.xcconfig"; path = "Target Support Files/Pods-FavouritePlaces/Pods-FavouritePlaces.debug.xcconfig"; sourceTree = "<group>"; };
 		42332300250A74FB00A6BE1C /* Ubuntu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ubuntu.ttf; sourceTree = "<group>"; };
 		423D266424EEC040003F2BBE /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
+		424DF542252A088D0046ACE2 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		424ECCDD2524E049002B7198 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4251F60424E5846700B94CB8 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		4263242224E2FE420003B223 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				424ECCDD2524E049002B7198 /* LoginViewController.swift */,
+				424DF542252A088D0046ACE2 /* SignUpViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				423D266524EEC040003F2BBE /* RatingControl.swift in Sources */,
 				42B411742504036B009A8A91 /* SceneDelegate.swift in Sources */,
 				42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */,
+				424DF543252A088D0046ACE2 /* SignUpViewController.swift in Sources */,
 				42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */,
 				426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */,
 				42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */,

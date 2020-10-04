@@ -1,23 +1,15 @@
 //
-//  LoginViewController.swift
+//  SignUpViewController.swift
 //  FavouritePlaces
 //
-//  Created by Kirill Kostarev on 26.09.2020.
+//  Created by Kirill Kostarev on 04.10.2020.
 //  Copyright © 2020 Kostarev Kirill Pavlovich. All rights reserved.
 //
 
 import Firebase
 import UIKit
 
-class LoginViewController: UIViewController {
-    @IBOutlet var appLabel: UILabel! {
-        didSet {
-            appLabel.text = "Favourite Places"
-            appLabel.font = UIFont(name: "Ubuntu", size: 30.0)
-            appLabel.textColor = .black
-        }
-    }
-
+class SignUpViewController: UIViewController {
     @IBOutlet var emailTF: UITextField! {
         didSet {
             emailTF.placeholder = "Email"
@@ -37,19 +29,9 @@ class LoginViewController: UIViewController {
         }
     }
 
-    @IBOutlet var loginButton: UIButton! {
-        didSet {
-            loginButton.setTitle("Log In", for: .normal)
-            loginButton.setTitleColor(.white, for: .normal)
-            loginButton.backgroundColor = .systemBlue
-            loginButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 20.0)
-            loginButton.layer.cornerRadius = 20.0
-        }
-    }
-
     @IBOutlet var signUpLabel: UILabel! {
         didSet {
-            signUpLabel.text = "Don't have an account?"
+            signUpLabel.text = "Now we need to sign up for a new account"
             signUpLabel.font = UIFont(name: "Ubuntu", size: 17.0)
             signUpLabel.textColor = .black
         }
@@ -57,24 +39,30 @@ class LoginViewController: UIViewController {
 
     @IBOutlet var signUpButton: UIButton! {
         didSet {
-            signUpButton.setTitle("Sign Up Now", for: .normal)
-            signUpButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 17.0)
+            signUpButton.setTitle("Sign Up", for: .normal)
+            signUpButton.titleLabel?.font = UIFont(name: "Ubuntu", size: 20.0)
             signUpButton.layer.cornerRadius = 20.0
+            signUpButton.setTitleColor(.white, for: .normal)
+            signUpButton.backgroundColor = .systemBlue
         }
     }
 
-    @IBAction func logInButton(_: UIButton) {
+    @IBAction func closeVC(_: Any) {
+        dismiss(animated: true)
+    }
+
+    @IBAction func signUpButton(_: UIButton) {
         guard let email = emailTF.text,
             let password = passwordTF.text,
             !email.isEmpty(),
             !password.isEmpty()
         else {
-            errorSignUp(title: "Error", message: "email or password can't be empty!")
+            errorSignUp(title: "Error", message: "Email or Password can't be empty!")
             emailTF.text = nil
             passwordTF.text = nil
             return
         }
-        logUserIn(with: email, password: password)
+        createUser(with: email, password: password)
     }
 
     override func viewDidLoad() {
@@ -92,14 +80,25 @@ class LoginViewController: UIViewController {
 
     // MARK: - Firebase Auth
 
-    private func logUserIn(with email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { _, error in
+    private func createUser(with email: String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("Failed to log user in with error: ", error.localizedDescription)
+                print("Failed to sign user up with error: ", error.localizedDescription)
                 return
             }
+
+            guard let uid = result?.user.uid else { return }
+            let userInfo = ["Email": email, "Password": password]
+
+            Database.database().reference().child("Users").child(uid).updateChildValues(userInfo) { error, _ in
+                if let error = error {
+                    print("Failed to database values with error: ", error.localizedDescription)
+                    return
+                }
+                print("Success: Sign Up")
+            }
         }
-        performSegue(withIdentifier: "loginSuccess", sender: nil)
+        performSegue(withIdentifier: "signUpSuccess", sender: nil)
     }
 
     // MARK: - Error
@@ -111,9 +110,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-// MARK: - UITextFieldDelegate
-
-extension LoginViewController: UITextFieldDelegate {
+extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
 
