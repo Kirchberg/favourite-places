@@ -223,7 +223,7 @@ class MapViewController: UIViewController {
         guard let previousUserLocation = previousUserLocation else { return }
 
         let center = getCenterLocation(for: mapView)
-        guard center.distance(from: previousUserLocation) > 3 else { return }
+        guard center.distance(from: previousUserLocation) > 10 else { return }
 
         self.previousUserLocation = center
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {

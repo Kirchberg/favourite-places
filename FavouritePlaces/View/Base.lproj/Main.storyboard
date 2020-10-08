@@ -794,7 +794,7 @@
                 <navigationController id="eiu-wi-giX" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="icons8-home" id="sK5-2U-gYC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="w89-uN-4wZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="92.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="93.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="21"/>
@@ -1053,6 +1053,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ST9-p5-NSC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="34K-0E-axu">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1108,7 +1109,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="BBy-ix-sUx"/>
+        <segue reference="Sbh-29-THo"/>
         <segue reference="wZi-aA-CBO"/>
         <segue reference="ECh-ox-1nX"/>
     </inferredMetricsTieBreakers>
