@@ -430,7 +430,7 @@
         <!--Login View Controller-->
         <scene sceneID="ZWa-DS-P0p">
             <objects>
-                <viewController id="wmN-vG-5r0" customClass="LoginViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginForm" modalPresentationStyle="fullScreen" id="wmN-vG-5r0" customClass="LoginViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xbh-XN-Udd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -578,7 +578,7 @@
                                                         <rect key="frame" x="45.5" y="0.0" width="46" height="30"/>
                                                         <state key="normal" title="Button"/>
                                                         <connections>
-                                                            <segue destination="PLW-Gw-zRV" kind="presentation" identifier="showSignUp" modalPresentationStyle="fullScreen" id="CyG-ke-Rqh"/>
+                                                            <segue destination="PLW-Gw-zRV" kind="presentation" identifier="showSignUp" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="CyG-ke-Rqh"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -598,6 +598,7 @@
                             <constraint firstItem="ShF-Td-wLD" firstAttribute="bottom" secondItem="bSK-mp-G3Q" secondAttribute="bottom" id="yhw-h4-vJV"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="lD6-IB-Sk0"/>
                     <connections>
                         <outlet property="appLabel" destination="FxE-fT-KAF" id="AmI-4L-nmX"/>
                         <outlet property="emailTF" destination="U2E-10-vef" id="wrg-Cp-i12"/>
@@ -639,7 +640,7 @@
                                                 </constraints>
                                                 <state key="normal" image="icons8-delete"/>
                                                 <connections>
-                                                    <action selector="closeVC:" destination="PLW-Gw-zRV" eventType="touchUpInside" id="lD3-BM-7vn"/>
+                                                    <action selector="closeVC:" destination="PLW-Gw-zRV" eventType="touchUpInside" id="Mmo-Mh-yd0"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -794,7 +795,7 @@
                 <navigationController id="eiu-wi-giX" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="icons8-home" id="sK5-2U-gYC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="w89-uN-4wZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="93.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="92.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="21"/>
@@ -812,21 +813,75 @@
             </objects>
             <point key="canvasLocation" x="469" y="-281"/>
         </scene>
-        <!--Favourite Places-->
+        <!--Profile-->
         <scene sceneID="PrH-ke-bBq">
             <objects>
-                <viewController id="CxW-fl-2Z8" sceneMemberID="viewController">
+                <viewController id="CxW-fl-2Z8" customClass="ProfileViewController" customModule="FavouritePlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cyb-vC-Z5N">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8tw-r4-sjf">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="j7m-yy-13O">
+                                        <rect key="frame" x="16" y="16" width="288" height="128"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-cat_profile" translatesAutoresizingMaskIntoConstraints="NO" id="RQa-aT-qRt">
+                                                <rect key="frame" x="80" y="0.0" width="128" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="128" id="Ci4-Ts-Eu9"/>
+                                                    <constraint firstAttribute="height" constant="128" id="bHu-Qs-Hgk"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eZ-ro-ogA">
+                                        <rect key="frame" x="16" y="154" width="288" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="wV5-p8-fbq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3l-rh-yct">
+                                        <rect key="frame" x="16" y="204" width="288" height="205"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwp-ro-2sO">
+                                        <rect key="frame" x="16" y="419" width="288" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="FBm-tN-yep"/>
+                                        </constraints>
+                                        <state key="normal" title="Sign out"/>
+                                        <connections>
+                                            <action selector="signOutUserButton:" destination="CxW-fl-2Z8" eventType="touchUpInside" id="SUx-kB-Llu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6K4-JS-ReM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="8tw-r4-sjf" secondAttribute="bottom" id="IQV-je-B5S"/>
+                            <constraint firstItem="8tw-r4-sjf" firstAttribute="leading" secondItem="6K4-JS-ReM" secondAttribute="leading" id="Qm6-GT-4b9"/>
+                            <constraint firstItem="6K4-JS-ReM" firstAttribute="trailing" secondItem="8tw-r4-sjf" secondAttribute="trailing" id="UWH-Qg-shl"/>
+                            <constraint firstItem="8tw-r4-sjf" firstAttribute="top" secondItem="6K4-JS-ReM" secondAttribute="top" id="cbm-og-ycG"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favourite Places" largeTitleDisplayMode="never" id="wXF-9o-GBX"/>
+                    <navigationItem key="navigationItem" title="Profile" largeTitleDisplayMode="never" id="wXF-9o-GBX"/>
+                    <connections>
+                        <outlet property="emailUserLabel" destination="6eZ-ro-ogA" id="CZT-SC-Vwc"/>
+                        <outlet property="profileImage" destination="RQa-aT-qRt" id="Svm-uw-Wml"/>
+                        <outlet property="signOutButton" destination="Pwp-ro-2sO" id="tgw-ii-QgS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x1x-DH-PWy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2034" y="525"/>
+            <point key="canvasLocation" x="2032.5" y="525"/>
         </scene>
         <!--Favourite Places-->
         <scene sceneID="Wex-0l-dxI">
@@ -1015,6 +1070,7 @@
                         <outlet property="segmentedControl" destination="J0P-HC-4Iy" id="5ke-F1-XZk"/>
                         <outlet property="sortButton" destination="sv0-Dt-6V9" id="viX-vR-pxo"/>
                         <outlet property="tableView" destination="Okw-Vo-Y72" id="Qua-iY-lqe"/>
+                        <segue destination="wmN-vG-5r0" kind="presentation" identifier="setUpUser" modalPresentationStyle="overFullScreen" modalTransitionStyle="coverVertical" id="OMv-lE-684"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPC-Qd-2Wy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1093,19 +1149,19 @@
     </scenes>
     <designables>
         <designable name="Myh-uW-NQ1">
-            <size key="intrinsicContentSize" width="109.5" height="34"/>
+            <size key="intrinsicContentSize" width="62.5" height="34"/>
         </designable>
         <designable name="QDx-8j-phV">
             <size key="intrinsicContentSize" width="240" height="40"/>
         </designable>
         <designable name="Tea-se-U5C">
-            <size key="intrinsicContentSize" width="136.5" height="34"/>
+            <size key="intrinsicContentSize" width="90.5" height="34"/>
         </designable>
         <designable name="U2E-10-vef">
-            <size key="intrinsicContentSize" width="109.5" height="34"/>
+            <size key="intrinsicContentSize" width="62.5" height="34"/>
         </designable>
         <designable name="tBs-41-50a">
-            <size key="intrinsicContentSize" width="136.5" height="34"/>
+            <size key="intrinsicContentSize" width="90.5" height="34"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>

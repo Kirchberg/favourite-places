@@ -96,9 +96,9 @@ class SignUpViewController: UIViewController {
                     return
                 }
                 print("Success: Sign Up")
+                self.performSegue(withIdentifier: "signUpSuccess", sender: nil)
             }
         }
-        performSegue(withIdentifier: "signUpSuccess", sender: nil)
     }
 
     // MARK: - Error

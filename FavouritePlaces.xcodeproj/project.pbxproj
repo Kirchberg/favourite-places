@@ -17,6 +17,7 @@
 		426EC3A52526FFBD00A4839D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */; };
 		426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AA25270E7100A4839D /* DesignableUITextField.swift */; };
 		426EC3B02527126D00A4839D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AF2527126D00A4839D /* DesignableView.swift */; };
+		428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C751A252EEEA4002FB33E /* ProfileViewController.swift */; };
 		42AD08BF24DC3B630054494E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08BD24DC3B630054494E /* Main.storyboard */; };
 		42AD08C124DC3B640054494E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08C024DC3B640054494E /* Assets.xcassets */; };
 		42AD08C424DC3B640054494E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08C224DC3B640054494E /* LaunchScreen.storyboard */; };
@@ -41,6 +42,7 @@
 		426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		426EC3AA25270E7100A4839D /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		426EC3AF2527126D00A4839D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		428C751A252EEEA4002FB33E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		42AD08B424DC3B620054494E /* FavouritePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouritePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42AD08BE24DC3B630054494E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42AD08C024DC3B640054494E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				42AD08CB24DC51730054494E /* MainViewController.swift */,
 				4263242424E315370003B223 /* AddPlaceViewController.swift */,
 				42C18D6924FAC69C00D10290 /* MapViewController.swift */,
+				428C751A252EEEA4002FB33E /* ProfileViewController.swift */,
 				426EC3A22526FF7300A4839D /* Auth */,
 			);
 			path = Controller;
@@ -334,6 +337,7 @@
 				42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */,
 				426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */,
 				42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */,
+				428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */,
 				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
 				424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */,
 			);

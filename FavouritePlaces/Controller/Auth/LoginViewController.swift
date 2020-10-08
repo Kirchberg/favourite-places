@@ -63,18 +63,9 @@ class LoginViewController: UIViewController {
         }
     }
 
-    @IBAction func logInButton(_: UIButton) {
-        guard let email = emailTF.text,
-            let password = passwordTF.text,
-            !email.isEmpty(),
-            !password.isEmpty()
-        else {
-            errorSignUp(title: "Error", message: "email or password can't be empty!")
-            emailTF.text = nil
-            passwordTF.text = nil
-            return
-        }
-        logUserIn(with: email, password: password)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewDidLoad() {
@@ -90,21 +81,38 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
 
+    @IBAction func logInButton(_: UIButton) {
+        guard let email = emailTF.text,
+            let password = passwordTF.text,
+            !email.isEmpty(),
+            !password.isEmpty()
+        else {
+            errorSignUp(title: "Error", message: "Email or password can't be empty!")
+            emailTF.text = nil
+            passwordTF.text = nil
+            return
+        }
+        logUserIn(with: email, password: password)
+    }
+
     // MARK: - Firebase Auth
 
     private func logUserIn(with email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error = error {
+                self.errorSignUp(title: "Error", message: "Invalid email or password")
+                self.emailTF.text = nil
+                self.passwordTF.text = nil
                 print("Failed to log user in with error: ", error.localizedDescription)
                 return
             }
+            self.performSegue(withIdentifier: "loginSuccess", sender: nil)
         }
-        performSegue(withIdentifier: "loginSuccess", sender: nil)
     }
 
     // MARK: - Error
 
-    private func errorSignUp(title: String, message: String) {
+    private func errorSignUp(title: String?, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
