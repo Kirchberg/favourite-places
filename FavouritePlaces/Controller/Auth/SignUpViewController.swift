@@ -57,7 +57,7 @@ class SignUpViewController: UIViewController {
             !email.isEmpty(),
             !password.isEmpty()
         else {
-            errorSignUp(title: "Error", message: "Email or Password can't be empty!")
+            errorSignUp(title: nil, message: "Email or Password can't be empty!")
             emailTF.text = nil
             passwordTF.text = nil
             return
@@ -83,6 +83,7 @@ class SignUpViewController: UIViewController {
     private func createUser(with email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
+                self.errorSignUp(title: nil, message: "This email has already been registered")
                 print("Failed to sign user up with error: ", error.localizedDescription)
                 return
             }
@@ -96,6 +97,7 @@ class SignUpViewController: UIViewController {
                     return
                 }
                 print("Success: Sign Up")
+                UserDefaults.standard.setIsLoggedIn(value: true)
                 self.performSegue(withIdentifier: "signUpSuccess", sender: nil)
             }
         }
@@ -103,7 +105,7 @@ class SignUpViewController: UIViewController {
 
     // MARK: - Error
 
-    private func errorSignUp(title: String, message: String) {
+    private func errorSignUp(title: String?, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)

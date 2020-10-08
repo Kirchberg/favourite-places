@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ST9-p5-NSC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1070,7 +1070,6 @@
                         <outlet property="segmentedControl" destination="J0P-HC-4Iy" id="5ke-F1-XZk"/>
                         <outlet property="sortButton" destination="sv0-Dt-6V9" id="viX-vR-pxo"/>
                         <outlet property="tableView" destination="Okw-Vo-Y72" id="Qua-iY-lqe"/>
-                        <segue destination="wmN-vG-5r0" kind="presentation" identifier="setUpUser" modalPresentationStyle="overFullScreen" modalTransitionStyle="coverVertical" id="OMv-lE-684"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPC-Qd-2Wy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1106,7 +1105,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="U1C-bs-krn">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ST9-p5-NSC" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainForm" automaticallyAdjustsScrollViewInsets="NO" id="ST9-p5-NSC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="34K-0E-axu">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

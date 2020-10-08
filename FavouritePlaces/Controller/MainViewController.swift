@@ -31,7 +31,6 @@ class MainViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authUser()
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.title = "Favourite Places"
     }
@@ -94,16 +93,6 @@ class MainViewController: UIViewController {
             places = places.sorted(byKeyPath: "rating", ascending: !ascendingSorting)
         }
         tableView.reloadData()
-    }
-
-    // MARK: - Firebase Auth
-
-    private func authUser() {
-        if Auth.auth().currentUser == nil {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "setUpUser", sender: nil)
-            }
-        }
     }
 }
 

@@ -12,6 +12,8 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let schemaVersion: UInt64 = 5
 
@@ -36,6 +38,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = config
 
         FirebaseApp.configure()
+
+        if #available(iOS 13, *) {} else { setupScreenForiOS12OrLower() }
+
         return true
+    }
+
+    private func setupScreenForiOS12OrLower() {
+        let initialViewController: UIViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        window = UIWindow()
+
+        if UserDefaults.standard.isLoggedIn() {
+            let mainViewController = storyboard.instantiateViewController(withIdentifier: "mainForm")
+            initialViewController = mainViewController
+        } else {
+            let loginViewController = storyboard.instantiateViewController(withIdentifier: "loginForm")
+            initialViewController = loginViewController
+        }
+        window?.rootViewController = initialViewController
+        window?.makeKeyAndVisible()
     }
 }

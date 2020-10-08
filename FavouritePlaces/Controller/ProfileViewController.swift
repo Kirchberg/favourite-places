@@ -64,13 +64,18 @@ class ProfileViewController: UIViewController {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            let vc = storyboard?.instantiateViewController(withIdentifier: "loginForm") as! LoginViewController
-            let navigationVC = UINavigationController(rootViewController: vc)
-            navigationVC.modalPresentationStyle = .fullScreen
-            present(navigationVC, animated: true, completion: nil)
+            showLoginViewController()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
+    }
+
+    private func showLoginViewController() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "loginForm") as! LoginViewController
+        let navigationVC = UINavigationController(rootViewController: vc)
+        navigationVC.modalPresentationStyle = .fullScreen
+        UserDefaults.standard.setIsLoggedIn(value: false)
+        present(navigationVC, animated: true, completion: nil)
     }
 
     // MARK: - Firebase Database
@@ -81,7 +86,7 @@ class ProfileViewController: UIViewController {
         let userRef = rootRef.child("Users").child(uid).child("Email")
         userRef.observeSingleEvent(of: .value) { snapshot in
             guard let email = snapshot.value as? String else { return }
-            self.emailUserLabel.text = email
+            self.emailUserLabel.text = "Email: \(email)"
             self.hideSpinner {
                 self.animateUserSetup()
             }

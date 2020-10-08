@@ -106,6 +106,7 @@ class LoginViewController: UIViewController {
                 print("Failed to log user in with error: ", error.localizedDescription)
                 return
             }
+            UserDefaults.standard.setIsLoggedIn(value: true)
             self.performSegue(withIdentifier: "loginSuccess", sender: nil)
         }
     }
