@@ -62,7 +62,9 @@ class SignUpViewController: UIViewController {
             passwordTF.text = nil
             return
         }
-        createUser(with: email, password: password)
+        showSpinner {
+            self.createUser(with: email, password: password)
+        }
     }
 
     override func viewDidLoad() {
@@ -83,8 +85,10 @@ class SignUpViewController: UIViewController {
     private func createUser(with email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                self.errorSignUp(title: nil, message: "This email has already been registered")
-                print("Failed to sign user up with error: ", error.localizedDescription)
+                self.hideSpinner {
+                    self.errorSignUp(title: nil, message: "This email has already been registered")
+                    print("Failed to sign user up with error: ", error.localizedDescription)
+                }
                 return
             }
 
@@ -98,7 +102,9 @@ class SignUpViewController: UIViewController {
                 }
                 print("Success: Sign Up")
                 UserDefaults.standard.setIsLoggedIn(value: true)
-                self.performSegue(withIdentifier: "signUpSuccess", sender: nil)
+                self.hideSpinner {
+                    self.performSegue(withIdentifier: "signUpSuccess", sender: nil)
+                }
             }
         }
     }
@@ -112,6 +118,8 @@ class SignUpViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
@@ -122,5 +130,23 @@ extension SignUpViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+
+    func textFieldDidBeginEditing(_: UITextField) {
+        animateViewMoving(up: true, moveValue: 100)
+    }
+
+    func textFieldDidEndEditing(_: UITextField) {
+        animateViewMoving(up: false, moveValue: 100)
+    }
+
+    private func animateViewMoving(up: Bool, moveValue: CGFloat) {
+        let movementDuration: TimeInterval = 0.3
+        let movement: CGFloat = (up ? -moveValue : moveValue)
+        UIView.beginAnimations("animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        view.frame = view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
     }
 }

@@ -39,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
 
-        if #available(iOS 13, *) {} else { setupScreenForiOS12OrLower() }
+        configureInitialViewController()
 
         return true
     }
 
-    private func setupScreenForiOS12OrLower() {
+    private func configureInitialViewController() {
         let initialViewController: UIViewController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 

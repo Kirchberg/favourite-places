@@ -92,7 +92,9 @@ class LoginViewController: UIViewController {
             passwordTF.text = nil
             return
         }
-        logUserIn(with: email, password: password)
+        showSpinner {
+            self.logUserIn(with: email, password: password)
+        }
     }
 
     // MARK: - Firebase Auth
@@ -100,14 +102,18 @@ class LoginViewController: UIViewController {
     private func logUserIn(with email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error = error {
-                self.errorSignUp(title: "Error", message: "Invalid email or password")
-                self.emailTF.text = nil
-                self.passwordTF.text = nil
-                print("Failed to log user in with error: ", error.localizedDescription)
+                self.hideSpinner {
+                    self.errorSignUp(title: "Error", message: "Invalid email or password")
+                    self.emailTF.text = nil
+                    self.passwordTF.text = nil
+                    print("Failed to log user in with error: ", error.localizedDescription)
+                }
                 return
             }
             UserDefaults.standard.setIsLoggedIn(value: true)
-            self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+            self.hideSpinner {
+                self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+            }
         }
     }
 
@@ -132,5 +138,23 @@ extension LoginViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+
+    func textFieldDidBeginEditing(_: UITextField) {
+        animateViewMoving(up: true, moveValue: 100)
+    }
+
+    func textFieldDidEndEditing(_: UITextField) {
+        animateViewMoving(up: false, moveValue: 100)
+    }
+
+    private func animateViewMoving(up: Bool, moveValue: CGFloat) {
+        let movementDuration: TimeInterval = 0.3
+        let movement: CGFloat = (up ? -moveValue : moveValue)
+        UIView.beginAnimations("animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        view.frame = view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
     }
 }
