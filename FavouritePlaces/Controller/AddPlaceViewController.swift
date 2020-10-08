@@ -6,6 +6,7 @@
 //  Copyright © 2020 Kostarev Kirill Pavlovich. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class AddPlaceViewController: UITableViewController {
@@ -88,14 +89,15 @@ class AddPlaceViewController: UITableViewController {
     func savePlace() {
         let image: UIImage? = imageIsChanged ? placeImage.image : #imageLiteral(resourceName: "imagePlaceholder")
         let imageData = image?.pngData()
-        let newPlace = Place(name: placeNameTF.text!,
+        let newPlace = Place(uid: Auth.auth().currentUser!.uid,
+                             name: placeNameTF.text!,
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
                              imageData: imageData,
                              descriptionString: placeDesciptionTV.text,
                              rating: placeRating.rating.toDouble())
         guard let currentPlace = currentPlace else {
-            StorageManager.saveObject(newPlace)
+            StorageManager.savePlaceObject(newPlace)
             return
         }
         try! realm.write {

@@ -38,7 +38,10 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomInterfaceStyle()
-        places = realm.objects(Place.self)
+        let uid = Auth.auth().currentUser!.uid
+        let getUserPlaces = realm.objects(Place.self)
+        let resultPredicate = NSPredicate(format: "uid == '\(uid)'")
+        places = getUserPlaces.filter(resultPredicate)
         searchController.delegate = self
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -102,7 +105,7 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let place = places[indexPath.row]
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { _, _ in
-            StorageManager.deleteObject(place)
+            StorageManager.deletePlaceObject(place)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         return [deleteAction]
@@ -149,7 +152,7 @@ extension MainViewController: UISearchResultsUpdating {
     }
 
     private func filterContentForSearchText(_ searchText: String) {
-        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
+        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@ AND uid = \(Auth.auth().currentUser!.uid)", searchText, searchText)
         tableView.reloadData()
     }
 }

@@ -9,6 +9,7 @@
 import RealmSwift
 
 class Place: Object {
+    @objc dynamic var uid: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var location: String?
     @objc dynamic var type: String?
@@ -17,13 +18,26 @@ class Place: Object {
     @objc dynamic var rating = 0.0
     @objc dynamic var date = Date()
 
-    convenience init(name: String, location: String?, type: String?, imageData: Data?, descriptionString: String?, rating: Double) {
+    convenience init(uid: String, name: String, location: String?, type: String?, imageData: Data?, descriptionString: String?, rating: Double) {
         self.init()
+        self.uid = uid
         self.name = name
         self.location = location
         self.type = type
         self.imageData = imageData
         self.descriptionString = descriptionString
         self.rating = rating
+    }
+}
+
+class User: Object {
+    @objc dynamic var uid: String = ""
+    @objc dynamic var email: String = ""
+    let places = List<Place>()
+
+    convenience init(uid: String, email: String) {
+        self.init()
+        self.uid = uid
+        self.email = email
     }
 }
