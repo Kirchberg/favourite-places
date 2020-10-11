@@ -252,7 +252,7 @@
                     <connections>
                         <outlet property="addButton" destination="630-su-C6M" id="t5d-fn-U7r"/>
                         <outlet property="imageViewCell" destination="OrS-dM-cEr" id="M1Q-Th-foe"/>
-                        <outlet property="placeDesciptionTV" destination="qZl-1c-SlQ" id="P7v-lr-oAJ"/>
+                        <outlet property="placeDescriptionTV" destination="qZl-1c-SlQ" id="P7v-lr-oAJ"/>
                         <outlet property="placeImage" destination="re8-IQ-zbX" id="mKG-Fv-8u0"/>
                         <outlet property="placeLocationTF" destination="dSG-20-5S6" id="czF-WH-j13"/>
                         <outlet property="placeNameTF" destination="fmv-2f-gpM" id="yzw-yB-0dA"/>

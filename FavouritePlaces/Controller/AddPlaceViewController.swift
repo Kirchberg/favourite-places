@@ -11,6 +11,8 @@ import UIKit
 
 class AddPlaceViewController: UITableViewController {
     var currentPlace: Place?
+    private var currentUser: User!
+    private let uid = Auth.auth().currentUser!.uid
     var imageIsChanged: Bool = false
     private var finishedLoadingInitialTableCells = false
 
@@ -38,20 +40,23 @@ class AddPlaceViewController: UITableViewController {
     @IBOutlet var placeLocationTF: UITextField!
     @IBOutlet var placeTypeTF: UITextField!
     @IBOutlet var placeRating: RatingControl!
-    @IBOutlet var placeDesciptionTV: UITextView! {
+    @IBOutlet var placeDescriptionTV: UITextView! {
         didSet {
-            placeDesciptionTV.enablesReturnKeyAutomatically = true
-            placeDesciptionTV.allowsEditingTextAttributes = true
-            placeDesciptionTV.autocorrectionType = .default
-            placeDesciptionTV.autocapitalizationType = .sentences
-            placeDesciptionTV.returnKeyType = .default
+            placeDescriptionTV.enablesReturnKeyAutomatically = true
+            placeDescriptionTV.allowsEditingTextAttributes = true
+            placeDescriptionTV.autocorrectionType = .default
+            placeDescriptionTV.autocapitalizationType = .sentences
+            placeDescriptionTV.returnKeyType = .default
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let user = realm.objects(User.self)
+        let findByUserPredicate = NSPredicate(format: "uid == '\(uid)'")
+        currentUser = user.filter(findByUserPredicate).first
         setupCustomInterfaceStyle()
-        addToolBar(textView: placeDesciptionTV)
+        addToolBar(textView: placeDescriptionTV)
         setupEditScreen()
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,
                                                          y: 0,
@@ -66,7 +71,7 @@ class AddPlaceViewController: UITableViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        placeDesciptionTV.resignFirstResponder()
+        placeDescriptionTV.resignFirstResponder()
     }
 
     // MARK: - Segues
@@ -89,25 +94,19 @@ class AddPlaceViewController: UITableViewController {
     func savePlace() {
         let image: UIImage? = imageIsChanged ? placeImage.image : #imageLiteral(resourceName: "imagePlaceholder")
         let imageData = image?.pngData()
-        let newPlace = Place(uid: Auth.auth().currentUser!.uid,
+        let newPlace = Place(uid: uid,
                              name: placeNameTF.text!,
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
                              imageData: imageData,
-                             descriptionString: placeDesciptionTV.text,
+                             descriptionString: placeDescriptionTV.text,
                              rating: placeRating.rating.toDouble())
         guard let currentPlace = currentPlace else {
             StorageManager.savePlaceObject(newPlace)
+            StorageManager.appendUserPlaceObject(to: currentUser, add: newPlace)
             return
         }
-        try! realm.write {
-            currentPlace.name = newPlace.name
-            currentPlace.location = newPlace.location
-            currentPlace.type = newPlace.type
-            currentPlace.imageData = newPlace.imageData
-            currentPlace.descriptionString = newPlace.descriptionString
-            currentPlace.rating = newPlace.rating
-        }
+        StorageManager.updatePlaceObject(update: currentPlace, to: newPlace)
     }
 
     // MARK: - Table View Delegate
@@ -153,7 +152,7 @@ class AddPlaceViewController: UITableViewController {
         placeLocationTF.text = currentPlace.location
         placeNameTF.text = currentPlace.name
         placeTypeTF.text = currentPlace.type
-        placeDesciptionTV.text = currentPlace.descriptionString
+        placeDescriptionTV.text = currentPlace.descriptionString
         placeRating.rating = currentPlace.rating.toInt()
     }
 
@@ -183,7 +182,7 @@ class AddPlaceViewController: UITableViewController {
     }
 
     @objc private func clearPressed() {
-        placeDesciptionTV.text = nil
+        placeDescriptionTV.text = nil
     }
 
     @IBAction func cancelAction(_: Any) {

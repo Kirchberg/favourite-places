@@ -17,6 +17,7 @@
 		426EC3A52526FFBD00A4839D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */; };
 		426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AA25270E7100A4839D /* DesignableUITextField.swift */; };
 		426EC3B02527126D00A4839D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AF2527126D00A4839D /* DesignableView.swift */; };
+		428476D22533570200FECB82 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428476D12533570200FECB82 /* UserService.swift */; };
 		428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C751A252EEEA4002FB33E /* ProfileViewController.swift */; };
 		428C7536252F3E7E002FB33E /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C7535252F3E7E002FB33E /* UserDefaultsHelper.swift */; };
 		42AD08BF24DC3B630054494E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08BD24DC3B630054494E /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		426EC3AA25270E7100A4839D /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		426EC3AF2527126D00A4839D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		428476D12533570200FECB82 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		428C751A252EEEA4002FB33E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		428C7535252F3E7E002FB33E /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		42AD08B424DC3B620054494E /* FavouritePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouritePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		428476CF253356AE00FECB82 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				428476D12533570200FECB82 /* UserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		42AD08AB24DC3B620054494E = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				423322FF250A74D200A6BE1C /* Fonts */,
+				428476CF253356AE00FECB82 /* Services */,
 				42B3EFDE2500F81F00087A69 /* Controller */,
 				42B3EFDF2500F84500087A69 /* View */,
 				42B3EFE02500F86500087A69 /* Model */,
@@ -337,6 +348,7 @@
 				426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */,
 				428C7536252F3E7E002FB33E /* UserDefaultsHelper.swift in Sources */,
 				42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */,
+				428476D22533570200FECB82 /* UserService.swift in Sources */,
 				428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */,
 				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
 				424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */,

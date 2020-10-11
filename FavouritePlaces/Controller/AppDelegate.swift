@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let schemaVersion: UInt64 = 6
+        let schemaVersion: UInt64 = 7
 
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
@@ -24,12 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             // Set the block which will be called automatically when opening a Realm with
             // a schema version lower than the one set above
-            migrationBlock: { _, oldSchemaVersion in
+            migrationBlock: { migration, oldSchemaVersion in
                 // We haven’t migrated anything yet, so oldSchemaVersion == 0
                 if oldSchemaVersion < schemaVersion {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
+                    var nextID = 0
+                    migration.enumerateObjects(ofType: Place.className()) { _, newObject in
+                        newObject!["id"] = nextID
+                        nextID += 1
+                    }
                 }
             }
         )

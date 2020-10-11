@@ -13,7 +13,8 @@ import UIKit
 class MainViewController: UIViewController {
     private var finishedLoadingInitialTableCells = false
     private let searchController = UISearchController(searchResultsController: nil)
-    private var places: Results<Place>!
+    private let uid = Auth.auth().currentUser!.uid
+    private var userPlaces: Results<Place>!
     private var filteredPlaces: Results<Place>!
     private var ascendingSorting: Bool = true
     private var isSearchBarEmpty: Bool {
@@ -38,10 +39,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomInterfaceStyle()
-        let uid = Auth.auth().currentUser!.uid
-        let getUserPlaces = realm.objects(Place.self)
-        let resultPredicate = NSPredicate(format: "uid == '\(uid)'")
-        places = getUserPlaces.filter(resultPredicate)
+        let places = realm.objects(Place.self)
+        let findByUserPredicate = NSPredicate(format: "uid == '\(uid)'")
+        userPlaces = places.filter(findByUserPredicate)
         searchController.delegate = self
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -64,7 +64,7 @@ class MainViewController: UIViewController {
         guard let newPlaceVC = segue.destination as? AddPlaceViewController else { return }
         if segue.identifier == "showDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
+            let place = isFiltering ? filteredPlaces[indexPath.row] : userPlaces[indexPath.row]
             newPlaceVC.currentPlace = place
         }
     }
@@ -89,11 +89,11 @@ class MainViewController: UIViewController {
 
     private func sorting() {
         if segmentedControl.selectedSegmentIndex == 0 {
-            places = places.sorted(byKeyPath: "date", ascending: ascendingSorting)
+            userPlaces = userPlaces.sorted(byKeyPath: "date", ascending: ascendingSorting)
         } else if segmentedControl.selectedSegmentIndex == 1 {
-            places = places.sorted(byKeyPath: "name", ascending: ascendingSorting)
+            userPlaces = userPlaces.sorted(byKeyPath: "name", ascending: ascendingSorting)
         } else {
-            places = places.sorted(byKeyPath: "rating", ascending: !ascendingSorting)
+            userPlaces = userPlaces.sorted(byKeyPath: "rating", ascending: !ascendingSorting)
         }
         tableView.reloadData()
     }
@@ -103,7 +103,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let place = places[indexPath.row]
+        let place = userPlaces[indexPath.row]
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { _, _ in
             StorageManager.deletePlaceObject(place)
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -120,12 +120,12 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return isFiltering ? filteredPlaces.count : places.count
+        return isFiltering ? filteredPlaces.count : userPlaces.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MainTableViewCell
-        let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
+        let place = isFiltering ? filteredPlaces[indexPath.row] : userPlaces[indexPath.row]
         cell.imageOfPlace.image = UIImage(data: place.imageData!)
         cell.nameOfPlaceLabel.text = place.name
         cell.locationOfPlaceLabel.text = place.location
@@ -152,7 +152,7 @@ extension MainViewController: UISearchResultsUpdating {
     }
 
     private func filterContentForSearchText(_ searchText: String) {
-        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@ AND uid = \(Auth.auth().currentUser!.uid)", searchText, searchText)
+        filteredPlaces = userPlaces.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
         tableView.reloadData()
     }
 }

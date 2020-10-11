@@ -62,6 +62,12 @@ class SignUpViewController: UIViewController {
             passwordTF.text = nil
             return
         }
+
+        guard email.isEmail() else {
+            errorSignUp(title: nil, message: "Email is not a valid")
+            return
+        }
+
         showSpinner {
             self.createUser(with: email, password: password)
         }

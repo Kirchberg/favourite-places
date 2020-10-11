@@ -9,6 +9,7 @@
 import RealmSwift
 
 class Place: Object {
+    @objc dynamic var id = 0
     @objc dynamic var uid: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var location: String?
@@ -27,6 +28,10 @@ class Place: Object {
         self.imageData = imageData
         self.descriptionString = descriptionString
         self.rating = rating
+    }
+
+    override class func primaryKey() -> String? {
+        return "id"
     }
 }
 
