@@ -103,7 +103,7 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error = error {
                 self.hideSpinner {
-                    self.errorSignUp(title: "Error", message: "Invalid email or password")
+                    self.errorSignUp(title: "Error", message: error.localizedDescription)
                     self.emailTF.text = nil
                     self.passwordTF.text = nil
                     print("Failed to log user in with error: ", error.localizedDescription)

@@ -92,7 +92,7 @@ class SignUpViewController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 self.hideSpinner {
-                    self.errorSignUp(title: nil, message: "This email has already been registered")
+                    self.errorSignUp(title: nil, message: error.localizedDescription)
                     print("Failed to sign user up with error: ", error.localizedDescription)
                 }
                 return
