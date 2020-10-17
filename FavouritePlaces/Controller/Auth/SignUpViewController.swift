@@ -108,17 +108,11 @@ class SignUpViewController: UIViewController {
                 }
                 print("Success: Sign Up")
                 UserDefaults.standard.setIsLoggedIn(value: true)
-                self.saveUser(uid: uid, email: email)
                 self.hideSpinner {
                     self.performSegue(withIdentifier: "signUpSuccess", sender: nil)
                 }
             }
         }
-    }
-
-    private func saveUser(uid: String, email: String) {
-        let newUser = User(uid: uid, email: email)
-        StorageManager.saveUserObject(newUser)
     }
 
     // MARK: - Error

@@ -7,15 +7,14 @@
 //
 
 import Firebase
-import RealmSwift
 import UIKit
 
 class MainViewController: UIViewController {
     private var finishedLoadingInitialTableCells = false
     private let searchController = UISearchController(searchResultsController: nil)
     private let uid = Auth.auth().currentUser!.uid
-    private var userPlaces: Results<Place>!
-    private var filteredPlaces: Results<Place>!
+    private var userPlaces = [Place]()
+    private var filteredPlaces = [Place]()
     private var ascendingSorting: Bool = true
     private var isSearchBarEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
@@ -34,14 +33,12 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.title = "Favourite Places"
+        getAllPlaces()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomInterfaceStyle()
-        let places = realm.objects(Place.self)
-        let findByUserPredicate = NSPredicate(format: "uid == '\(uid)'")
-        userPlaces = places.filter(findByUserPredicate)
         searchController.delegate = self
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -66,6 +63,7 @@ class MainViewController: UIViewController {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             let place = isFiltering ? filteredPlaces[indexPath.row] : userPlaces[indexPath.row]
             newPlaceVC.currentPlace = place
+            newPlaceVC.oldPlaceID = place.placeID
         }
     }
 
@@ -89,11 +87,23 @@ class MainViewController: UIViewController {
 
     private func sorting() {
         if segmentedControl.selectedSegmentIndex == 0 {
-            userPlaces = userPlaces.sorted(byKeyPath: "date", ascending: ascendingSorting)
+            if ascendingSorting {
+                userPlaces = userPlaces.sorted(by: { $0.date < $1.date })
+            } else {
+                userPlaces = userPlaces.sorted(by: { $0.date > $1.date })
+            }
         } else if segmentedControl.selectedSegmentIndex == 1 {
-            userPlaces = userPlaces.sorted(byKeyPath: "name", ascending: ascendingSorting)
+            if ascendingSorting {
+                userPlaces = userPlaces.sorted(by: { $0.name < $1.name })
+            } else {
+                userPlaces = userPlaces.sorted(by: { $0.name > $1.name })
+            }
         } else {
-            userPlaces = userPlaces.sorted(byKeyPath: "rating", ascending: !ascendingSorting)
+            if !ascendingSorting {
+                userPlaces = userPlaces.sorted(by: { $0.rating < $1.rating })
+            } else {
+                userPlaces = userPlaces.sorted(by: { $0.rating > $1.rating })
+            }
         }
         tableView.reloadData()
     }
@@ -102,13 +112,13 @@ class MainViewController: UIViewController {
 // MARK: - Table View Delegate
 
 extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let place = userPlaces[indexPath.row]
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { _, _ in
-            StorageManager.deletePlaceObject(place)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let place = userPlaces[indexPath.row]
+            deletePlace(delete: place)
+            userPlaces.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        return [deleteAction]
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -152,7 +162,8 @@ extension MainViewController: UISearchResultsUpdating {
     }
 
     private func filterContentForSearchText(_ searchText: String) {
-        filteredPlaces = userPlaces.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
+        let resultPredicate = NSPredicate(format: "name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText)
+        filteredPlaces = userPlaces.filter { resultPredicate.evaluate(with: $0) }
         tableView.reloadData()
     }
 }
@@ -168,5 +179,52 @@ extension MainViewController: UISearchControllerDelegate {
         searchController.searchBar.autocorrectionType = .no
         searchController.searchBar.tintColor = UIColor.black
         searchController.searchBar.backgroundColor = .white
+    }
+}
+
+extension MainViewController {
+    func getAllPlaces() {
+        let ref = Database.database().reference().child("/Places").queryOrdered(byChild: "userID").queryEqual(toValue: "\(uid)")
+        ref.keepSynced(true)
+        ref.observeSingleEvent(of: .value) { snapshot in
+            if snapshot.childrenCount > 0 {
+                self.userPlaces.removeAll()
+                for places in snapshot.children.allObjects as! [DataSnapshot] {
+                    let placeObject = places.value as? [String: AnyObject]
+                    let descriptionPlace = placeObject?["Description"]
+                    let locationPlace = placeObject?["Location"]
+                    let namePlace = placeObject?["Name"]
+                    let ratingPlace = placeObject?["Rating"]
+                    let typePlace = placeObject?["Type"]
+                    let placeIDPlace = placeObject?["placeID"]
+                    let userIDPlace = placeObject?["userID"]
+                    let imagePlace = placeObject?["Image"]
+
+                    var imageDataPlace: Data!
+                    guard let imageURL = URL(string: imagePlace as! String) else { return }
+                    let ref = Storage.storage().reference(forURL: imageURL.absoluteString)
+                    let megaByte = Int64(1024 * 1024)
+                    ref.getData(maxSize: megaByte) { data, error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                        guard let imageData = data else { return }
+                        imageDataPlace = imageData
+                    }
+                    let place = Place(uid: userIDPlace as! String, placeID: placeIDPlace as! String, name: namePlace as! String, location: locationPlace as! String?, type: typePlace as! String?, imageData: imageDataPlace, descriptionString: descriptionPlace as! String?, rating: ratingPlace as! Double)
+                    self.userPlaces.append(place)
+                }
+            }
+            self.tableView.reloadData()
+        }
+    }
+
+    func deletePlace(delete place: Place) {
+        let ref = Database.database().reference()
+        ref.child("/Places").child("\(place.placeID)").removeValue { error, _ in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

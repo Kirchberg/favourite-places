@@ -11,6 +11,8 @@ import UIKit
 
 class AddPlaceViewController: UITableViewController {
     var currentPlace: Place?
+    var oldPlaceID: String?
+    private let ref = Database.database().reference().child("Places")
     private var currentUser: User!
     private let uid = Auth.auth().currentUser!.uid
     var imageIsChanged: Bool = false
@@ -93,8 +95,10 @@ class AddPlaceViewController: UITableViewController {
 
     func savePlace() {
         let image: UIImage? = imageIsChanged ? placeImage.image : #imageLiteral(resourceName: "imagePlaceholder")
-        let imageData = image?.pngData()
+        let imageData = image?.jpegData(compressionQuality: 0.5)
+        guard let key = ref.childByAutoId().key else { return }
         let newPlace = Place(uid: uid,
+                             placeID: oldPlaceID ?? key,
                              name: placeNameTF.text!,
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
@@ -102,11 +106,13 @@ class AddPlaceViewController: UITableViewController {
                              descriptionString: placeDescriptionTV.text,
                              rating: placeRating.rating.toDouble())
         guard let currentPlace = currentPlace else {
-            StorageManager.savePlaceObject(newPlace)
-            StorageManager.appendUserPlaceObject(to: currentUser, add: newPlace)
+//            StorageManager.savePlaceObject(newPlace)
+//            StorageManager.appendUserPlaceObject(to: currentUser, add: newPlace)
+            PlaceService.saveNewPlace(newPlace)
             return
         }
         StorageManager.updatePlaceObject(update: currentPlace, to: newPlace)
+//        PlaceService.updatePlace(newPlace)
     }
 
     // MARK: - Table View Delegate

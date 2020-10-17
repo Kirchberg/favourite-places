@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let schemaVersion: UInt64 = 7
+        let schemaVersion: UInt64 = 8
 
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = config
 
         FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
 
         configureInitialViewController()
 

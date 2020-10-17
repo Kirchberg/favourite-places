@@ -11,5 +11,8 @@ import FirebaseDatabase
 import Foundation
 
 struct UserService {
+    private static let ref = Database.database().reference()
+
     static func createNewUser() {}
+    static func updateUser() {}
 }

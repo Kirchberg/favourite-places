@@ -28,6 +28,7 @@
 		42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE32501039600087A69 /* BaseHelper.swift */; };
 		42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B41170250401CF009A8A91 /* AppDelegate.swift */; };
 		42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C18D6924FAC69C00D10290 /* MapViewController.swift */; };
+		42E7D6FE253B0894008D5773 /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E7D6FD253B0894008D5773 /* PlaceService.swift */; };
 		496E5730357A4487584C2063 /* Pods_FavouritePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		42B3EFE32501039600087A69 /* BaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHelper.swift; sourceTree = "<group>"; };
 		42B41170250401CF009A8A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42C18D6924FAC69C00D10290 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		42E7D6FD253B0894008D5773 /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
 		C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FavouritePlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2541285A2F20E848AE785A7 /* Pods-FavouritePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouritePlaces.release.xcconfig"; path = "Target Support Files/Pods-FavouritePlaces/Pods-FavouritePlaces.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				428476D12533570200FECB82 /* UserService.swift */,
+				42E7D6FD253B0894008D5773 /* PlaceService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */,
 				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
 				424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */,
+				42E7D6FE253B0894008D5773 /* PlaceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
