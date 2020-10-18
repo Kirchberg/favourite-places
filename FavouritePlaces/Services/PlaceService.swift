@@ -30,20 +30,18 @@ struct PlaceService {
                     print(error.localizedDescription)
                 }
 
-                let nilImageURL = "https://firebasestorage.googleapis.com/v0/b/coursework-favourite-places.appspot.com/o/placePhotos%2FimagePlaceholder%403x.png?alt=media&token=a15b8b99-7f5b-49ec-a0d2-cd33d64c659e"
-
                 let placeInfo: [String: Any] = [
                     "placeID": place.placeID,
                     "userID": place.uid,
                     "Name": place.name,
                     "Location": place.location ?? "",
                     "Type": place.type ?? "",
-                    "Image": url?.absoluteString ?? nilImageURL,
+                    "Image": url?.absoluteString ?? "",
                     "Description": place.descriptionString ?? "",
                     "Rating": place.rating,
                 ]
 
-                ref.child(place.placeID).updateChildValues(placeInfo) { error, _ in
+                ref.child(place.placeID).setValue(placeInfo) { error, _ in
                     if let error = error {
                         print(error.localizedDescription)
                     }

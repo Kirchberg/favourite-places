@@ -103,16 +103,10 @@ class AddPlaceViewController: UITableViewController {
                              location: placeLocationTF.text,
                              type: placeTypeTF.text,
                              imageData: imageData,
+                             imageURL: nil,
                              descriptionString: placeDescriptionTV.text,
                              rating: placeRating.rating.toDouble())
-        guard let currentPlace = currentPlace else {
-//            StorageManager.savePlaceObject(newPlace)
-//            StorageManager.appendUserPlaceObject(to: currentUser, add: newPlace)
-            PlaceService.saveNewPlace(newPlace)
-            return
-        }
-        StorageManager.updatePlaceObject(update: currentPlace, to: newPlace)
-//        PlaceService.updatePlace(newPlace)
+        PlaceService.saveNewPlace(newPlace)
     }
 
     // MARK: - Table View Delegate

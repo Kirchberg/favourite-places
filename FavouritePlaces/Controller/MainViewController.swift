@@ -7,9 +7,11 @@
 //
 
 import Firebase
+import Kingfisher
 import UIKit
 
 class MainViewController: UIViewController {
+    private var ref = Database.database().reference()
     private var finishedLoadingInitialTableCells = false
     private let searchController = UISearchController(searchResultsController: nil)
     private let uid = Auth.auth().currentUser!.uid
@@ -33,16 +35,17 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.title = "Favourite Places"
-        getAllPlaces()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref.keepSynced(true)
         setupCustomInterfaceStyle()
         searchController.delegate = self
         navigationItem.searchController = searchController
         definesPresentationContext = true
         tableView.rowHeight = UITableView.automaticDimension
+        getAllPlaces()
     }
 
     func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -136,11 +139,21 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MainTableViewCell
         let place = isFiltering ? filteredPlaces[indexPath.row] : userPlaces[indexPath.row]
-        cell.imageOfPlace.image = UIImage(data: place.imageData!)
-        cell.nameOfPlaceLabel.text = place.name
-        cell.locationOfPlaceLabel.text = place.location
-        cell.typeOfPlaceLabel.text = place.type
-        setImageStar(cell, place)
+        let url = URL(string: place.imageURL!)
+        KingfisherManager.shared.retrieveImage(with: url!) { result in
+            switch result {
+            case let .success(value):
+                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                cell.imageOfPlace.image = value.image
+                cell.nameOfPlaceLabel.text = place.name
+                cell.locationOfPlaceLabel.text = place.location
+                cell.typeOfPlaceLabel.text = place.type
+                self.setImageStar(cell, place)
+                place.imageData = value.image.pngData()
+            case let .failure(error):
+                print("Job failed: \(error.localizedDescription)")
+            }
+        }
         return cell
     }
 
@@ -184,43 +197,30 @@ extension MainViewController: UISearchControllerDelegate {
 
 extension MainViewController {
     func getAllPlaces() {
-        let ref = Database.database().reference().child("/Places").queryOrdered(byChild: "userID").queryEqual(toValue: "\(uid)")
-        ref.keepSynced(true)
-        ref.observeSingleEvent(of: .value) { snapshot in
-            if snapshot.childrenCount > 0 {
-                self.userPlaces.removeAll()
-                for places in snapshot.children.allObjects as! [DataSnapshot] {
-                    let placeObject = places.value as? [String: AnyObject]
-                    let descriptionPlace = placeObject?["Description"]
-                    let locationPlace = placeObject?["Location"]
-                    let namePlace = placeObject?["Name"]
-                    let ratingPlace = placeObject?["Rating"]
-                    let typePlace = placeObject?["Type"]
-                    let placeIDPlace = placeObject?["placeID"]
-                    let userIDPlace = placeObject?["userID"]
-                    let imagePlace = placeObject?["Image"]
+        ref.child("/Places").queryOrdered(byChild: "userID").queryEqual(toValue: "\(uid)").observe(.value) { snapshot in
+            self.userPlaces.removeAll()
+            if let snapShot = snapshot.children.allObjects as? [DataSnapshot] {
+                for places in snapShot {
+                    if let placeObject = places.value as? [String: AnyObject] {
+                        let descriptionPlace = placeObject["Description"] as! String?
+                        let locationPlace = placeObject["Location"] as! String?
+                        let namePlace = placeObject["Name"] as! String
+                        let ratingPlace = placeObject["Rating"] as! Double
+                        let typePlace = placeObject["Type"] as! String?
+                        let placeIDPlace = placeObject["placeID"] as! String
+                        let userIDPlace = placeObject["userID"] as! String
+                        let imageURLPlace = placeObject["Image"] as! String?
 
-                    var imageDataPlace: Data!
-                    guard let imageURL = URL(string: imagePlace as! String) else { return }
-                    let ref = Storage.storage().reference(forURL: imageURL.absoluteString)
-                    let megaByte = Int64(1024 * 1024)
-                    ref.getData(maxSize: megaByte) { data, error in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
-                        guard let imageData = data else { return }
-                        imageDataPlace = imageData
+                        let place = Place(uid: userIDPlace, placeID: placeIDPlace, name: namePlace, location: locationPlace, type: typePlace, imageData: nil, imageURL: imageURLPlace, descriptionString: descriptionPlace, rating: ratingPlace)
+                        self.userPlaces.append(place)
+                        self.tableView.reloadData()
                     }
-                    let place = Place(uid: userIDPlace as! String, placeID: placeIDPlace as! String, name: namePlace as! String, location: locationPlace as! String?, type: typePlace as! String?, imageData: imageDataPlace, descriptionString: descriptionPlace as! String?, rating: ratingPlace as! Double)
-                    self.userPlaces.append(place)
                 }
             }
-            self.tableView.reloadData()
         }
     }
 
     func deletePlace(delete place: Place) {
-        let ref = Database.database().reference()
         ref.child("/Places").child("\(place.placeID)").removeValue { error, _ in
             if let error = error {
                 print(error.localizedDescription)

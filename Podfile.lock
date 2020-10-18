@@ -75,6 +75,9 @@ PODS:
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.4.0)
+  - Kingfisher (5.15.6):
+    - Kingfisher/Core (= 5.15.6)
+  - Kingfisher/Core (5.15.6)
   - leveldb-library (1.22)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
@@ -94,6 +97,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - Kingfisher (~> 5.0)
   - RealmSwift
   - SwiftFormat/CLI
 
@@ -111,6 +115,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - Kingfisher
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -131,6 +136,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  Kingfisher: b3554e7bf6106115b44e8795300bad580ef2fdc7
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
@@ -138,6 +144,6 @@ SPEC CHECKSUMS:
   RealmSwift: 0a709536ecea30eea1d3c514f6ade2ed078dee3c
   SwiftFormat: f1612638c8097ceed03d0149f5f5ab67174ee5dd
 
-PODFILE CHECKSUM: 033894330795f11cf2e5b5e4f46169b463947d85
+PODFILE CHECKSUM: 3a331b99550fd4701126f1cfd3f3c0cb5dafc246
 
 COCOAPODS: 1.9.3
