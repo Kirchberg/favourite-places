@@ -118,7 +118,7 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let place = userPlaces[indexPath.row]
-            deletePlace(delete: place)
+            PlaceService.deletePlace(delete: place)
             userPlaces.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -216,14 +216,6 @@ extension MainViewController {
                         self.tableView.reloadData()
                     }
                 }
-            }
-        }
-    }
-
-    func deletePlace(delete place: Place) {
-        ref.child("/Places").child("\(place.placeID)").removeValue { error, _ in
-            if let error = error {
-                print(error.localizedDescription)
             }
         }
     }

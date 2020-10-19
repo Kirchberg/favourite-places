@@ -106,7 +106,11 @@ class AddPlaceViewController: UITableViewController {
                              imageURL: nil,
                              descriptionString: placeDescriptionTV.text,
                              rating: placeRating.rating.toDouble())
-        PlaceService.saveNewPlace(newPlace)
+        guard let currentPlace = currentPlace else {
+            PlaceService.saveNewPlace(newPlace)
+            return
+        }
+        PlaceService.updateOldPlace(from: newPlace, to: currentPlace)
     }
 
     // MARK: - Table View Delegate

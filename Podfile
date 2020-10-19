@@ -13,6 +13,7 @@ target 'FavouritePlaces' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Kingfisher', '~> 5.0'
+  pod 'lottie-ios'
   #pod 'Hero'
 end
 
