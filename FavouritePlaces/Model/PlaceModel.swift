@@ -6,20 +6,19 @@
 //  Copyright © 2020 Kostarev Kirill Pavlovich. All rights reserved.
 //
 
-import RealmSwift
+import Foundation
 
-class Place: Object {
-    @objc dynamic var id = 0
-    @objc dynamic var placeID = ""
-    @objc dynamic var uid: String = ""
-    @objc dynamic var name: String = ""
-    @objc dynamic var location: String?
-    @objc dynamic var type: String?
-    @objc dynamic var imageData: Data?
-    @objc dynamic var imageURL: String?
-    @objc dynamic var descriptionString: String?
-    @objc dynamic var rating = 0.0
-    @objc dynamic var date = Date()
+class Place {
+    var placeID = ""
+    var uid: String = ""
+    var name: String = ""
+    var location: String?
+    var type: String?
+    var imageData: Data?
+    var imageURL: String?
+    var descriptionString: String?
+    var rating = 0.0
+    var date = Date()
 
     convenience init(uid: String, placeID: String, name: String, location: String?, type: String?, imageData: Data?, imageURL: String?, descriptionString: String?, rating: Double) {
         self.init()
@@ -32,21 +31,5 @@ class Place: Object {
         self.imageURL = imageURL
         self.descriptionString = descriptionString
         self.rating = rating
-    }
-
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-}
-
-class User: Object {
-    @objc dynamic var uid: String = ""
-    @objc dynamic var email: String = ""
-    let places = List<Place>()
-
-    convenience init(uid: String, email: String) {
-        self.init()
-        self.uid = uid
-        self.email = email
     }
 }

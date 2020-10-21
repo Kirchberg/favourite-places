@@ -39,7 +39,6 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref.keepSynced(true)
         setupCustomInterfaceStyle()
         searchController.delegate = self
         navigationItem.searchController = searchController
@@ -139,16 +138,16 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MainTableViewCell
         let place = isFiltering ? filteredPlaces[indexPath.row] : userPlaces[indexPath.row]
+        cell.nameOfPlaceLabel.text = place.name
+        cell.locationOfPlaceLabel.text = place.location
+        cell.typeOfPlaceLabel.text = place.type
+        setImageStar(cell, place)
         let url = URL(string: place.imageURL!)
         KingfisherManager.shared.retrieveImage(with: url!) { result in
             switch result {
             case let .success(value):
                 print("Task done for: \(value.source.url?.absoluteString ?? "")")
                 cell.imageOfPlace.image = value.image
-                cell.nameOfPlaceLabel.text = place.name
-                cell.locationOfPlaceLabel.text = place.location
-                cell.typeOfPlaceLabel.text = place.type
-                self.setImageStar(cell, place)
                 place.imageData = value.image.pngData()
             case let .failure(error):
                 print("Job failed: \(error.localizedDescription)")
@@ -212,6 +211,7 @@ extension MainViewController {
                         let imageURLPlace = placeObject["Image"] as! String?
 
                         let place = Place(uid: userIDPlace, placeID: placeIDPlace, name: namePlace, location: locationPlace, type: typePlace, imageData: nil, imageURL: imageURLPlace, descriptionString: descriptionPlace, rating: ratingPlace)
+                        self.ref.keepSynced(true)
                         self.userPlaces.append(place)
                         self.tableView.reloadData()
                     }

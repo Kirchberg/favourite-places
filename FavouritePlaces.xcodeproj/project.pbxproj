@@ -11,12 +11,12 @@
 		423D266524EEC040003F2BBE /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423D266424EEC040003F2BBE /* RatingControl.swift */; };
 		424DF543252A088D0046ACE2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DF542252A088D0046ACE2 /* SignUpViewController.swift */; };
 		424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ECCDD2524E049002B7198 /* LoginViewController.swift */; };
-		4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4251F60424E5846700B94CB8 /* StorageManager.swift */; };
 		4263242324E2FE420003B223 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242224E2FE420003B223 /* PlaceModel.swift */; };
 		4263242524E315370003B223 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242424E315370003B223 /* AddPlaceViewController.swift */; };
 		426EC3A52526FFBD00A4839D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */; };
 		426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AA25270E7100A4839D /* DesignableUITextField.swift */; };
 		426EC3B02527126D00A4839D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AF2527126D00A4839D /* DesignableView.swift */; };
+		427E95692540BE3E00B2882D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E95682540BE3E00B2882D /* UserModel.swift */; };
 		428476D22533570200FECB82 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428476D12533570200FECB82 /* UserService.swift */; };
 		428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C751A252EEEA4002FB33E /* ProfileViewController.swift */; };
 		428C7536252F3E7E002FB33E /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C7535252F3E7E002FB33E /* UserDefaultsHelper.swift */; };
@@ -38,12 +38,12 @@
 		423D266424EEC040003F2BBE /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		424DF542252A088D0046ACE2 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		424ECCDD2524E049002B7198 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		4251F60424E5846700B94CB8 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		4263242224E2FE420003B223 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		4263242424E315370003B223 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
 		426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		426EC3AA25270E7100A4839D /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		426EC3AF2527126D00A4839D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		427E95682540BE3E00B2882D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		428476D12533570200FECB82 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		428C751A252EEEA4002FB33E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		428C7535252F3E7E002FB33E /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
@@ -180,8 +180,8 @@
 		42B3EFE02500F86500087A69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				427E95682540BE3E00B2882D /* UserModel.swift */,
 				4263242224E2FE420003B223 /* PlaceModel.swift */,
-				4251F60424E5846700B94CB8 /* StorageManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -353,8 +353,8 @@
 				42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */,
 				428476D22533570200FECB82 /* UserService.swift in Sources */,
 				428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */,
-				4251F60524E5846700B94CB8 /* StorageManager.swift in Sources */,
 				424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */,
+				427E95692540BE3E00B2882D /* UserModel.swift in Sources */,
 				42E7D6FE253B0894008D5773 /* PlaceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
