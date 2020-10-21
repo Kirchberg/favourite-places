@@ -13,7 +13,6 @@ class AddPlaceViewController: UITableViewController {
     var currentPlace: Place?
     var oldPlaceID: String?
     private let ref = Database.database().reference().child("Places")
-    private var currentUser: User!
     private let uid = Auth.auth().currentUser!.uid
     var imageIsChanged: Bool = false
     private var finishedLoadingInitialTableCells = false
@@ -54,9 +53,6 @@ class AddPlaceViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let user = realm.objects(User.self)
-        let findByUserPredicate = NSPredicate(format: "uid == '\(uid)'")
-        currentUser = user.filter(findByUserPredicate).first
         setupCustomInterfaceStyle()
         addToolBar(textView: placeDescriptionTV)
         setupEditScreen()

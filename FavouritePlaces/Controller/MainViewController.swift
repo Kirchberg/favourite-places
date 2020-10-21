@@ -39,7 +39,6 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref.keepSynced(true)
         setupCustomInterfaceStyle()
         searchController.delegate = self
         navigationItem.searchController = searchController
@@ -121,6 +120,7 @@ extension MainViewController: UITableViewDelegate {
             PlaceService.deletePlace(delete: place)
             userPlaces.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
         }
     }
 
@@ -213,9 +213,10 @@ extension MainViewController {
 
                         let place = Place(uid: userIDPlace, placeID: placeIDPlace, name: namePlace, location: locationPlace, type: typePlace, imageData: nil, imageURL: imageURLPlace, descriptionString: descriptionPlace, rating: ratingPlace)
                         self.userPlaces.append(place)
-                        self.tableView.reloadData()
                     }
                 }
+                self.ref.keepSynced(true)
+                self.tableView.reloadData()
             }
         }
     }

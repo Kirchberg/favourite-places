@@ -987,12 +987,10 @@
                                                 <constraint firstItem="fUZ-CA-yOt" firstAttribute="width" relation="greaterThanOrEqual" secondItem="zCb-yk-9tr" secondAttribute="width" id="0n7-pm-Nac"/>
                                                 <constraint firstItem="5QX-N1-fLH" firstAttribute="centerY" secondItem="aA2-82-DGb" secondAttribute="centerY" id="9Wb-rT-5wZ"/>
                                                 <constraint firstItem="zCb-yk-9tr" firstAttribute="top" secondItem="aA2-82-DGb" secondAttribute="top" constant="10" id="AyB-Na-lLL"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5QX-N1-fLH" secondAttribute="bottom" constant="10" id="BDL-U6-X4K"/>
                                                 <constraint firstAttribute="trailing" secondItem="UJK-xt-66B" secondAttribute="trailing" constant="10" id="E72-rQ-stm"/>
                                                 <constraint firstItem="UJK-xt-66B" firstAttribute="centerY" secondItem="aA2-82-DGb" secondAttribute="centerY" id="Eaw-Tx-UwR"/>
                                                 <constraint firstItem="CNI-fZ-pFW" firstAttribute="top" secondItem="zCb-yk-9tr" secondAttribute="bottom" constant="10" id="HOd-HH-eaQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="fUZ-CA-yOt" secondAttribute="bottom" constant="15" id="HzD-b3-DCo"/>
-                                                <constraint firstItem="5QX-N1-fLH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aA2-82-DGb" secondAttribute="top" constant="10" id="KxP-sc-BLN"/>
                                                 <constraint firstItem="UJK-xt-66B" firstAttribute="leading" secondItem="fUZ-CA-yOt" secondAttribute="trailing" constant="10" id="MCJ-bl-bn0"/>
                                                 <constraint firstItem="fUZ-CA-yOt" firstAttribute="leading" secondItem="CNI-fZ-pFW" secondAttribute="leading" id="Sk1-1F-aoh"/>
                                                 <constraint firstItem="UJK-xt-66B" firstAttribute="leading" secondItem="zCb-yk-9tr" secondAttribute="trailing" constant="10" id="U3s-eq-cAe"/>
@@ -1003,6 +1001,8 @@
                                                 <constraint firstItem="CNI-fZ-pFW" firstAttribute="width" relation="greaterThanOrEqual" secondItem="zCb-yk-9tr" secondAttribute="width" id="gUi-2R-VGF"/>
                                                 <constraint firstItem="zCb-yk-9tr" firstAttribute="leading" secondItem="5QX-N1-fLH" secondAttribute="trailing" constant="10" id="gen-9E-RCI"/>
                                                 <constraint firstItem="CNI-fZ-pFW" firstAttribute="leading" secondItem="5QX-N1-fLH" secondAttribute="trailing" constant="10" id="lJD-vG-dYZ"/>
+                                                <constraint firstItem="5QX-N1-fLH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aA2-82-DGb" secondAttribute="top" constant="10" id="lpi-MT-0s8"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5QX-N1-fLH" secondAttribute="bottom" constant="10" id="oHu-FC-Xa3"/>
                                                 <constraint firstItem="fUZ-CA-yOt" firstAttribute="leading" secondItem="5QX-N1-fLH" secondAttribute="trailing" constant="10" id="xP3-4a-XFI"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1148,19 +1148,19 @@
     </scenes>
     <designables>
         <designable name="Myh-uW-NQ1">
-            <size key="intrinsicContentSize" width="62.5" height="34"/>
+            <size key="intrinsicContentSize" width="109.5" height="34"/>
         </designable>
         <designable name="QDx-8j-phV">
             <size key="intrinsicContentSize" width="240" height="40"/>
         </designable>
         <designable name="Tea-se-U5C">
-            <size key="intrinsicContentSize" width="90.5" height="34"/>
+            <size key="intrinsicContentSize" width="136.5" height="34"/>
         </designable>
         <designable name="U2E-10-vef">
-            <size key="intrinsicContentSize" width="62.5" height="34"/>
+            <size key="intrinsicContentSize" width="109.5" height="34"/>
         </designable>
         <designable name="tBs-41-50a">
-            <size key="intrinsicContentSize" width="90.5" height="34"/>
+            <size key="intrinsicContentSize" width="136.5" height="34"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
