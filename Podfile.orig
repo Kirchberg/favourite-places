@@ -6,13 +6,17 @@ target 'FavouritePlaces' do
   use_frameworks!
 
   # Pods for FavouritePlaces
+<<<<<<< HEAD
   #pod 'RealmSwift'
+=======
+>>>>>>> firebase-fix2
   pod 'SwiftFormat/CLI'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Kingfisher', '~> 5.0'
+  #pod 'RealmSwift'
   #pod 'lottie-ios'
   #pod 'Hero'
 end
@@ -21,7 +25,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     if target.name == 'SwiftFormat/CLI'
       target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '5.3'
+        config.build_settings['SWIFT_VERSION'] = '5.0'
       end
     end
   end
