@@ -6,11 +6,12 @@
 //  Copyright © 2020 Kostarev Kirill Pavlovich. All rights reserved.
 //
 
-import Foundation
+import RealmSwift
 
-class User {
-    var uid: String = ""
-    var email: String = ""
+class User: Object {
+    @objc dynamic var uid: String = ""
+    @objc dynamic var email: String = ""
+    let places = List<Place>()
 
     convenience init(uid: String, email: String) {
         self.init()
