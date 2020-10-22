@@ -6,13 +6,13 @@ target 'FavouritePlaces' do
   use_frameworks!
 
   # Pods for FavouritePlaces
-  #pod 'RealmSwift'
   pod 'SwiftFormat/CLI'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Kingfisher', '~> 5.0'
+  #pod 'RealmSwift'
   #pod 'lottie-ios'
   #pod 'Hero'
 end
