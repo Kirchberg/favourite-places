@@ -8,6 +8,7 @@
 
 import Firebase
 import Kingfisher
+import RealmSwift
 import UIKit
 
 class MainViewController: UIViewController {
@@ -152,6 +153,8 @@ extension MainViewController: UITableViewDataSource {
                 place.imageData = value.image.pngData()
             case let .failure(error):
                 print("Job failed: \(error.localizedDescription)")
+                cell.imageOfPlace.image = #imageLiteral(resourceName: "imagePlaceholder")
+                place.imageData = #imageLiteral(resourceName: "imagePlaceholder").pngData()
             }
         }
         return cell
@@ -175,7 +178,7 @@ extension MainViewController: UISearchResultsUpdating {
     }
 
     private func filterContentForSearchText(_ searchText: String) {
-        let resultPredicate = NSPredicate(format: "name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText)
+        let resultPredicate = NSPredicate(format: "name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
         filteredPlaces = userPlaces.filter { resultPredicate.evaluate(with: $0) }
         tableView.reloadData()
     }

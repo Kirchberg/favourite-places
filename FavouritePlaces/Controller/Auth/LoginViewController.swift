@@ -141,11 +141,11 @@ extension LoginViewController: UITextFieldDelegate {
     }
 
     func textFieldDidBeginEditing(_: UITextField) {
-        animateViewMoving(up: true, moveValue: 100)
+        animateViewMoving(up: true, moveValue: 50)
     }
 
     func textFieldDidEndEditing(_: UITextField) {
-        animateViewMoving(up: false, moveValue: 100)
+        animateViewMoving(up: false, moveValue: 50)
     }
 
     private func animateViewMoving(up: Bool, moveValue: CGFloat) {

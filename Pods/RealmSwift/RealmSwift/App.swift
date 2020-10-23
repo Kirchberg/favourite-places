@@ -68,7 +68,7 @@ extension EmailPasswordAuth {
  Realm Cloud for registering devices to push notifications
 
  - see `RLMPushClient`
-    */
+                 */
 public typealias PushClient = RLMPushClient
 
 /// An object which is used within UserAPIKeyProviderClient
