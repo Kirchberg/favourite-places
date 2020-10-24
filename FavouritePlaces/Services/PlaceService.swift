@@ -15,10 +15,10 @@ struct PlaceService {
     private static var imageRef = Storage.storage().reference().child("placePhotos")
 
     static func saveNewPlace(_ place: Place) {
+        let imageRef = Storage.storage().reference().child("placePhotos").child("\(place.placeID)\(place.uid)")
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
 
-        imageRef = imageRef.child("\(place.placeID)\(place.uid)")
         imageRef.putData(place.imageData!, metadata: metadata) { metadata, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -51,6 +51,7 @@ struct PlaceService {
     }
 
     static func updateOldPlace(from newPlace: Place, to currentPlace: Place) {
+        let imageRef = Storage.storage().reference().child("placePhotos").child("\(currentPlace.placeID)\(currentPlace.uid)")
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
 
