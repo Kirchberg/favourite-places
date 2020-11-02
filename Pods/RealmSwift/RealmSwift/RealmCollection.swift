@@ -22,7 +22,7 @@ import Realm
 /**
  An iterator for a `RealmCollection` instance.
  */
-public struct RLMIterator<Element: RealmCollectionValue>: IteratorProtocol {
+@frozen public struct RLMIterator<Element: RealmCollectionValue>: IteratorProtocol {
     private var generatorBase: NSFastEnumerationIterator
 
     init(collection: RLMCollection) {
@@ -84,7 +84,7 @@ public struct RLMIterator<Element: RealmCollectionValue>: IteratorProtocol {
  }
  ```
  */
-public enum RealmCollectionChange<CollectionType> {
+@frozen public enum RealmCollectionChange<CollectionType> {
     /**
      `.initial` indicates that the initial run of the query has completed (if
      applicable), and the collection can now be used without performing any
@@ -167,6 +167,8 @@ private func arrayType<T>(_ type: T.Type) -> RLMArray<AnyObject> {
     case is String.Type: return RLMArray(objectType: .string, optional: true)
     case is Data.Type: return RLMArray(objectType: .data, optional: true)
     case is Date.Type: return RLMArray(objectType: .date, optional: true)
+    case is Decimal128.Type: return RLMArray(objectType: .decimal128, optional: true)
+    case is ObjectId.Type: return RLMArray(objectType: .objectId, optional: true)
     default: fatalError("Unsupported type for List: \(type)?")
     }
 }
@@ -227,6 +229,20 @@ extension Data: RealmCollectionValue {
     /// :nodoc:
     public static func _rlmArray() -> RLMArray<AnyObject> {
         return RLMArray(objectType: .data, optional: false)
+    }
+}
+
+extension Decimal128: RealmCollectionValue {
+    /// :nodoc:
+    public static func _rlmArray() -> RLMArray<AnyObject> {
+        return RLMArray(objectType: .decimal128, optional: false)
+    }
+}
+
+extension ObjectId: RealmCollectionValue {
+    /// :nodoc:
+    public static func _rlmArray() -> RLMArray<AnyObject> {
+        return RLMArray(objectType: .objectId, optional: false)
     }
 }
 
@@ -374,7 +390,7 @@ public protocol RealmCollection: RealmCollectionBase, _RealmCollectionEnumerator
 
      - parameter property: The name of a property whose values should be summed.
      */
-    func average(ofProperty property: String) -> Double?
+    func average<T: AddableType>(ofProperty property: String) -> T?
 
     // MARK: Key-Value Coding
 
@@ -568,7 +584,7 @@ public extension RealmCollection where Element: AddableType {
     /**
      Returns the average of all of the values in the collection.
      */
-    func average() -> Double? {
+    func average<T: AddableType>() -> T? {
         return average(ofProperty: "self")
     }
 }
@@ -584,7 +600,7 @@ public extension RealmCollection where Element: OptionalProtocol, Element.Wrappe
     /**
      Returns the average of all of the values in the collection.
      */
-    func average() -> Double? {
+    func average<T: AddableType>() -> T? {
         return average(ofProperty: "self")
     }
 }
@@ -635,7 +651,7 @@ private class _AnyRealmCollectionBase<T: RealmCollectionValue>: AssistedObjectiv
     func min<T: MinMaxType>(ofProperty _: String) -> T? { fatalError() }
     func max<T: MinMaxType>(ofProperty _: String) -> T? { fatalError() }
     func sum<T: AddableType>(ofProperty _: String) -> T { fatalError() }
-    func average(ofProperty _: String) -> Double? { fatalError() }
+    func average<T: AddableType>(ofProperty _: String) -> T? { fatalError() }
     subscript(_: Int) -> Element { fatalError() }
     func makeIterator() -> RLMIterator<T> { fatalError() }
     var startIndex: Int { fatalError() }
@@ -702,7 +718,7 @@ private final class _AnyRealmCollection<C: RealmCollection>: _AnyRealmCollection
         return base.sum(ofProperty: property)
     }
 
-    override func average(ofProperty property: String) -> Double? {
+    override func average<T: AddableType>(ofProperty property: String) -> T? {
         return base.average(ofProperty: property)
     }
 
@@ -915,7 +931,7 @@ public struct AnyRealmCollection<Element: RealmCollectionValue>: RealmCollection
 
      - parameter property: The name of a property whose average value should be calculated.
      */
-    public func average(ofProperty property: String) -> Double? { return base.average(ofProperty: property) }
+    public func average<T: AddableType>(ofProperty property: String) -> T? { return base.average(ofProperty: property) }
 
     // MARK: Sequence Support
 

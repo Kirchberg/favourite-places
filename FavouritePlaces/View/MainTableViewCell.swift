@@ -19,19 +19,19 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet var nameOfPlaceLabel: UILabel! {
         didSet {
             nameOfPlaceLabel.textColor = #colorLiteral(red: 0.03921568627, green: 0.3969546359, blue: 1, alpha: 1)
-            nameOfPlaceLabel.numberOfLines = 0
+            nameOfPlaceLabel.numberOfLines = 3
         }
     }
 
     @IBOutlet var locationOfPlaceLabel: UILabel! {
         didSet {
-            locationOfPlaceLabel.numberOfLines = 0
+            locationOfPlaceLabel.numberOfLines = 3
         }
     }
 
     @IBOutlet var typeOfPlaceLabel: UILabel! {
         didSet {
-            typeOfPlaceLabel.numberOfLines = 0
+            typeOfPlaceLabel.numberOfLines = 3
         }
     }
 

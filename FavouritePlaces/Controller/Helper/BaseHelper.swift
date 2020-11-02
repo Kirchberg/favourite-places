@@ -19,6 +19,30 @@ public extension UIViewController {
             self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
+
+    // MARK: - Load Spinner
+
+    func showSpinner(_ completion: (() -> Void)?) {
+        let alertController = UIAlertController(title: nil, message: "Please Wait...\n\n\n\n",
+                                                preferredStyle: .alert)
+        SaveAlertHandle.set(alertController)
+        let spinner = UIActivityIndicatorView(style: .whiteLarge)
+        spinner.color = UIColor(ciColor: .black)
+        spinner.center = CGPoint(x: alertController.view.frame.midX,
+                                 y: alertController.view.frame.midY)
+        spinner.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin,
+                                    .flexibleLeftMargin, .flexibleRightMargin]
+        spinner.startAnimating()
+        alertController.view.addSubview(spinner)
+        present(alertController, animated: true, completion: completion)
+    }
+
+    func hideSpinner(_ completion: (() -> Void)?) {
+        if let controller = SaveAlertHandle.get() {
+            SaveAlertHandle.clear()
+            controller.dismiss(animated: true, completion: completion)
+        }
+    }
 }
 
 // MARK: - Extension for Int variables
@@ -71,4 +95,41 @@ public func firstAppearanceCell(_ cell: UITableViewCell, forRowAt indexPath: Ind
         }, completion: nil)
     }
     return finishedLoadingInitialTableCells
+}
+
+// MARK: - Save Alert Handle
+
+private class SaveAlertHandle {
+    static var alertHandle: UIAlertController?
+
+    class func set(_ handle: UIAlertController) {
+        alertHandle = handle
+    }
+
+    class func clear() {
+        alertHandle = nil
+    }
+
+    class func get() -> UIAlertController? {
+        return alertHandle
+    }
+}
+
+// MARK: - Check for correct email to sign up in system
+
+private let __firstpart = "[A-Z0-9a-z]([A-Z0-9a-z._%+-]{0,30}[A-Z0-9a-z])?"
+private let __serverpart = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
+private let __emailRegex = __firstpart + "@" + __serverpart + "[A-Za-z]{2,8}"
+private let __emailPredicate = NSPredicate(format: "SELF MATCHES %@", __emailRegex)
+
+public extension String {
+    func isEmail() -> Bool {
+        return __emailPredicate.evaluate(with: self)
+    }
+}
+
+public extension UITextField {
+    func isEmail() -> Bool {
+        return text!.isEmail()
+    }
 }
