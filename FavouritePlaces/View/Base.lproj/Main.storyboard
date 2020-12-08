@@ -3,7 +3,7 @@
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -466,7 +466,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFM-xl-P0S" customClass="DesignableView" customModule="FavouritePlaces" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U2E-10-vef" customClass="DesignableUITextField" customModule="FavouritePlaces" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U2E-10-vef">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="Fhf-QH-UKp"/>
@@ -506,7 +506,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vrl-GN-rjO" customClass="DesignableView" customModule="FavouritePlaces" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="66" width="288" height="50"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tea-se-U5C" customClass="DesignableUITextField" customModule="FavouritePlaces" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tea-se-U5C">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="O8M-SG-As8"/>
@@ -1152,12 +1152,6 @@
         </designable>
         <designable name="QDx-8j-phV">
             <size key="intrinsicContentSize" width="240" height="40"/>
-        </designable>
-        <designable name="Tea-se-U5C">
-            <size key="intrinsicContentSize" width="136.5" height="34"/>
-        </designable>
-        <designable name="U2E-10-vef">
-            <size key="intrinsicContentSize" width="109.5" height="34"/>
         </designable>
         <designable name="tBs-41-50a">
             <size key="intrinsicContentSize" width="136.5" height="34"/>

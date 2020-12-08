@@ -102,7 +102,7 @@ class MainViewController: UIViewController {
                 userPlaces = userPlaces.sorted(by: { $0.name > $1.name })
             }
         } else {
-            if !ascendingSorting {
+            if ascendingSorting {
                 userPlaces = userPlaces.sorted(by: { $0.rating < $1.rating })
             } else {
                 userPlaces = userPlaces.sorted(by: { $0.rating > $1.rating })

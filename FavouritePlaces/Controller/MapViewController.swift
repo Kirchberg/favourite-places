@@ -124,7 +124,12 @@ class MapViewController: UIViewController {
     // MARK: - Converting an address name to a coordinate on the map
 
     private func setupPlacemark() {
-        guard let location = place.location else { return }
+        guard let location = place.location, !location.isEmpty() else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.errorLocationServices(title: "Error", message: "The location text field is empty")
+            }
+            return
+        }
 
         // Object that converts the names of the places between geographic coordinates
         let geocoder = CLGeocoder()
@@ -148,7 +153,12 @@ class MapViewController: UIViewController {
             annotation.subtitle = self.place.type
 
             // Get latitude and longitude location of a place
-            guard let placemarkLocation = placemark?.location else { return }
+            guard let placemarkLocation = placemark?.location else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.errorLocationServices(title: "Error", message: "Unable to find a place with this address")
+                }
+                return
+            }
 
             // Attach an annotation to a placemark
             annotation.coordinate = placemarkLocation.coordinate

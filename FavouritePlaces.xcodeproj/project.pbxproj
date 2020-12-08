@@ -16,7 +16,6 @@
 		4263242524E315370003B223 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263242424E315370003B223 /* AddPlaceViewController.swift */; };
 		426EC3A52526FFBD00A4839D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */; };
 		426EC3AB25270E7100A4839D /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AA25270E7100A4839D /* DesignableUITextField.swift */; };
-		426EC3B02527126D00A4839D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426EC3AF2527126D00A4839D /* DesignableView.swift */; };
 		428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C751A252EEEA4002FB33E /* ProfileViewController.swift */; };
 		428C7536252F3E7E002FB33E /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C7535252F3E7E002FB33E /* UserDefaultsHelper.swift */; };
 		42AD08BF24DC3B630054494E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AD08BD24DC3B630054494E /* Main.storyboard */; };
@@ -27,7 +26,7 @@
 		42B3EFE42501039600087A69 /* BaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3EFE32501039600087A69 /* BaseHelper.swift */; };
 		42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B41170250401CF009A8A91 /* AppDelegate.swift */; };
 		42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C18D6924FAC69C00D10290 /* MapViewController.swift */; };
-		42E7D6FE253B0894008D5773 /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E7D6FD253B0894008D5773 /* PlaceService.swift */; };
+		42E7D6FE253B0894008D5773 /* PlaceServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E7D6FD253B0894008D5773 /* PlaceServiceManager.swift */; };
 		496E5730357A4487584C2063 /* Pods_FavouritePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		4263242424E315370003B223 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
 		426EC3A42526FFBD00A4839D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		426EC3AA25270E7100A4839D /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
-		426EC3AF2527126D00A4839D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		428C751A252EEEA4002FB33E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		428C7535252F3E7E002FB33E /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		42AD08B424DC3B620054494E /* FavouritePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouritePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,7 +53,7 @@
 		42B3EFE32501039600087A69 /* BaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHelper.swift; sourceTree = "<group>"; };
 		42B41170250401CF009A8A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42C18D6924FAC69C00D10290 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		42E7D6FD253B0894008D5773 /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
+		42E7D6FD253B0894008D5773 /* PlaceServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceServiceManager.swift; sourceTree = "<group>"; };
 		C6B7DD2EB3006136449468F6 /* Pods_FavouritePlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FavouritePlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2541285A2F20E848AE785A7 /* Pods-FavouritePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FavouritePlaces.release.xcconfig"; path = "Target Support Files/Pods-FavouritePlaces/Pods-FavouritePlaces.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				426EC3AA25270E7100A4839D /* DesignableUITextField.swift */,
-				426EC3AF2527126D00A4839D /* DesignableView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -110,7 +107,7 @@
 		428476CF253356AE00FECB82 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				42E7D6FD253B0894008D5773 /* PlaceService.swift */,
+				42E7D6FD253B0894008D5773 /* PlaceServiceManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -339,7 +336,6 @@
 				4263242524E315370003B223 /* AddPlaceViewController.swift in Sources */,
 				42AD08CC24DC51730054494E /* MainViewController.swift in Sources */,
 				42C18D6A24FAC69C00D10290 /* MapViewController.swift in Sources */,
-				426EC3B02527126D00A4839D /* DesignableView.swift in Sources */,
 				4263242324E2FE420003B223 /* PlaceModel.swift in Sources */,
 				423D266524EEC040003F2BBE /* RatingControl.swift in Sources */,
 				42AD08CE24DD37750054494E /* MainTableViewCell.swift in Sources */,
@@ -351,7 +347,7 @@
 				42B41171250401CF009A8A91 /* AppDelegate.swift in Sources */,
 				428C751B252EEEA4002FB33E /* ProfileViewController.swift in Sources */,
 				424ECCDE2524E049002B7198 /* LoginViewController.swift in Sources */,
-				42E7D6FE253B0894008D5773 /* PlaceService.swift in Sources */,
+				42E7D6FE253B0894008D5773 /* PlaceServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,7 +508,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.KostarevKirillPavlovich.FavouritePlaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -533,7 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.KostarevKirillPavlovich.FavouritePlaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
